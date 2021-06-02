@@ -26,6 +26,7 @@ namespace Platformer_Assignment
         public float GravityMultiplier;
         public float PullMultiplier;
         private Rigidbody rigid;
+        public Animator Animator; 
 
 
         void Awake() {
@@ -42,7 +43,6 @@ namespace Platformer_Assignment
                 return rigid;
             }
         }
-        
 
         void Update() {
             if (Input.GetKey(KeyCode.D)) 

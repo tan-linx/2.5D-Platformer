@@ -8,6 +8,7 @@ namespace Platformer_Assignment
     public class CrouchIdle : StateData
     {
         private CharacterControl control;
+        // TransitionParameters
         private int crouchHash = Animator.StringToHash("Crouch"); 
         private int moveHash = Animator.StringToHash("Move"); 
 
@@ -18,8 +19,9 @@ namespace Platformer_Assignment
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            //stop crouching here
-            if (!control.Crouch)
+            //stop crouching here 
+            //if head doesnt get bumped
+            if (!control.Crouch && !CollisionChecker.CheckHead(control))
             {
                 animator.SetBool(crouchHash, false);
                 return;

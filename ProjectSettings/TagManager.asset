@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - CrouchObstacle
+  - Slope
   layers:
   - Default
   - TransparentFX

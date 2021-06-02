@@ -22,20 +22,15 @@ namespace Platformer_Assignment
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             //stop crouching here
-            if (!control.Crouch)
+            if (!control.Crouch && !CollisionChecker.CheckHead(control))
             {
                 animator.SetBool(crouchHash, false);
                 return;
             }   
-            if (!control.MoveLeft || !control.MoveRight)
-            {
-                animator.SetBool(moveHash, false);
-                return;
-            }
             //check whether one of this might be reusable from Running Class
             if (control.MoveRight)
             {                    
-                rb.rotation = Quaternion.Euler(0f, 180f, 0f);
+                rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 if (!CollisionChecker.CheckFront(control))
                 {
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
@@ -49,7 +44,8 @@ namespace Platformer_Assignment
                     rb.MovePosition(rb.position+(-Vector3.forward*Speed*Time.deltaTime));
                 }     
             }
-
+            //anything else causes Player to set back to Crouch Idle
+            animator.SetBool(moveHash, false);
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

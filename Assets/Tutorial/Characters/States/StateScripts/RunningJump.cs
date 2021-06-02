@@ -17,7 +17,7 @@ namespace Platformer_Assignment
         **/
 
         private float timePassed;
-        private float Speed = 20f;
+        private float Speed = 5f;
         private float JumpForce = 1f;
 
         private CharacterControl control;
@@ -32,18 +32,24 @@ namespace Platformer_Assignment
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             //timePassed += Time.deltaTime;
+            if (!CollisionChecker.IsGrounded(control))  
+            {
+                animator.SetBool("Jump", false);
+            }
             if (stateInfo.normalizedTime >= GetAnimationClipTime(animator, "RunningJump"))
             {
                 animator.SetBool("Jump", false);
             }
             //rb.AddForce(Vector3.up * 100f)+velocity Doesnt work if body is kinematic
             //set Direction
-            Vector3 dir = Vector3.forward;
-            if (control.MoveLeft)
-                dir = Vector3.back;
-            rb.MovePosition(control.transform.position
-            +dir*Speed*Time.deltaTime); 
-            //+ new Vector3(0,1,0)*JumpForce*Time.deltaTime
+            
+            Vector3 dir = new Vector3(0, 0, 0); 
+            if (control.MoveRight) dir = Vector3.forward;
+            if (control.MoveLeft) dir = Vector3.back;
+            if (!CollisionChecker.CheckFront(control)) {
+                rb.MovePosition(control.transform.position
+                +dir*Speed*Time.deltaTime);        
+            }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
