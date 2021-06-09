@@ -5,15 +5,6 @@ using UnityEngine;
 namespace Platformer_Assignment
 {
     //Needed for the animator transitions
-    public enum TransitionParameter
-    {
-        Move,
-        Jump,
-        ForceTransition,
-        Grounded,
-        Crouch,
-    }
-
     public class CharacterControl : MonoBehaviour
     {
         public bool MoveRight;
@@ -21,30 +12,59 @@ namespace Platformer_Assignment
         public bool Jump;
         public bool Grounded; 
         public bool Crouch; 
+        public bool Push;
+        public bool MoveUp;
+        private bool dead;
 
-        
+        //To add velocity when player is falling
         public float GravityMultiplier;
         public float PullMultiplier;
         private Rigidbody rigid;
-        public Animator Animator; 
+        [SerializeField]
+        private Animator animator; 
 
+        //to retrieve information about collider which was hit by player
+        private Collider hitCollider;
 
-        void Awake() {
+        private LedgeChecker ledgeChecker;
+        private List<Collider> ragdollParts = new List<Collider>();
+
+        void Awake()
+        {
+            dead = false;
+            ledgeChecker = GetComponentInChildren<LedgeChecker>();
+            InitializeRagdollColliders();
         }
 
-        public Rigidbody RIGID_BODY
+        public void InitializeRagdollColliders() 
         {
-            get
+            Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
+            foreach(Collider c in colliders)
             {
-                if (rigid == null)
+                if (c.gameObject != this.gameObject)
                 {
-                    rigid = GetComponent<Rigidbody>();
+                    c.isTrigger = true;
+                    ragdollParts.Add(c);
                 }
-                return rigid;
             }
         }
 
-        void Update() {
+        public void TurnOnRagdoll()
+        {
+            RIGID_BODY.useGravity = false;
+            RIGID_BODY.velocity = Vector3.zero;
+            this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            animator.enabled = false;
+            animator.avatar = null;
+            foreach(Collider c in ragdollParts)
+            {
+                c.isTrigger = false;
+                c.attachedRigidbody.velocity = Vector3.zero;
+            }
+        }
+
+        void Update() 
+        {
             if (Input.GetKey(KeyCode.D)) 
             {
                 MoveRight = true;
@@ -73,19 +93,63 @@ namespace Platformer_Assignment
             {
                 Crouch = true;
             } 
-            if (Input.GetKey(KeyCode.W))
+            else
             {
                 Crouch = false;
+            }  
+            if (Input.GetKey(KeyCode.W)) 
+            {
+                MoveUp = true;
+            }     
+            else 
+            {
+                MoveUp = false;
             }
-            //else {
-            //    Crouch = false; 
-            //}
-             
         }
 
-       /* private void FixedUpdate()
+        public Collider HitCollider 
         {
-            if (RIGID_BODY.velocity.y < 0f)
+            get { return hitCollider; }
+            set { hitCollider = value; }
+        }
+
+        public LedgeChecker LedgeChecker
+        {
+            get { return ledgeChecker; }
+        }
+
+        public Animator Animator
+        {
+            get { return animator; }
+            set { animator = value; }
+        }
+
+        public bool Dead
+        {
+            get { return dead; }
+            set { dead = value; }
+        }
+
+        public List<Collider> RagdollParts
+        {
+            get { return ragdollParts; }
+        }
+
+        public Rigidbody RIGID_BODY
+        {
+            get
+            {
+                if (rigid == null)
+                {
+                    rigid = GetComponent<Rigidbody>();
+                }
+                return rigid;
+            }
+        }
+
+        private void FixedUpdate()
+        {   
+            /*if (RIGID_BODY.velocity.y < 0f)
             {
                 RIGID_BODY.velocity += (-Vector3.up * GravityMultiplier);
             }
@@ -93,8 +157,7 @@ namespace Platformer_Assignment
             if (RIGID_BODY.velocity.y > 0f && !Jump)
             {
                 RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
-            }
-        }*/ 
-
+            }*/
+        }
     }
 }

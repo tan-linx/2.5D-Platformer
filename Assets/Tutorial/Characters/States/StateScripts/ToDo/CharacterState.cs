@@ -38,17 +38,15 @@ namespace Platformer_Assignment {
         }
 
         /// <summary>method <c>GetCharacterControl</c> Returns the CharacterControl from the animator</summary> 
-        private CharacterControl characterControl;
+        private CharacterControl control;
         public CharacterControl GetCharacterControl(Animator animator)
          {
-            if (characterControl == null)
+            if (control == null)
             {
-                characterControl = animator.GetComponentInParent<CharacterControl>();
+                control = animator.GetComponentInParent<CharacterControl>();
             }
-            return characterControl;
+            return control;
         }
-
-
     }
 
 }

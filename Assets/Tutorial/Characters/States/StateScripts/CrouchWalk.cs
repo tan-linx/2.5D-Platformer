@@ -7,31 +7,29 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/CrouchWalk")]
     public class CrouchWalk: StateData
     {
+        private float Speed;
         private CharacterControl control;
         private Rigidbody rb;
-        private int crouchHash = Animator.StringToHash("Crouch"); 
-        private int moveHash = Animator.StringToHash("Move"); 
-        private float Speed = 1.8f;
+
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
+            Speed = 1.8f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            //stop crouching here
-            if (!control.Crouch && !CollisionChecker.CheckHead(control))
+            if (!control.Crouch && !CheckHead(control))
             {
                 animator.SetBool(crouchHash, false);
                 return;
             }   
-            //check whether one of this might be reusable from Running Class
             if (control.MoveRight)
             {                    
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                if (!CollisionChecker.CheckFront(control))
+                if (!CheckFront(control))
                 {
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
                 }
@@ -39,7 +37,7 @@ namespace Platformer_Assignment
             if (control.MoveLeft)
             {
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                if (!CollisionChecker.CheckFront(control))
+                if (!CheckFront(control))
                 {
                     rb.MovePosition(rb.position+(-Vector3.forward*Speed*Time.deltaTime));
                 }     

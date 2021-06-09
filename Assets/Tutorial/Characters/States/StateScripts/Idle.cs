@@ -9,28 +9,34 @@ namespace Platformer_Assignment
     {
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            animator.SetBool(jumpHash, false);
+            animator.SetBool(moveHash, false);
+            animator.SetBool(crouchHash, false);
+            animator.SetBool(pushHash, false);    
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
-
             if (control.Jump)
             {
-                animator.SetBool(TransitionParameter.Jump.ToString(), true);
+                animator.SetBool(jumpHash, true);
+                return;
             } 
             if (control.Crouch)
             {
-                animator.SetBool(TransitionParameter.Crouch.ToString(), true);
+                animator.SetBool(crouchHash, true);
                 return;
             }
             if (control.MoveRight)
             {
-                animator.SetBool(TransitionParameter.Move.ToString(), true);
+                animator.SetBool(moveHash, true);
+                return; 
             } 
             if (control.MoveLeft)
             {
-                animator.SetBool(TransitionParameter.Move.ToString(), true);
+                animator.SetBool(moveHash, true);
+                return;
             }
         }
 

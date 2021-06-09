@@ -1,0 +1,98 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Platformer_Assignment
+{
+    public enum TransitionConditionType
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ATTACK,
+        JUMP,
+        GRABBING_LEDGE,
+    }
+    
+    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/TransitionIndexer")]
+    public class TransitionIndexer:StateData
+    {  
+        private CharacterControl control;
+        [SerializeField]
+        private int Index;
+        [SerializeField]
+        private List<TransitionConditionType> transitionConditions = new List<TransitionConditionType>(); 
+        private int transitionIndexerHash;
+
+        public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {
+            control = characterState.GetCharacterControl(animator);
+            transitionIndexerHash = Animator.StringToHash("TransitionIndex");
+            if (DoTransition()) 
+            {
+                animator.SetInteger(transitionIndexerHash, Index);
+            }
+        }
+
+        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {    
+            if (DoTransition())
+            {
+                animator.SetInteger(transitionIndexerHash, Index);
+            }
+            else
+            {
+                animator.SetInteger(transitionIndexerHash, 0);
+            }
+        }
+
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {
+            animator.SetInteger(transitionIndexerHash, 0);
+        }
+
+        private bool DoTransition()
+        {
+            foreach(TransitionConditionType c in transitionConditions)
+            {
+                switch (c)
+                {
+                    case TransitionConditionType.UP:
+                    {
+                        if (!control.MoveUp)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                    case TransitionConditionType.DOWN:
+                    {
+                        if (!control.Crouch)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                    case TransitionConditionType.JUMP:
+                    {
+                        if (!control.Jump)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                    case TransitionConditionType.GRABBING_LEDGE:
+                    {
+                        if (!control.LedgeChecker.IsGrabbingLedge)
+                        {
+                            return false;
+                        }
+                    }
+                    break;
+                }
+            }
+            return true;
+        }
+    }
+}
