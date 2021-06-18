@@ -15,6 +15,7 @@ namespace Platformer_Assignment
         public bool Push;
         public bool MoveUp;
         private bool dead;
+        public bool grabbingRope;
 
         //to retrieve information about latest collider which was hit by player
         public Collider currentHitCollider;    
@@ -33,33 +34,6 @@ namespace Platformer_Assignment
             dead = false;
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
             InitializeRagdollColliders();
-        }
-
-        public void InitializeRagdollColliders() 
-        {
-            Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
-            foreach(Collider c in colliders)
-            {
-                if (c.gameObject != this.gameObject)
-                {
-                    c.isTrigger = true;
-                    ragdollParts.Add(c);
-                }
-            }
-        }
-
-        public void TurnOnRagdoll()
-        {
-            RIGID_BODY.useGravity = false;
-            RIGID_BODY.velocity = Vector3.zero;
-            this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            animator.enabled = false;
-            animator.avatar = null;
-            foreach(Collider c in ragdollParts)
-            {
-                c.isTrigger = false;
-                c.attachedRigidbody.velocity = Vector3.zero;
-            }
         }
 
         void Update() 
@@ -151,6 +125,33 @@ namespace Platformer_Assignment
             {
                 RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
             }*/
+        }
+
+        public void InitializeRagdollColliders() 
+        {
+            Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
+            foreach(Collider c in colliders)
+            {
+                if (c.gameObject != this.gameObject)
+                {
+                    c.isTrigger = true;
+                    ragdollParts.Add(c);
+                }
+            }
+        }
+
+        public void TurnOnRagdoll()
+        {
+            RIGID_BODY.useGravity = false;
+            RIGID_BODY.velocity = Vector3.zero;
+            this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            animator.enabled = false;
+            animator.avatar = null;
+            foreach(Collider c in ragdollParts)
+            {
+                c.isTrigger = false;
+                c.attachedRigidbody.velocity = Vector3.zero;
+            }
         }
     }
 }

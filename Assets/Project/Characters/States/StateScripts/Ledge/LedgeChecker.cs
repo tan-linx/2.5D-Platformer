@@ -47,7 +47,6 @@ namespace Platformer_Assignment
                     IsGrabbingLedge = false;
                 }
             }
-            Debug.Log("Is Grabbing Ledge: "+ IsGrabbingLedge);
         }
 
         public LedgeCollider LowerCollider

@@ -12,6 +12,7 @@ namespace Platformer_Assignment {
         protected int groundedHash;
         protected int transitionHash;
         protected int crashHash; 
+        protected int hangingHash;
 
 
         protected int verticalRayCount;
@@ -32,6 +33,7 @@ namespace Platformer_Assignment {
             groundedHash = Animator.StringToHash("Grounded");
             transitionHash = Animator.StringToHash("ForceTransition");
             crashHash = Animator.StringToHash("Crash");
+            hangingHash = Animator.StringToHash("Hanging");
             verticalRayCount = 5;
         }
 
@@ -80,7 +82,9 @@ namespace Platformer_Assignment {
             {  
                 Debug.DrawRay(rayOrigin, 
                     dir*maxRayLength, Color.green);                
-                if (Physics.Raycast(rayOrigin, dir, out hit, maxRayLength) && !IsRagdollPart(control, hit.collider)) 
+                if (Physics.Raycast(rayOrigin, dir, out hit, maxRayLength) 
+                    && !IsRagdollPart(control, hit.collider)
+                    && !IsIgnoredPart(hit.collider)) 
                 { 
                     return true;
                 }
@@ -99,6 +103,17 @@ namespace Platformer_Assignment {
                 }
             }
             return false;
+        }
+
+        private bool IsIgnoredPart(Collider col)
+        {
+            switch (col.gameObject.tag)
+            {
+                case "Rope":
+                    return true;
+                default: 
+                    return false;
+            }
         }
 
         /// <summary>method <c>CheckFront</c> Checks if Collider collides with something up</summary>

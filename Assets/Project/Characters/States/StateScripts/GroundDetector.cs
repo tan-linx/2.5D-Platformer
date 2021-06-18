@@ -18,7 +18,7 @@ namespace Platformer_Assignment
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
-            Debug.Log("Is Player grounded" + IsGrounded(control));
+            //Debug.Log("Is Player grounded" + IsGrounded(control));
             if (stateInfo.normalizedTime >= CheckTime) {
                 if (IsGrounded(control))
                 {

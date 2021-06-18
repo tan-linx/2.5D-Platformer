@@ -7,25 +7,18 @@ namespace Platformer_Assignment {
     {
         [SerializeField]
         private CharacterControl control;
+        private float force; 
 
-        // Start is called before the first frame update
         void Start()
         {
-
+            transform.Translate(Vector3.forward*0.5f);
         }
 
-        //https://docs.unity3d.com/ScriptReference/Animator.GetCurrentAnimatorStateInfo.html
-        // Update is called once per frame
         void Update()
         {
-            if (control.currentHitCollider != null)   
-            {
-                if (control.currentHitCollider.tag == "Rope")
-                {
-                    this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x,
-                    control.currentHitCollider.gameObject.transform.position.y, control.currentHitCollider.gameObject.transform.position.z);
-                }
-            }
+            force = control.RIGID_BODY.velocity.y;
+            Debug.Log("Something is happening" + control.RIGID_BODY.velocity);
+            transform.Translate(Vector3.up*0.1f);
         }
     }
-    }   
+}   

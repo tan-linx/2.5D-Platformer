@@ -39,7 +39,6 @@ namespace Platformer_Assignment
         }
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {    
-            GetColliderTag();
             if (DoTransition())
             {
                 animator.SetInteger(transitionIndexerHash, Index);
@@ -93,15 +92,6 @@ namespace Platformer_Assignment
                         }
                     }
                     break;
-                    case TransitionConditionType.GRABBING_ROPE:
-                    { 
-                      
-                        if (!GetColliderTag().Equals("Rope"))
-                        {
-                            return false;
-                        }
-                    }
-                    break;
                     case TransitionConditionType.GRABBING_LEDGE:
                     {
                         if (!control.LedgeChecker.IsGrabbingLedge)
@@ -113,25 +103,6 @@ namespace Platformer_Assignment
                 }
             }
             return true;
-        }
-
-
-        private string GetColliderTag() 
-        {
-            RaycastHit hit;
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            Vector3 dir = Vector3.forward;
-            if (control.MoveLeft) dir = Vector3.back;
-            Debug.DrawRay(control.transform.position+Vector3.up*(collider.height/2), dir*collider.radius, Color.yellow);
-            if (Physics.Raycast(control.transform.position+Vector3.up*(collider.height/2), dir, out hit, collider.radius)) 
-            { 
-                if (!IsRagdollPart(control, hit.collider))
-                {
-                    control.currentHitCollider = hit.collider;
-                    return hit.collider.gameObject.tag;
-                }
-            }
-            return "";
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Platformer_Assignment
     
         private void OnTriggerEnter(Collider other)
         {
-            if (!CollidedObjects.Contains(other.gameObject) && !IsBodyPart(other))
+            if (!CollidedObjects.Contains(other.gameObject) && !IsBodyPart(other) && IsIgnoredPart(other))
             {
                 CollidedObjects.Add(other.gameObject);
             }  
@@ -38,6 +38,17 @@ namespace Platformer_Assignment
                 return true;
             }*/
             return false;
+        }
+
+        protected bool IsIgnoredPart(Collider col)
+        {
+            switch (col.gameObject.tag)
+            {
+                case "Rope":
+                    return false;
+                default: 
+                    return true;
+            }
         }
     }
 }

@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 943cc1c8a737a61289f7f1849c6d2c3a, type: 3}
-  m_Name: RopeOffset_RopeSwing
+  m_Script: {fileID: 11500000, guid: 74b09d52554adec31ab5941c477da569, type: 3}
+  m_Name: Hanging
   m_EditorClassIdentifier: 
-  alignmentOffset: {x: 0, y: -0.978, z: 0.45}

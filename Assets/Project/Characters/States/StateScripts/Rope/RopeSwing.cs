@@ -12,47 +12,31 @@ namespace Platformer_Assignment
     {
         [SerializeField]
         private GameObject TargetLeftLeg;
-
         [SerializeField]
         private GameObject TargetRightLeg;
-
         private CharacterControl control;
         private Rigidbody ropePartRB ;
-        private Animator anim;
+
+        [SerializeField]
         private float Force;
 
-      //  CapsuleCollider col;
-        HingeJoint hinge ;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {   
             control = characterState.GetCharacterControl(animator);
-            anim = control.Animator;
-            Force = 10f;
-            Debug.Log(control.currentHitCollider);
-
-            anim.transform.parent = control.currentHitCollider.transform;
-            //control.transform.parent = control.currentHitCollider.transform;
-            Rigidbody animrb = anim.gameObject.AddComponent<Rigidbody>();
-            animrb.useGravity = false;
+            Force = 20f;
+            Debug.Log("On state ropeswing: " + control.currentHitCollider);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            ropePartRB = control.currentHitCollider.attachedRigidbody;
-            anim.transform.parent = control.currentHitCollider.transform;
-            anim.transform.localPosition = new Vector3(0, -16, 0);
+            ropePartRB =control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
             if (control.MoveLeft)
             {
                 ropePartRB.AddForce(Vector3.back*Force);
-                //TargetLeftLeg.transform.Translate(Vector3.forward * Time.deltaTime);
-                //TargetRightLeg.transform.Translate(Vector3.forward*20f * Time.deltaTime);
-               // Debug.Log("taretLeftLegPosition" + TargetLeftLeg.transform.position);
             }
             if (control.MoveRight)
             {
                 ropePartRB.AddForce(Vector3.forward*Force);
-                //TargetLeftLeg.transform.Translate(Vector3.back * 20f * Time.deltaTime);
-                //TargetRightLeg.transform.Translate(Vector3.back * Time.deltaTime);
             }
         }
 

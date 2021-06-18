@@ -9,6 +9,7 @@ TagManager:
   - Slope
   - PushObstacle
   - Rope
+  - Ledge
   layers:
   - Default
   - TransparentFX

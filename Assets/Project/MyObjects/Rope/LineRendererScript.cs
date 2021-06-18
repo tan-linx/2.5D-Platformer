@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class LineRendererScript : MonoBehaviour
 {
-    public LineRenderer lr; 
+    private LineRenderer lr; 
     private CapsuleCollider col;
     private Transform pos1; 
+    
+    //[SerializeField]
     private Transform pos2; 
     private bool exit = false;
     
@@ -19,12 +21,15 @@ public class LineRendererScript : MonoBehaviour
         pos1 = col.gameObject.transform;
         if (col.gameObject.transform.childCount!=0) 
         {
-            pos2 = col.gameObject.transform.GetChild(0).
-                gameObject.transform;
+            pos2 = col.gameObject.transform.GetChild(0).gameObject.transform;
         } else 
         {
             exit = true;
         }
+        /*if (pos2 == null)
+        {
+            exit = true;
+        }*/
         lr.startWidth = 0.07f;
         lr.endWidth =0.07f;
     }

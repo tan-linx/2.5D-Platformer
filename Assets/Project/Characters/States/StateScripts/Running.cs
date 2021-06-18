@@ -56,6 +56,10 @@ namespace Platformer_Assignment
                 animator.SetBool(crouchHash, true);
                 return;
             }
+            if (GetColliderTag() == "Rope") 
+            {
+                animator.SetBool("Hanging", true);
+            }
             if (control.MoveRight && control.MoveLeft)
             {
                 animator.SetBool(moveHash, false);
@@ -80,6 +84,24 @@ namespace Platformer_Assignment
                 animator.SetBool(jumpHash, true);
             }
             return isJump;
+        }
+
+        private string GetColliderTag() 
+        {
+            RaycastHit hit;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            Vector3 dir = Vector3.forward;
+            if (control.MoveLeft) dir = Vector3.back;
+            Debug.DrawRay(control.transform.position+Vector3.up*(collider.height/2), dir*collider.radius, Color.yellow);
+            if (Physics.Raycast(control.transform.position+Vector3.up*(collider.height/2), dir, out hit, collider.radius)) 
+            { 
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    control.currentHitCollider = hit.collider;
+                    return hit.collider.gameObject.tag;
+                }
+            }
+            return "";
         }
         //ref: 
         //https://github.com/SebLague/
