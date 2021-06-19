@@ -50,14 +50,5 @@ namespace Platformer_Assignment
             Rigidbody rb = control.RIGID_BODY;        
             rb.MovePosition(rb.position+Vector3.forward*ropePartRB.velocity.z*10f);
         }
-
-        private void SetTriggerRopeColliders(Transform parent, bool on)
-        {
-            foreach(Transform child in parent) 
-            {
-                child.gameObject.GetComponent<CapsuleCollider>().isTrigger = on;
-                SetTriggerRopeColliders(child, on);
-            }
-        }
     }
 }

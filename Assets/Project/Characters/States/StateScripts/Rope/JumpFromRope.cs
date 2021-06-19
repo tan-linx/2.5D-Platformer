@@ -29,14 +29,5 @@ namespace Platformer_Assignment
             SetTriggerRopeColliders(ropePartRB.transform.root, false);    
             control.currentHitCollider = null;        
         }
-
-        private void SetTriggerRopeColliders(Transform parent, bool on)
-        {
-            foreach(Transform child in parent) 
-            {
-                child.gameObject.GetComponent<CapsuleCollider>().isTrigger = on;
-                SetTriggerRopeColliders(child, on);
-            }
-        }
     }
 }

@@ -363,6 +363,33 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &-8240559710604039243
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Climb Rope
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours:
+  - {fileID: -319695664524114487}
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 1
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -203655887218126122, guid: 97b4457f536cc26508723051cb55b8aa, type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1101 &-8226186275490325690
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1691,6 +1718,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4061559085375345842}
+  - {fileID: -3180804383515823877}
   m_StateMachineBehaviours:
   - {fileID: 6169503649996551870}
   m_Position: {x: 50, y: 50, z: 0}
@@ -1784,6 +1812,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &-3180804383515823877
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: TransitionIndex
+    m_EventTreshold: 1
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -8240559710604039243}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.9032258
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &-3035769195313966778
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1879,7 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListAbilityData:
-  - {fileID: 11400000, guid: afa2c22402f9d396bb5ea8712e348905, type: 2}
+  - {fileID: 0}
 --- !u!1101 &-2765557742807388826
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -2521,6 +2574,20 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-319695664524114487
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958b3617dfe556aee99e3b649ab9978f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListAbilityData:
+  - {fileID: 11400000, guid: 52a65dee7f88b41ffb5f63fa1de139de, type: 2}
 --- !u!1101 &-204687709409114210
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -4047,6 +4114,7 @@ MonoBehaviour:
   ListAbilityData:
   - {fileID: 11400000, guid: 30db6ed36b8f8a24381c4b2dbdea99e0, type: 2}
   - {fileID: 11400000, guid: 59be604ddf70068198dd768f43ce5f78, type: 2}
+  - {fileID: 11400000, guid: 87c2151e4ddf17b8a9dffec14a3f49bd, type: 2}
 --- !u!1102 &6292558971652266448
 AnimatorState:
   serializedVersion: 6
@@ -4195,16 +4263,19 @@ AnimatorStateMachine:
     m_Position: {x: 1250, y: 510, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3843316521073534633}
-    m_Position: {x: 530, y: 60, z: 0}
+    m_Position: {x: 500, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6292558971652266448}
     m_Position: {x: 1200, y: -300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4200908649126696972}
-    m_Position: {x: 520, y: 280, z: 0}
+    m_Position: {x: 470, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7769956356901777562}
     m_Position: {x: -40, y: 520, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -8240559710604039243}
+    m_Position: {x: 810, y: 220, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

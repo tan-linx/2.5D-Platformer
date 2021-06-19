@@ -129,6 +129,20 @@ namespace Platformer_Assignment {
                 return true; 
             return false;    
         } 
+
+        /// <summary>method <c>CheckFront</c> Sets the Trigger of an Object and all his children
+        ///based on the argument on.</summary>
+        protected void SetTriggerRopeColliders(Transform parent, bool on)
+        {
+            foreach(Transform child in parent) 
+            {
+                if (child.gameObject.GetComponent<CapsuleCollider>() != null) 
+                {
+                    child.gameObject.GetComponent<CapsuleCollider>().isTrigger = on;
+                    SetTriggerRopeColliders(child, on);
+                }
+            }
+        }
     }
 }
 
