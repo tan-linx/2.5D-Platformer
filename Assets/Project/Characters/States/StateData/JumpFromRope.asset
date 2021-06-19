@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74b09d52554adec31ab5941c477da569, type: 3}
-  m_Name: Hanging
+  m_Script: {fileID: 11500000, guid: 4c355728dd249eaae95ba8aa27eeb51f, type: 3}
+  m_Name: JumpFromRope
   m_EditorClassIdentifier: 
-  offset: {x: 0, y: 2.5, z: 0}
+  Force: 20

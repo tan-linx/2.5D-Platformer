@@ -14,7 +14,6 @@ namespace Platformer_Assignment
         ATTACK,
         JUMP,
         GRABBING_LEDGE,
-        GRABBING_ROPE,
     }
     
     [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/TransitionIndexer")]

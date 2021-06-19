@@ -17,7 +17,7 @@ namespace Platformer_Assignment {
         void Update()
         {
             force = control.RIGID_BODY.velocity.y;
-            Debug.Log("Something is happening" + control.RIGID_BODY.velocity);
+            //Debug.Log("Something is happening" + control.RIGID_BODY.velocity);
             transform.Translate(Vector3.up*0.1f);
         }
     }

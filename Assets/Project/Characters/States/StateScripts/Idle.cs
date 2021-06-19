@@ -7,18 +7,20 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Idle")]
     public class Idle : StateData
     {
+        private CharacterControl control; 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            control = characterState.GetCharacterControl(animator);
             animator.SetBool(crashHash, false);
             animator.SetBool(jumpHash, false);
             animator.SetBool(moveHash, false);
             animator.SetBool(crouchHash, false);
-            animator.SetBool(pushHash, false);    
+            animator.SetBool(pushHash, false);  
+            animator.SetBool(hangingHash, false);    
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            CharacterControl control = characterState.GetCharacterControl(animator);
             if (control.Jump)
             {
                 animator.SetBool(jumpHash, true);
@@ -39,11 +41,37 @@ namespace Platformer_Assignment
                 animator.SetBool(moveHash, true);
                 return;
             }
+            if (control.MoveUp && GetColliderTag() == "Rope") 
+            {
+                animator.SetBool("Hanging", true);
+                return;
+            }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
 
+        }
+
+        private string GetColliderTag() 
+        {
+            RaycastHit hit;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            Vector3 dir = Vector3.forward;
+            if (control.MoveLeft) dir = Vector3.back;
+            Debug.DrawRay(control.transform.position+Vector3.up*(collider.height/2), dir*collider.radius, Color.yellow);
+            //Gizmos.DrawSphere(collider.bounds.center+Vector3.up*(collider.bounds.extents.y/2), collider.bounds.extents.z); 
+            if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y/2), 
+            collider.bounds.extents.z, dir, out hit))
+            //if(Physics.Raycast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y/2), dir, out hit, collider.bounds.extents.z)) 
+            { 
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    control.currentHitCollider = hit.collider;
+                    return hit.collider.gameObject.tag;
+                }
+            }
+            return "";
         }
     }
 }

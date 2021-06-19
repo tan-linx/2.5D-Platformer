@@ -10,24 +10,28 @@ namespace Platformer_Assignment {
         private CharacterControl control;
         private Rig rig;
 
-        // Start is called before the first frame update
         void Start()
         {
             rig = GetComponent<Rig>();
         }
 
-        //https://docs.unity3d.com/ScriptReference/Animator.GetCurrentAnimatorStateInfo.html
-        // Update is called once per frame
         void Update()
         {
-            if (control.currentHitCollider != null) 
+            if (!control.grabbingRope)
             {
-                if (control.currentHitCollider.tag == "Rope")
+                rig.weight = 0;
+            }
+            else 
+            {
+                if (control.currentHitCollider != null) 
                 {
-                    rig.weight = 100;
-                }
-                else {
-                    rig.weight = 0;
+                    if (control.currentHitCollider.tag == "Rope")
+                    {
+                        rig.weight = 100;
+                    }
+                    else {
+                        rig.weight = 0;
+                    }
                 }
             }
         }

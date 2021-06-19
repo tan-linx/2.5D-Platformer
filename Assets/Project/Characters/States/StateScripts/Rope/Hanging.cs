@@ -15,6 +15,7 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
+            control.grabbingRope = true;
             SetUpHingeJoint();
             control.transform.SetParent(control.currentHitCollider.transform);
             control.transform.Translate(offset);

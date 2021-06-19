@@ -4,16 +4,11 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    /// <summary>Class <c>RopeSwing</c> This class aplies Force to RopePart.
-    ///</summary>
+    /// <summary>Class <c>RopeSwing</c> This class aplies Force to RopePart.</summary>
     /// for help: https://stackoverflow.com/questions/31740141/programmatically-attach-two-objects-with-a-hinge-joint#31741920
     [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/RopeSwing")]
     public class RopeSwing : StateData
     {
-        [SerializeField]
-        private GameObject TargetLeftLeg;
-        [SerializeField]
-        private GameObject TargetRightLeg;
         private CharacterControl control;
         private Rigidbody ropePartRB ;
 
@@ -24,12 +19,11 @@ namespace Platformer_Assignment
         {   
             control = characterState.GetCharacterControl(animator);
             Force = 20f;
-            Debug.Log("On state ropeswing: " + control.currentHitCollider);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            ropePartRB =control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
+            ropePartRB = control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
             if (control.MoveLeft)
             {
                 ropePartRB.AddForce(Vector3.back*Force);
@@ -38,11 +32,32 @@ namespace Platformer_Assignment
             {
                 ropePartRB.AddForce(Vector3.forward*Force);
             }
+            if (control.Jump)
+            {
+                animator.SetBool(jumpHash , true);
+            }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            control.grabbingRope = false;
 
+            control.gameObject.GetComponent<HingeJoint>().connectedBody = null;
+            Destroy(control.gameObject.GetComponent<HingeJoint>());
+            control.transform.parent = null;
+            
+            SetTriggerRopeColliders(ropePartRB.transform.root, true);    
+            Rigidbody rb = control.RIGID_BODY;        
+            rb.MovePosition(rb.position+Vector3.forward*ropePartRB.velocity.z*10f);
+        }
+
+        private void SetTriggerRopeColliders(Transform parent, bool on)
+        {
+            foreach(Transform child in parent) 
+            {
+                child.gameObject.GetComponent<CapsuleCollider>().isTrigger = on;
+                SetTriggerRopeColliders(child, on);
+            }
         }
     }
 }

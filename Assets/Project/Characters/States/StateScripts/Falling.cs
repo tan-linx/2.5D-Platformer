@@ -18,7 +18,8 @@ namespace Platformer_Assignment
 
         //https://docs.unity3d.com/ScriptReference/Rigidbody-velocity.html
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {       
+        {                   
+            Debug.Log("I reached this state");            
             if (IsCrash(20)) 
             {
                 control.Dead = true;
