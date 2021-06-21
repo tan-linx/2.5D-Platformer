@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/ToggleGravity")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ToggleGravity")]
     public class ToggleGravity:StateData
     {  
         

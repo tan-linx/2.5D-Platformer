@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/MoveForward")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/MoveForward")]
     public class MoveForward : StateData
     {
         [SerializeField] 

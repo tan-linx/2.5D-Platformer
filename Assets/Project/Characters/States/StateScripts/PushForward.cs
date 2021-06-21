@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/PushForward")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/PushForward")]
     
     /// <summary>Class <c>PushForward</c> Pushes an object forward.
     ///</summary>

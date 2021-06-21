@@ -4,11 +4,9 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    /// <summary>Class <c>RopeSwing</c> This class aplies Force to RopePart.</summary>
-    /// for help: https://stackoverflow.com/questions/31740141/programmatically-attach-two-objects-with-a-hinge-joint#31741920
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/RopeSwing")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/RopeSwing")]
     public class RopeSwing : StateData
-    {
+    {   
         private CharacterControl control;
         private Rigidbody ropePartRB ;
 
@@ -16,9 +14,11 @@ namespace Platformer_Assignment
         private float Force;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {   
+        {
+            climbHash = Animator.StringToHash("Climb");
             control = characterState.GetCharacterControl(animator);
             Force = 20f;
+            ropePartRB = control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -34,21 +34,34 @@ namespace Platformer_Assignment
             }
             if (control.Jump)
             {
+                OnExitJump();
                 animator.SetBool(jumpHash , true);
+                return;
+            }
+            if (control.MoveUp || control.Crouch)
+            {
+                animator.SetBool(climbHash, true);
+                return;
             }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control.grabbingRope = false;
+        
+        }
 
-            control.gameObject.GetComponent<HingeJoint>().connectedBody = null;
-            Destroy(control.gameObject.GetComponent<HingeJoint>());
+        private void OnExitJump()
+        {
+            control.grabbingRope = false;
+            if (control.gameObject.GetComponent<HingeJoint>() != null)
+            {
+                control.gameObject.GetComponent<HingeJoint>().connectedBody = null;
+                Destroy(control.gameObject.GetComponent<HingeJoint>());
+            }
             control.transform.parent = null;
-            
             SetTriggerRopeColliders(ropePartRB.transform.root, true);    
             Rigidbody rb = control.RIGID_BODY;        
-            rb.MovePosition(rb.position+Vector3.forward*ropePartRB.velocity.z*10f);
+            rb.MovePosition(rb.position+Vector3.forward*ropePartRB.velocity.z);
         }
     }
 }

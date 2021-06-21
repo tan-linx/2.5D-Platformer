@@ -4,8 +4,9 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Hanging")]
-    public class Hanging : StateData
+    /// <summary>Class <c>HangingTransitioner</c> This class prepares the Player for the Hanfing on Rope.</summary>
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/HangingTransitioner")]
+    public class HangingTransitioner : StateData
     {
         private CharacterControl control;
         
@@ -21,21 +22,14 @@ namespace Platformer_Assignment
             control.transform.Translate(offset);
         }
 
-        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-            if (control.MoveLeft || control.MoveRight)
-            {
-                animator.SetBool(moveHash, true);
-            }
-        }
+        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){ }
 
-        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
 
-        }
 
         private void SetUpHingeJoint() {
             HingeJoint hj =  control.gameObject.AddComponent<HingeJoint>();
+            //control.currentHitCollider.attachedRigidbody.velocity = Vector3.zero;
             hj.connectedBody = control.currentHitCollider.attachedRigidbody;
             HingeJoint hitHj = control.currentHitCollider.gameObject.GetComponent<HingeJoint>();
             hj.anchor =  hitHj.anchor;

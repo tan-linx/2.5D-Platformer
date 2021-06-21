@@ -13,9 +13,12 @@ namespace Platformer_Assignment {
         protected int transitionHash;
         protected int crashHash; 
         protected int hangingHash;
+        protected int climbHash;
 
 
         protected int verticalRayCount;
+        protected float distanceMovedUp;
+
 
         public abstract void OnEnter(CharacterState characaterState, 
         Animator animator, AnimatorStateInfo stateInfo);
@@ -35,6 +38,7 @@ namespace Platformer_Assignment {
             crashHash = Animator.StringToHash("Crash");
             hangingHash = Animator.StringToHash("Hanging");
             verticalRayCount = 5;
+            distanceMovedUp = 0f;
         }
 
         /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front
@@ -136,10 +140,24 @@ namespace Platformer_Assignment {
         {
             foreach(Transform child in parent) 
             {
-                if (child.gameObject.GetComponent<CapsuleCollider>() != null) 
+                if (child.GetComponent<CapsuleCollider>() != null) 
                 {
-                    child.gameObject.GetComponent<CapsuleCollider>().isTrigger = on;
+                    child.GetComponent<CapsuleCollider>().isTrigger = on;
                     SetTriggerRopeColliders(child, on);
+                }
+            }
+        }
+
+         /// <summary>method <c>CheckFront</c> Sets the IsKinematic Option of Object and all 
+        ///children.</summary>
+        protected void IsKinematicRope(Transform parent, bool on)
+        {
+            foreach(Transform child in parent) 
+            {
+                if (child.GetComponent<Rigidbody>() != null) 
+                {
+                    child.GetComponent<Rigidbody>().isKinematic = on;
+                    IsKinematicRope(child, on);
                 }
             }
         }

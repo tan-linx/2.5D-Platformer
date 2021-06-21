@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+
 
 namespace Platformer_Assignment {
     public class TargetScript : MonoBehaviour
@@ -11,14 +13,21 @@ namespace Platformer_Assignment {
 
         void Start()
         {
-            transform.Translate(Vector3.forward*0.5f);
+           // transform.Translate(Vector3.forward*0.5f);
         }
 
         void Update()
         {
-            force = control.RIGID_BODY.velocity.y;
-            //Debug.Log("Something is happening" + control.RIGID_BODY.velocity);
-            transform.Translate(Vector3.up*0.1f);
+            if (control.grabbingRope && control.currentHitCollider!=null)
+            {
+                force = control.RIGID_BODY.velocity.z;
+                Vector3 dir; 
+                if (force > 0) dir = Vector3.back;
+                else if (force == 0) dir = Vector3.zero;
+                else dir = Vector3.forward;
+                transform.position = transform.position+dir*Time.deltaTime;
+            }
+            //transform.Translate(Vector3.up*0.1f);
         }
     }
 }   

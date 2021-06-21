@@ -7,7 +7,7 @@ using UnityEngine;
 /// he collided with the ledge </summary>
 namespace  Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/AnimationOffset")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/AnimationOffset")]
     public class AnimationOffset : StateData
     {        
         [SerializeField]

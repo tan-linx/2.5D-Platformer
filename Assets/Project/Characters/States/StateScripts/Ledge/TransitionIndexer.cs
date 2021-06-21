@@ -16,7 +16,7 @@ namespace Platformer_Assignment
         GRABBING_LEDGE,
     }
     
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/TransitionIndexer")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/TransitionIndexer")]
     public class TransitionIndexer:StateData
     {  
         [SerializeField]

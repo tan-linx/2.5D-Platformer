@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/CrouchIdle")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/CrouchIdle")]
     public class CrouchIdle : StateData
     {
         

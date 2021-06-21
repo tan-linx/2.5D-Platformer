@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/TeleportOnLedge")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/TeleportOnLedge")]
     public class TeleportOnLedge : StateData
     {
         [SerializeField]

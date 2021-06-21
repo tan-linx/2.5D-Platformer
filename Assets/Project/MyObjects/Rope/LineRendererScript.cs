@@ -7,8 +7,6 @@ public class LineRendererScript : MonoBehaviour
     private LineRenderer lr; 
     private CapsuleCollider col;
     private Transform pos1; 
-    
-    //[SerializeField]
     private Transform pos2; 
     private bool exit = false;
     
@@ -19,17 +17,14 @@ public class LineRendererScript : MonoBehaviour
         lr = GetComponentInParent<LineRenderer>();
         lr.positionCount = 2;
         pos1 = col.gameObject.transform;
-        if (col.gameObject.transform.childCount!=0) 
+        if (col.gameObject.transform.childCount>0) 
         {
             pos2 = col.gameObject.transform.GetChild(0).gameObject.transform;
-        } else 
+        } 
+        else 
         {
             exit = true;
         }
-        /*if (pos2 == null)
-        {
-            exit = true;
-        }*/
         lr.startWidth = 0.07f;
         lr.endWidth =0.07f;
     }

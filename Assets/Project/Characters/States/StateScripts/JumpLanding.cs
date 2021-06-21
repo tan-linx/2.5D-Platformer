@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Landing")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Landing")]
     public class JumpLanding : StateData
     {
 

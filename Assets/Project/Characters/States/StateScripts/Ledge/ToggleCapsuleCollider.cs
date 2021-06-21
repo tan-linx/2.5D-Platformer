@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/ToggleCapsuleCollider")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ToggleCapsuleCollider")]
     public class ToggleCapsuleCollider : StateData
     {
         [SerializeField]

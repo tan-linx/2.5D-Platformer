@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Running")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Running")]
     public class Running : StateData
     {
         private float Speed;
@@ -56,7 +56,6 @@ namespace Platformer_Assignment
                 animator.SetBool(crouchHash, true);
                 return;
             }
-           
             if (control.MoveRight && control.MoveLeft)
             {
                 animator.SetBool(moveHash, false);

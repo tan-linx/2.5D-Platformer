@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Push")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Push")]
     public class Push:StateData
     {  
         private CharacterControl control;

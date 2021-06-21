@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Platformer_Assignment
 {
 
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/JumpFromRope")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/JumpFromRope")]
     public class JumpFromRope : StateData
     {
         private CharacterControl control;
@@ -20,7 +20,7 @@ namespace Platformer_Assignment
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             Rigidbody ropePartRB = control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
-            rb.MovePosition(rb.position + Vector3.forward*ropePartRB.velocity.z*10f*Time.deltaTime);
+            rb.MovePosition(rb.position + Vector3.forward*ropePartRB.velocity.z*Time.deltaTime);
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

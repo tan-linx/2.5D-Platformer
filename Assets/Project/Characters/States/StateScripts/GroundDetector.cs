@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/GroundDetector")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/GroundDetector")]
     public class GroundDetector : StateData
     {
         [SerializeField]
@@ -12,7 +12,7 @@ namespace Platformer_Assignment
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            CheckTime = 0.5f;
+            CheckTime = 0.1f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
@@ -40,7 +40,7 @@ namespace Platformer_Assignment
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
-            float offset = 0.02f; 
+            float offset = 0.002f; 
             float maxDistance = col.bounds.extents.y+offset; //col.bounds.size.y/2 + offset;
             RaycastHit hitInfo;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/ForceTransition")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ForceTransition")]
     public class ForceTransition : StateData
     {
         

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Roundbeargames/AbilityData/Falling")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Falling")]
     public class Falling:StateData
     {  
         private CharacterControl control;   
@@ -19,7 +19,6 @@ namespace Platformer_Assignment
         //https://docs.unity3d.com/ScriptReference/Rigidbody-velocity.html
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {                   
-            Debug.Log("I reached this state");            
             if (IsCrash(20)) 
             {
                 control.Dead = true;
