@@ -4,33 +4,45 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Jump")]
-    public class Jump : StateData
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Idle")]
+    public class Idle : StateData
     {
-        private CharacterControl control;
-        private Rigidbody rb;
-        
-        [SerializeField]
-        private float JumpForce = 200f;
-        [SerializeField]
-        private AnimationCurve Gravity;
-        [SerializeField]
-        private AnimationCurve Pull;
-
+        private CharacterControl control; 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control =  characterState.GetCharacterControl(animator);
-            Rigidbody rb = control.RIGID_BODY;
-            control.RIGID_BODY.AddForce(Vector3.up * JumpForce);
-            animator.SetBool(groundedHash, false); //TODO:
+            control = characterState.GetCharacterControl(animator);
+            animator.SetBool(crashHash, false);
+            animator.SetBool(jumpHash, false);
+            animator.SetBool(moveHash, false);
+            animator.SetBool(crouchHash, false);
+            animator.SetBool(pushHash, false);  
+            animator.SetBool(hangingHash, false);    
+            animator.SetBool(transitionHash, false);    
         }
-
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control.GravityMultiplier = Gravity.Evaluate(stateInfo.normalizedTime);
-            control.PullMultiplier = Pull.Evaluate(stateInfo.normalizedTime);
-            if (GetColliderTag() == "Rope") 
+            if (control.Jump)
+            {
+                animator.SetBool(jumpHash, true);
+                return;
+            } 
+            if (control.Crouch)
+            {
+                animator.SetBool(crouchHash, true);
+                return;
+            }
+            if (control.MoveRight)
+            {
+                animator.SetBool(moveHash, true);
+                return; 
+            } 
+            if (control.MoveLeft)
+            {
+                animator.SetBool(moveHash, true);
+                return;
+            }
+            if (GetColliderTag() == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  //control.Moveup
             {
                 animator.SetBool("Hanging", true);
                 return;
@@ -38,9 +50,8 @@ namespace Platformer_Assignment
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {   
-           // animator.SetBool(jumpHash, false);
-            //animator.SetBool(moveHash, false);
+        {
+
         }
 
         private string GetColliderTag() 

@@ -9,6 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8e2a334f83302c4b326fddd97b1d16, type: 3}
+  m_Script: {fileID: 11500000, guid: d1ecdf1d5e2fcd212b40ba58e82aceac, type: 3}
   m_Name: Push
   m_EditorClassIdentifier: 
+  Speed: 5

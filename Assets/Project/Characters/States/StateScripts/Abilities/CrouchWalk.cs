@@ -29,7 +29,7 @@ namespace Platformer_Assignment
             if (control.MoveRight)
             {                    
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                if (!CheckFront(control))
+                if (!CheckFront(control, Vector3.forward))
                 {
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
                 }
@@ -37,12 +37,11 @@ namespace Platformer_Assignment
             if (control.MoveLeft)
             {
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                if (!CheckFront(control))
+                if (!CheckFront(control, Vector3.back))
                 {
                     rb.MovePosition(rb.position+(-Vector3.forward*Speed*Time.deltaTime));
                 }     
             }
-            //anything else causes Player to set back to Crouch Idle
             animator.SetBool(moveHash, false);
         }
 

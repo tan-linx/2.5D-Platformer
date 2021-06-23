@@ -15,7 +15,6 @@ namespace Platformer_Assignment {
         protected int hangingHash;
         protected int climbHash;
 
-
         protected int verticalRayCount;
         protected float distanceMovedUp;
 
@@ -37,55 +36,24 @@ namespace Platformer_Assignment {
             transitionHash = Animator.StringToHash("ForceTransition");
             crashHash = Animator.StringToHash("Crash");
             hangingHash = Animator.StringToHash("Hanging");
+            climbHash = Animator.StringToHash("Climb");
             verticalRayCount = 5;
             distanceMovedUp = 0f;
         }
 
-        /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front
-        /// and does a certain Animation when a specific Tag is on the Object which it collided with.</summary>
-        public void HandleColliderData(CharacterControl control, Animator animator)
-        {
-          //  float offset = 0.15f;
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            Collider[] hitColliders = Physics.OverlapBox(
-                collider.bounds.center, collider.bounds.extents,  
-                control.transform.rotation); 
-            foreach(Collider hitCol in hitColliders) 
-            {
-                control.currentHitCollider = hitCol; 
-                if (!IsRagdollPart(control, hitCol))
-                 {
-                    switch(hitCol.gameObject.tag) 
-                    {   
-                        case "CrouchObstacle":
-                            animator.SetBool(crouchHash, true);
-                            return;      
-                        case "PushObstacle":
-                            animator.SetBool(pushHash, true);
-                            return;
-                    }
-                }
-            }  
-        }
-
-
-         /// <summary>method <c>CheckFront</c> Checks if Object is on the front
-         /// Draws 4 Rays to check the Front</summary>
-        public bool CheckFront(CharacterControl control)
+        /// <summary>method <c>CheckFront</c> Checks if Object is on the front
+        /// Draws 4 Rays to check the Front</summary>
+        public bool CheckFront(CharacterControl control, Vector3 dir)
         {  
             RaycastHit hit;
             //float offset = 0.04f;
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
 	    	float verticalRaySpacing = collider.bounds.size.y/verticalRayCount;
             float maxRayLength = collider.radius;
-
-            Vector3 dir = Vector3.forward;
-            if (control.MoveLeft) dir = Vector3.back;
             Vector3 rayOrigin = collider.bounds.center + Vector3.up*(collider.bounds.extents.y);
             for (int i=0; i<verticalRayCount; i++)
             {  
-                Debug.DrawRay(rayOrigin, 
-                    dir*maxRayLength, Color.green);                
+                //Debug.DrawRay(rayOrigin, dir*maxRayLength, Color.green);                
                 if (Physics.Raycast(rayOrigin, dir, out hit, maxRayLength) 
                     && !IsRagdollPart(control, hit.collider)
                     && !IsIgnoredPart(hit.collider)) 
@@ -115,12 +83,14 @@ namespace Platformer_Assignment {
             {
                 case "Rope":
                     return true;
+                case "Pushable":    
+                    return true;
                 default: 
                     return false;
             }
         }
 
-        /// <summary>method <c>CheckFront</c> Checks if Collider collides with something up</summary>
+        /// <summary>method <c>CheckHead</c> Checks if Collider collides with something up</summary>
         public bool CheckHead(CharacterControl control)
         {  
             RaycastHit hitInfo;
@@ -128,13 +98,13 @@ namespace Platformer_Assignment {
             Vector3 rayOrigin = collider.bounds.center; 
             Vector3 dir = Vector3.up;
             float maxRayLength = collider.bounds.extents.y;
-            Debug.DrawRay(rayOrigin, dir, Color.green);
+            //Debug.DrawRay(rayOrigin, dir, Color.green);
             if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength) && !IsRagdollPart(control, hitInfo.collider))
                 return true; 
             return false;    
         } 
 
-        /// <summary>method <c>CheckFront</c> Sets the Trigger of an Object and all his children
+        /// <summary>method <c>SetTriggerRopeColliders</c> Sets the Trigger of an Object and all his children
         ///based on the argument on.</summary>
         protected void SetTriggerRopeColliders(Transform parent, bool on)
         {
@@ -148,7 +118,7 @@ namespace Platformer_Assignment {
             }
         }
 
-         /// <summary>method <c>CheckFront</c> Sets the IsKinematic Option of Object and all 
+         /// <summary>method <c>IsKinematicRope</c> Sets the IsKinematic Option of Object and all 
         ///children.</summary>
         protected void IsKinematicRope(Transform parent, bool on)
         {

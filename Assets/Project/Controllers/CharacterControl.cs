@@ -19,6 +19,8 @@ namespace Platformer_Assignment
 
         //to retrieve information about latest collider which was hit by player
         public Collider currentHitCollider;    
+        public Vector3 currentHitDirection;
+ 
         //To add velocity when player is falling
         public float GravityMultiplier;
         public float PullMultiplier;

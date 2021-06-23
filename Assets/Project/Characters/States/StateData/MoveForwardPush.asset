@@ -9,7 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ecdf1d5e2fcd212b40ba58e82aceac, type: 3}
-  m_Name: PushForward
+  m_Script: {fileID: 11500000, guid: e5df3d7e544bab5f38173c06cfcafda6, type: 3}
+  m_Name: MoveForwardPush
   m_EditorClassIdentifier: 
+  SpeedGraph:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   Speed: 5

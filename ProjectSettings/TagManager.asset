@@ -7,9 +7,9 @@ TagManager:
   - Obstacle
   - CrouchObstacle
   - Slope
-  - PushObstacle
   - Rope
   - Ledge
+  - Pushable
   layers:
   - Default
   - TransparentFX

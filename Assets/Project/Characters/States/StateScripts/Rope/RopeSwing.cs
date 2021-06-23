@@ -15,15 +15,14 @@ namespace Platformer_Assignment
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            climbHash = Animator.StringToHash("Climb");
             control = characterState.GetCharacterControl(animator);
-            Force = 20f;
-            ropePartRB = control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
+            Force = 10f;
+            animator.SetBool(jumpHash, false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            ropePartRB = control.currentHitCollider.gameObject.GetComponent<Rigidbody>(); 
+            ropePartRB = control.currentHitCollider.attachedRigidbody;
             if (control.MoveLeft)
             {
                 ropePartRB.AddForce(Vector3.back*Force);
@@ -52,16 +51,14 @@ namespace Platformer_Assignment
 
         private void OnExitJump()
         {
-            control.grabbingRope = false;
-            if (control.gameObject.GetComponent<HingeJoint>() != null)
+
+            if (control.gameObject.GetComponent<ConfigurableJoint>() != null)
             {
-                control.gameObject.GetComponent<HingeJoint>().connectedBody = null;
-                Destroy(control.gameObject.GetComponent<HingeJoint>());
-            }
+                control.gameObject.GetComponent<ConfigurableJoint>().connectedBody = null;
+                Destroy(control.gameObject.GetComponent<ConfigurableJoint>());
+            }    
             control.transform.parent = null;
-            SetTriggerRopeColliders(ropePartRB.transform.root, true);    
-            Rigidbody rb = control.RIGID_BODY;        
-            rb.MovePosition(rb.position+Vector3.forward*ropePartRB.velocity.z);
+            control.grabbingRope = false;
         }
     }
 }

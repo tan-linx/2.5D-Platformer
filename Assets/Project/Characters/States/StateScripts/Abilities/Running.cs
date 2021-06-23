@@ -8,16 +8,14 @@ namespace Platformer_Assignment
     public class Running : StateData
     {
         private float Speed;
-
         private CharacterControl control;
         private Rigidbody rb;
-        private Animator animator;
+
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            this.animator = control.Animator;
             Speed = 7f;
         }
 
@@ -26,28 +24,20 @@ namespace Platformer_Assignment
             if (control.MoveRight)
             {                    
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
-                if (CheckFront(control)) 
+                if (!CheckFront(control, Vector3.forward)) 
                 {
-                    HandleColliderData(control, animator);
-                    return;
-                }
-                else
-                {
-                    if(IsJump()) return;
+                    if(HandleColliderData(control, animator, Vector3.forward)) return;
+                    if(IsJump(animator)) return;
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
                 }
             } 
             if (control.MoveLeft)
             {
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
-                if (CheckFront(control))
+                if (!CheckFront(control, Vector3.back))
                 {
-                    HandleColliderData(control, animator);
-                    return;
-                }
-                else 
-                {
-                    if(IsJump()) return;
+                    if (HandleColliderData(control, animator, Vector3.back)) return;
+                    if(IsJump(animator)) return;
                     rb.MovePosition(rb.position+ (-Vector3.forward*Speed*Time.deltaTime));
                 }     
             }
@@ -72,7 +62,7 @@ namespace Platformer_Assignment
             
         }
 
-        private bool IsJump() 
+        private bool IsJump(Animator animator) 
         {
             bool isJump  = control.Jump;
             if(isJump)
@@ -81,42 +71,34 @@ namespace Platformer_Assignment
             }
             return isJump;
         }
-        //ref: 
-        //https://github.com/SebLague/
-        //2DPlatformer-Tutorial/blob/master/Platformer%20E04/Assets/Scripts/Controller2D.cs
-       /* void ClimbSlope() 
+
+        /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front
+        /// and does a certain Animation when a specific Tag is on the Object which it collided with.</summary>
+        public bool HandleColliderData(CharacterControl control, Animator animator, Vector3 dir)
         {
+            //float offset = 0.15f;
+            RaycastHit hit; 
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            RaycastHit hit; //to check distance from hit
-            //most Right hit or most left hit
-            float gradientZ = 1f;
-            Vector3 rayDir = Vector3.forward;
-
-            if (control.MoveLeft)
+            if (Physics.Raycast(collider.bounds.center, dir, out hit, collider.bounds.extents.z)) 
             {
-                rayDir = Vector3.back;
-                gradientZ = -1f;
-            }
-            if (Physics.Raycast(control.transform.position, 
-                    rayDir*collider.radius, out hit))
-            {
-                float slopeAngle = Vector3.Angle(hit.normal, Vector3.up);
-                Debug.Log("tag is "  +hit.collider.tag + "slope angel is " 
-                + slopeAngle + "hitdistance is: " + hit.distance) ;
-
-                float distanceToSlope = hit.distance;
-                gradientZ *= distanceToSlope;
-
-                if (hit.collider.gameObject.tag == "Slope" && slopeAngle <= maxClimbAngle)
-                {    
-                    float gradientY = Mathf.Tan(slopeAngle* Mathf.Deg2Rad) * Mathf.Abs(gradientZ);
-                   // direction is influenced by physics
-                    Vector3 dir = new Vector3(0, gradientY, gradientZ); 
-                    rb.MovePosition(control.transform.position + dir * Time.deltaTime);   
-                } 
-            }
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    switch(hit.collider.tag) 
+                    {   
+                        case "CrouchObstacle":
+                            animator.SetBool(crouchHash, true);
+                            return true;      
+                        case "Pushable":
+                            control.currentHitDirection = dir;
+                            control.currentHitCollider = hit.collider;
+                            animator.SetBool(pushHash, true);
+                            return true;
+                        default: 
+                            return false;    
+                    }
+                }
+            }  
+            return false;
         }
-        */
-
     }
 }

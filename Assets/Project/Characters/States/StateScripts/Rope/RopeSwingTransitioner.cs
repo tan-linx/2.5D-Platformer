@@ -14,33 +14,38 @@ namespace Platformer_Assignment
         private Vector3 offset;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
+        {          
             control = characterState.GetCharacterControl(animator);
             control.grabbingRope = true;
-            SetUpHingeJoint();
-            control.transform.SetParent(control.currentHitCollider.transform);
+            SetUpJoint();
             control.transform.Translate(offset);
+            control.transform.SetParent(control.currentHitCollider.transform);
         }
 
-        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){ }
+        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {
+        }
 
-        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {
+        }
 
-
-        private void SetUpHingeJoint() {
-            HingeJoint hj =  control.gameObject.AddComponent<HingeJoint>();
-            //control.currentHitCollider.attachedRigidbody.velocity = Vector3.zero;
-            hj.connectedBody = control.currentHitCollider.attachedRigidbody;
-            HingeJoint hitHj = control.currentHitCollider.gameObject.GetComponent<HingeJoint>();
-            hj.anchor =  hitHj.anchor;
-            hj.axis =  hitHj.axis;
-            JointSpring hingeSpring = hj.spring;
-            hingeSpring.damper = 50;
-            hj.useSpring = hitHj.useSpring;
-            JointLimits hjlimits = hj.limits;
-            hjlimits.max = 10;
-            hj.useLimits = hitHj.useLimits;
-            hj.enableCollision = hitHj.enableCollision;
+        private void SetUpJoint() {
+            ConfigurableJoint cj =  control.gameObject.AddComponent<ConfigurableJoint>();
+            cj.xMotion = ConfigurableJointMotion.Locked;
+            cj.yMotion = ConfigurableJointMotion.Locked;
+            cj.zMotion = ConfigurableJointMotion.Locked;
+            ConfigurableJoint hitCj = control.currentHitCollider.gameObject.GetComponent<ConfigurableJoint>();
+            cj.anchor =  hitCj.anchor;
+            cj.axis =  hitCj.axis;
+            cj.xMotion = hitCj.xMotion;
+            cj.yMotion = hitCj.yMotion;
+            cj.zMotion = hitCj.zMotion;
+            cj.secondaryAxis = hitCj.secondaryAxis;
+            cj.angularXMotion = hitCj.angularXMotion;
+            cj.angularYMotion = hitCj.angularYMotion;
+            cj.angularZMotion = hitCj.angularZMotion;
+            cj.connectedBody = control.currentHitCollider.attachedRigidbody;
         }
     }
 }

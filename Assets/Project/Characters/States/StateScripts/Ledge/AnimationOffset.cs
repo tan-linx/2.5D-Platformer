@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/// <summary>Class <c>CheckFront</c> Moves the Player by a certain offset when
+/// <summary>Class <c>AnimationOffset</c> Moves the Player by a certain offset when
 /// he collided with the ledge </summary>
 namespace  Platformer_Assignment
 {
