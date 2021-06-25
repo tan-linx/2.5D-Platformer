@@ -34,17 +34,34 @@ namespace Platformer_Assignment
             }
             if (control.MoveRight)
             {
+                if (HandleColliderData(control, animator, Vector3.forward, 0.2f))
+                {
+                    animator.SetBool(pushHash, true);
+                    return;
+                }
                 animator.SetBool(moveHash, true);
                 return; 
             } 
             if (control.MoveLeft)
             {
+                if (HandleColliderData(control, animator, Vector3.back, 0.2f))
+                {
+                    animator.SetBool(pushHash, true);
+                    return;
+                }
                 animator.SetBool(moveHash, true);
+                return;
+            }
+            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.25f) 
+                                || HandleColliderData(control, animator, Vector3.back, 0.25f))) 
+            {
+                Debug.Log("I reached the pull state");
+                animator.SetBool("Pull", true);
                 return;
             }
             if (GetColliderTag() == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  //control.Moveup
             {
-                animator.SetBool("Hanging", true);
+                animator.SetBool(hangingHash, true);
                 return;
             }
         }
@@ -59,12 +76,8 @@ namespace Platformer_Assignment
             RaycastHit hit;
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
             Vector3 dir = Vector3.forward;
-            if (control.MoveLeft) dir = Vector3.back;
-            Debug.DrawRay(control.transform.position+Vector3.up*(collider.height/2), dir*collider.radius, Color.yellow);
-            //Gizmos.DrawSphere(collider.bounds.center+Vector3.up*(collider.bounds.extents.y/2), collider.bounds.extents.z); 
             if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y), 
             collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
-            //if(Physics.Raycast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y/2), dir, out hit, collider.bounds.extents.z)) 
             { 
                 if (!IsRagdollPart(control, hit.collider))
                 {
@@ -73,6 +86,32 @@ namespace Platformer_Assignment
                 }
             }
             return "";
+        }
+
+        /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front</summary>
+        private bool HandleColliderData(CharacterControl control, Animator animator, Vector3 dir, float offset)
+        {
+            RaycastHit hit; 
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            if (Physics.Raycast(collider.bounds.center, dir, out hit, collider.bounds.extents.z+offset)) 
+            {
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    switch(hit.collider.tag) 
+                    {   
+                        //case "CrouchObstacle":
+                        //    animator.SetBool(crouchHash, true);
+                        //    return true;      
+                        case "Pushable": //TODO: rename to Moveable
+                            control.currentHitDirection = dir;
+                            control.currentHitCollider = hit.collider;
+                            return true;
+                        default: 
+                            return false;    
+                    }
+                }
+            }  
+            return false;
         }
     }
 }

@@ -16,20 +16,18 @@ namespace Platformer_Assignment
         {   
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
+            if (control.currentHitCollider.tag != "Rope") throw new Exception("Current Collider is not a Rope Part. You shouldn't be in this state"); 
+            Rigidbody ropePartRB = control.currentHitCollider.attachedRigidbody;
+            rb.AddForce(Vector3.forward*ropePartRB.velocity.z*100f);
+            control.currentHitCollider = null;    
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            
-            if (control.currentHitCollider.tag != "Rope") throw new Exception("Current Collider is not a Rope Part. You shouldn't be in this state"); 
-            Rigidbody ropePartRB = control.currentHitCollider.attachedRigidbody;
-            rb.MovePosition(rb.position + Vector3.forward*ropePartRB.velocity.z*3f*Time.deltaTime);
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-            Rigidbody ropePartRB = control.currentHitCollider.attachedRigidbody;  
-            control.currentHitCollider = null;        
+        {    
         }
     }
 }

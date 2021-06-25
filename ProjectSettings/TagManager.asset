@@ -10,11 +10,12 @@ TagManager:
   - Rope
   - Ledge
   - Pushable
+  - Walkable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Platform

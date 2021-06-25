@@ -12,7 +12,7 @@ namespace Platformer_Assignment
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            CheckTime = 0.1f;
+            CheckTime = 0.2f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
@@ -33,14 +33,13 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            animator.SetBool(groundedHash, true);
         }  
 
         /// <summary>method <c>IsGrounded</c> Checks whether Collider is grounded</summary>
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
-            float offset = 0.002f; 
+            float offset = 0.0002f; 
             float maxDistance = col.bounds.extents.y+offset;
             RaycastHit hitInfo;
 
@@ -53,12 +52,14 @@ namespace Platformer_Assignment
             {
                 Vector3 rayOrigin = col.bounds.center + Vector3.back*(col.bounds.extents.z);
                 float horizontalRayCount = 4;
-                float horizontalRaySpacing = col.bounds.extents.z;
+                float horizontalRaySpacing = col.bounds.extents.z/2;
                 for (int i=0; i<horizontalRayCount; i++) 
                 {
                     //Debug.DrawRay(rayOrigin, Vector3.down*maxDistance, Color.green);
                     if (Physics.Raycast(rayOrigin, 
-                        Vector3.down, out hitInfo, maxDistance) && !IsRagdollPart(control, hitInfo.collider)) 
+                        Vector3.down, out hitInfo, maxDistance) 
+                        && !IsRagdollPart(control, hitInfo.collider)
+                        && IsIgnoredPart(hitInfo.collider)) 
                     {
                         return true;
                     }

@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b7a3a44bc5d9b1e8a16d9c0a4b304c, type: 3}
   m_Name: Grounddetection
   m_EditorClassIdentifier: 
+  CheckTime: 0.1

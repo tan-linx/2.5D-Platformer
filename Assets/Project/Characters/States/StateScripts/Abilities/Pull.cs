@@ -5,17 +5,17 @@ using System;
 
 namespace Platformer_Assignment
 {
-    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Push")]
+    [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Pull")]
     
-    /// <summary>Class <c>Push</c> Pushes an object forward. ///</summary>
-    public class Push : StateData
+    /// <summary>Class <c>Pull</c> To pull an Object. ///</summary>
+    public class Pull : StateData
     {
         [SerializeField]
         private float Speed;
 
         private CharacterControl control;
         private Rigidbody rb;
-        private GameObject pushable;
+        private GameObject pullable;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
@@ -23,49 +23,41 @@ namespace Platformer_Assignment
             StateGuard();
             Speed = 1.5f;
             rb = control.RIGID_BODY;
-            animator.transform.localPosition = new Vector3(0f, -0.9914604f, -0.2f);
-            pushable = control.currentHitCollider.gameObject;
+            pullable = control.currentHitCollider.gameObject;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {    
-            if (control.MoveRight)
+            if (control.currentHitDirection.z != 1f)
             {
-                if (control.currentHitDirection.z != 1f)
+                if (control.MoveLeft)
                 {
-                    animator.SetBool(pushHash, false);
+                    animator.SetBool(pullHash, false);
                     return;
                 }
-                control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 rb.MovePosition(rb.position+(Vector3.forward*Speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.forward*Speed*Time.deltaTime);
+                pullable.transform.Translate(Vector3.forward*Speed*Time.deltaTime);
             }
-            if (control.MoveLeft)
+            if (control.currentHitDirection.z != -1f)
             {
-                if (control.currentHitDirection.z != -1f)
+                if (control.MoveRight)
                 {
-                    animator.SetBool(pushHash, false);
+                    animator.SetBool(pullHash, false);
                     return;
                 }
-                control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.back*Speed*Time.deltaTime);
-            }    
-            if (control.MoveRight && control.MoveLeft)
-            {
-                animator.SetBool(pushHash, false);
-                return;
+                pullable.transform.Translate(Vector3.back*Speed*Time.deltaTime);   
             }
-            if (!control.MoveRight && !control.MoveLeft)
+            if (!control.Pull) 
             {
-                animator.SetBool(pushHash, false);
-                return;
+                animator.SetBool(pullHash, false);
+                return; 
             }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            animator.transform.localPosition = new Vector3(0f, -0.9914604f, 0.04284224f);
+            Debug.Log("I left the pull state");
         }
         
         private void StateGuard() 

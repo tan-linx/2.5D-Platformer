@@ -9,6 +9,7 @@ namespace Platformer_Assignment {
         protected int crouchHash;
         protected int moveHash;
         protected int pushHash;
+        protected int pullHash;
         protected int groundedHash;
         protected int transitionHash;
         protected int crashHash; 
@@ -32,6 +33,7 @@ namespace Platformer_Assignment {
             crouchHash = Animator.StringToHash("Crouch");
             moveHash = Animator.StringToHash("Move");
             pushHash = Animator.StringToHash("Push");
+            pullHash = Animator.StringToHash("Pull");
             groundedHash = Animator.StringToHash("Grounded");
             transitionHash = Animator.StringToHash("ForceTransition");
             crashHash = Animator.StringToHash("Crash");
@@ -77,13 +79,11 @@ namespace Platformer_Assignment {
             return false;
         }
 
-        private bool IsIgnoredPart(Collider col)
+        protected bool IsIgnoredPart(Collider col)
         {
             switch (col.gameObject.tag)
             {
                 case "Rope":
-                    return true;
-                case "Pushable":    
                     return true;
                 default: 
                     return false;

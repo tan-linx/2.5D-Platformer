@@ -17,19 +17,24 @@ namespace Platformer_Assignment
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
             if (control.currentHitCollider.tag != "Rope") throw new Exception("CurrentCollider not Rope!");
-            IsKinematicRope(control.transform.root, true);
-            rb.isKinematic = true;
+
+
+            control.GetComponent<ConfigurableJoint>().connectedBody = null; 
+            SetTriggerRopeColliders(control.transform.root, true);
+            //control.gameObject.GetComponent<CapsuleCollider>().isTrigger= false;
+            control.RIGID_BODY.isKinematic = true;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             capsuleScaleY = control.currentHitCollider.bounds.size.y; 
-            float Speed = capsuleScaleY;
-            Debug.Log(control.transform.parent.gameObject);
+            float Speed = capsuleScaleY; 
+
             GameObject currentParentCapsule = control.transform.parent.gameObject; 
             if (control.MoveUp && currentParentCapsule.name != "RopeStart") 
             {    
-                
+                //TODO: Fix this movement here
+                Vector3 dir = control.currentHitCollider.transform.parent.position-control.currentHitCollider.transform.position;
                 rb.MovePosition(rb.position + Vector3.up*Speed*Time.deltaTime);
                 distanceMovedUp+=Speed*Time.deltaTime;
 
@@ -56,27 +61,31 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            //ERROR persists
-            IsKinematicRope(control.transform.root, false);
-            rb.isKinematic = false;
         }
 
         private void MoveUpCapsule(GameObject currentParentCapsule) 
         {
-            control.transform.SetParent(currentParentCapsule.transform.parent);
+            control.transform.SetParent(currentParentCapsule.transform.parent, false);
             Debug.Log(control.transform.parent);
             control.currentHitCollider = control.transform.parent.GetComponent<CapsuleCollider>();
-            control.GetComponent<ConfigurableJoint>().connectedBody = control.currentHitCollider.attachedRigidbody;
             distanceMovedUp = 0f;
         }
 
         private void MoveDownCapsule(GameObject currentParentCapsule) 
         {
-            control.transform.SetParent(currentParentCapsule.transform.GetChild(0));
+            control.transform.SetParent(currentParentCapsule.transform.GetChild(0), false);
             Debug.Log(control.transform.parent);
             control.currentHitCollider = control.transform.parent.GetComponent<CapsuleCollider>();;
-            control.GetComponent<ConfigurableJoint>().connectedBody = control.currentHitCollider.attachedRigidbody;
             distanceMovedUp = capsuleScaleY;
         }
+
+        private void Climb()
+        {
+            Vector3 from = control.currentHitCollider.transform.position;
+            Vector3 to = control.currentHitCollider.transform.parent.position;
+            // Debug.Log(distance);
+            Vector3 endPos = Vector3.Lerp(from, to, 0.3f);
+            //distanceMovedUp+=distance;
+        }        
     }
 }

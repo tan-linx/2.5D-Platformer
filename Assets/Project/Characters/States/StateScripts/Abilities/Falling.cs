@@ -14,6 +14,7 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             control.Dead = false;
+            animator.SetBool(crashHash,false);
         }
 
         //https://docs.unity3d.com/ScriptReference/Rigidbody-velocity.html
@@ -46,8 +47,7 @@ namespace Platformer_Assignment
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();        
             Vector3 dir = Vector3.down*height;
             Vector3 rayOrigin = collider.bounds.center;
-            Debug.DrawRay(rayOrigin, 
-                dir, Color.green);                
+            //Debug.DrawRay(rayOrigin,  dir, Color.green);                
             if (Physics.Raycast(rayOrigin, dir, out hitInfo, height) && !IsRagdollPart(control, hitInfo.collider)) 
                 {
                     return false; 

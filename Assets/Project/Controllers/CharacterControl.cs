@@ -10,9 +10,8 @@ namespace Platformer_Assignment
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
-        public bool Grounded; 
         public bool Crouch; 
-        public bool Push;
+        public bool Pull;
         public bool MoveUp;
         private bool dead;
         public bool grabbingRope;
@@ -78,6 +77,14 @@ namespace Platformer_Assignment
             else 
             {
                 MoveUp = false;
+            }
+            if (Input.GetKey(KeyCode.E)) 
+            {
+                Pull = true;
+            }     
+            else 
+            {
+                Pull = false;
             }
         }
 

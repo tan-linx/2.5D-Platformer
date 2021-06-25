@@ -11,12 +11,11 @@ namespace Platformer_Assignment
         private CharacterControl control;
         private Rigidbody rb;
 
-
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            Speed = 1.8f;
+            Speed = 2f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -32,6 +31,7 @@ namespace Platformer_Assignment
                 if (!CheckFront(control, Vector3.forward))
                 {
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
+
                 }
             } 
             if (control.MoveLeft)
@@ -42,7 +42,16 @@ namespace Platformer_Assignment
                     rb.MovePosition(rb.position+(-Vector3.forward*Speed*Time.deltaTime));
                 }     
             }
-            animator.SetBool(moveHash, false);
+            if (control.MoveRight && control.MoveLeft)
+            {
+                animator.SetBool(moveHash, false);
+                return;
+            }
+            if (!control.MoveRight && !control.MoveLeft)
+            {
+                animator.SetBool(moveHash, false);
+                return;
+            }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

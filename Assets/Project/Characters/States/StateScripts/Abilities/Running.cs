@@ -26,7 +26,6 @@ namespace Platformer_Assignment
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 if (!CheckFront(control, Vector3.forward)) 
                 {
-                    if(HandleColliderData(control, animator, Vector3.forward)) return;
                     if(IsJump(animator)) return;
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
                 }
@@ -36,7 +35,6 @@ namespace Platformer_Assignment
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                 if (!CheckFront(control, Vector3.back))
                 {
-                    if (HandleColliderData(control, animator, Vector3.back)) return;
                     if(IsJump(animator)) return;
                     rb.MovePosition(rb.position+ (-Vector3.forward*Speed*Time.deltaTime));
                 }     
@@ -70,35 +68,6 @@ namespace Platformer_Assignment
                 animator.SetBool(jumpHash, true);
             }
             return isJump;
-        }
-
-        /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front
-        /// and does a certain Animation when a specific Tag is on the Object which it collided with.</summary>
-        public bool HandleColliderData(CharacterControl control, Animator animator, Vector3 dir)
-        {
-            //float offset = 0.15f;
-            RaycastHit hit; 
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            if (Physics.Raycast(collider.bounds.center, dir, out hit, collider.bounds.extents.z)) 
-            {
-                if (!IsRagdollPart(control, hit.collider))
-                {
-                    switch(hit.collider.tag) 
-                    {   
-                        case "CrouchObstacle":
-                            animator.SetBool(crouchHash, true);
-                            return true;      
-                        case "Pushable":
-                            control.currentHitDirection = dir;
-                            control.currentHitCollider = hit.collider;
-                            animator.SetBool(pushHash, true);
-                            return true;
-                        default: 
-                            return false;    
-                    }
-                }
-            }  
-            return false;
         }
     }
 }

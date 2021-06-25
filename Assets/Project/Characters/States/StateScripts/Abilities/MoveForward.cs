@@ -35,12 +35,22 @@ namespace Platformer_Assignment
             }
             if (control.MoveRight && !CheckFront(control, Vector3.forward))
             {
+                if (GetColliderTag(Vector3.forward) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                {
+                    animator.SetBool("Hanging", true);
+                    return;
+                }   
                 control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 rb.MovePosition(rb.position+(Vector3.forward*Speed*
                    SpeedGraph.Evaluate(stateInfo.normalizedTime) *Time.deltaTime));
             }
             if (control.MoveLeft && !CheckFront(control, Vector3.back))
             {
+                if (GetColliderTag(Vector3.back) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                {
+                    animator.SetBool("Hanging", true);
+                    return;
+                }  
                 control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 rb.MovePosition(rb.position+(Vector3.back*Speed*
                     SpeedGraph.Evaluate(stateInfo.normalizedTime)*Time.deltaTime));
@@ -49,6 +59,22 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+        }
+
+        private string GetColliderTag(Vector3 dir) 
+        {
+            RaycastHit hit;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y), 
+            collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
+            { 
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    control.currentHitCollider = hit.collider;
+                    return hit.collider.gameObject.tag;
+                }
+            }
+            return "";
         }
     }
 }
