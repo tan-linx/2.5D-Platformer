@@ -23,10 +23,8 @@ namespace Platformer_Assignment
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
-            GameObject anim = control.Animator.gameObject;
-            control.transform.position =control.LedgeChecker.LowerCollider.transform.position + this.endPosition;
-            Vector3 localPosAnim = new Vector3(0f, -0.9914604f, 0.04284224f);
-            anim.transform.localPosition = localPosAnim ;
+            control.transform.position = control.LedgeChecker.LowerCollider.transform.position + endPosition;
+            animator.transform.localPosition = new Vector3(0f, -0.9914604f, 0.04284224f);
         }
     }
 }

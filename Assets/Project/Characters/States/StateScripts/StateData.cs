@@ -104,6 +104,28 @@ namespace Platformer_Assignment {
             return false;    
         } 
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////The following is important for the rope swing///////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        /// <summary>method <c>Check Collider is in Front </c>  Especially to Check e.g. for Rope. </summary>
+        protected string GetColliderTag(CharacterControl control, Vector3 dir) 
+        {
+            RaycastHit hit;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y), 
+            collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
+            { 
+                if (!IsRagdollPart(control, hit.collider))
+                {
+                    control.currentHitDirection = dir; //TODO:
+                    control.currentHitCollider = hit.collider;
+                    return hit.collider.gameObject.tag;
+                }
+            }
+            return "";
+        }
+
         /// <summary>method <c>SetTriggerRopeColliders</c> Sets the Trigger of an Object and all his children
         ///based on the argument on.</summary>
         protected void SetTriggerRopeColliders(Transform parent, bool on)

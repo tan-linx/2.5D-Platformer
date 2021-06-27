@@ -19,6 +19,7 @@ namespace Platformer_Assignment
             animator.SetBool(hangingHash, false);    
             animator.SetBool(transitionHash, false);  
             animator.SetBool(groundedHash, true);  //TODO might be false
+            animator.SetBool(climbHash, false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -35,7 +36,7 @@ namespace Platformer_Assignment
             }
             if (control.MoveRight)
             {
-                if (HandleColliderData(control, animator, Vector3.forward, 0.2f))
+                if (HandleColliderData(control, animator, Vector3.forward, 0.2f) == "Pushable")
                 {
                     animator.SetBool(pushHash, true);
                     return;
@@ -45,7 +46,7 @@ namespace Platformer_Assignment
             } 
             if (control.MoveLeft)
             {
-                if (HandleColliderData(control, animator, Vector3.back, 0.2f))
+                if (HandleColliderData(control, animator, Vector3.back, 0.2f) == "Pushable")
                 {
                     animator.SetBool(pushHash, true);
                     return;
@@ -53,14 +54,22 @@ namespace Platformer_Assignment
                 animator.SetBool(moveHash, true);
                 return;
             }
-            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.25f) 
-                                || HandleColliderData(control, animator, Vector3.back, 0.25f))) 
+            
+            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.25f) == "Pushable" 
+                                || HandleColliderData(control, animator, Vector3.back, 0.25f) == "Pushable")) 
             {
-                Debug.Log("I reached the pull state");
                 animator.SetBool("Pull", true);
                 return;
             }
-            if (control.MoveUp && GetColliderTag() == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  //control.Moveup
+            //TODO:
+            if (control.MoveUp && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Ladder" 
+                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Ladder"))
+            {
+                Debug.Log("I hit the Ladder");
+                animator.SetBool(climbHash, true);
+                return;
+            }
+            if (control.MoveUp && GetColliderTag(control, Vector3.forward) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  
             {
                 animator.SetBool(hangingHash, true);
                 return;
@@ -68,29 +77,10 @@ namespace Platformer_Assignment
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-
-        }
-
-        private string GetColliderTag() 
-        {
-            RaycastHit hit;
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            Vector3 dir = Vector3.forward;
-            if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y), 
-            collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
-            { 
-                if (!IsRagdollPart(control, hit.collider))
-                {
-                    control.currentHitCollider = hit.collider;
-                    return hit.collider.gameObject.tag;
-                }
-            }
-            return "";
-        }
+        {}
 
         /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front</summary>
-        private bool HandleColliderData(CharacterControl control, Animator animator, Vector3 dir, float offset)
+        private string HandleColliderData(CharacterControl control, Animator animator, Vector3 dir, float offset)
         {
             RaycastHit hit; 
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
@@ -103,16 +93,21 @@ namespace Platformer_Assignment
                         //case "CrouchObstacle":
                         //    animator.SetBool(crouchHash, true);
                         //    return true;      
-                        case "Pushable": //TODO: rename to Moveable
+                        case "Pushable": //TODO: rename to Moveable                          
                             control.currentHitDirection = dir;
                             control.currentHitCollider = hit.collider;
-                            return true;
+                            break;
+                        case "Ladder":
+                            control.currentHitDirection = dir;
+                            control.currentHitCollider = hit.collider;
+                            break;    
                         default: 
-                            return false;    
+                            return "";    
                     }
+                    return hit.collider.tag;
                 }
             }  
-            return false;
+            return "";
         }
     }
 }

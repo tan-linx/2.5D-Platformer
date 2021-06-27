@@ -74,7 +74,8 @@ namespace Platformer_Assignment
         /// <summary>method <c>Climb</c> Climb up the Rope and make the Player stick to it.</summary>        
         private void Climb(float speed)
         {
-            float offsetToRope = -0.7f;
+            //TODO: 
+            float offsetToRope = -0.55f*control.currentHitDirection.z;
             rb.MovePosition(new Vector3(control.currentHitCollider.transform.position.x, 
                                         rb.position.y+speed*Time.deltaTime, 
                                         control.currentHitCollider.transform.position.z+offsetToRope)); 
