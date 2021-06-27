@@ -22,7 +22,6 @@ namespace Platformer_Assignment
             SetTriggerRopeColliders(control.transform.root, false);
             IsKinematicRope(control.transform.root, false);
 
-            //this line used to be in climb rope, but the configuration is only needed here
             control.GetComponent<ConfigurableJoint>().connectedBody = control.currentHitCollider.attachedRigidbody; 
         }
 
@@ -60,7 +59,6 @@ namespace Platformer_Assignment
 
             if (control.gameObject.GetComponent<ConfigurableJoint>() != null)
             {
-                control.gameObject.GetComponent<ConfigurableJoint>().connectedBody = null;
                 Destroy(control.gameObject.GetComponent<ConfigurableJoint>());
             }    
             control.transform.parent = null;

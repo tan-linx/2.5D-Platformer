@@ -48,7 +48,7 @@ namespace Platformer_Assignment
                 rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
                 pullable.transform.Translate(Vector3.back*Speed*Time.deltaTime);   
             }
-            if (!control.Pull) 
+            if (!control.Pull && !control.MoveLeft && !control.MoveRight) 
             {
                 animator.SetBool(pullHash, false);
                 return; 

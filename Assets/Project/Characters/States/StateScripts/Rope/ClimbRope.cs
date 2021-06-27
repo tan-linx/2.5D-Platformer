@@ -21,7 +21,6 @@ namespace Platformer_Assignment
 
             control.GetComponent<ConfigurableJoint>().connectedBody = null; 
             SetTriggerRopeColliders(control.transform.root, true);
-            //control.gameObject.GetComponent<CapsuleCollider>().isTrigger= false;
             control.RIGID_BODY.isKinematic = true;
         }
 
@@ -29,14 +28,11 @@ namespace Platformer_Assignment
         {
             capsuleScaleY = control.currentHitCollider.bounds.size.y; 
             float Speed = capsuleScaleY; 
-
+            
             GameObject currentParentCapsule = control.transform.parent.gameObject; 
             if (control.MoveUp && currentParentCapsule.name != "RopeStart") 
             {    
-                //TODO: Fix this movement here
-                Vector3 dir = control.currentHitCollider.transform.parent.position-control.currentHitCollider.transform.position;
-                rb.MovePosition(rb.position + Vector3.up*Speed*Time.deltaTime);
-                distanceMovedUp+=Speed*Time.deltaTime;
+                Climb(Speed);
 
                 if (distanceMovedUp >= capsuleScaleY)
                 {
@@ -45,9 +41,7 @@ namespace Platformer_Assignment
             }
             if (control.Crouch && currentParentCapsule.transform.GetChild(0).tag == "Rope")
             {
-                rb.MovePosition(rb.position + Vector3.down*Speed*Time.deltaTime);
-                distanceMovedUp-=Speed*Time.deltaTime;
-
+                Climb(-Speed);
                 if (distanceMovedUp < 0) 
                 {
                     MoveDownCapsule(currentParentCapsule);
@@ -65,27 +59,26 @@ namespace Platformer_Assignment
 
         private void MoveUpCapsule(GameObject currentParentCapsule) 
         {
-            control.transform.SetParent(currentParentCapsule.transform.parent, false);
-            Debug.Log(control.transform.parent);
+            control.transform.SetParent(currentParentCapsule.transform.parent, true);
             control.currentHitCollider = control.transform.parent.GetComponent<CapsuleCollider>();
             distanceMovedUp = 0f;
         }
 
         private void MoveDownCapsule(GameObject currentParentCapsule) 
         {
-            control.transform.SetParent(currentParentCapsule.transform.GetChild(0), false);
-            Debug.Log(control.transform.parent);
+            control.transform.SetParent(currentParentCapsule.transform.GetChild(0), true);
             control.currentHitCollider = control.transform.parent.GetComponent<CapsuleCollider>();;
             distanceMovedUp = capsuleScaleY;
         }
 
-        private void Climb()
+        /// <summary>method <c>Climb</c> Climb up the Rope and make the Player stick to it.</summary>        
+        private void Climb(float speed)
         {
-            Vector3 from = control.currentHitCollider.transform.position;
-            Vector3 to = control.currentHitCollider.transform.parent.position;
-            // Debug.Log(distance);
-            Vector3 endPos = Vector3.Lerp(from, to, 0.3f);
-            //distanceMovedUp+=distance;
+            float offsetToRope = -0.7f;
+            rb.MovePosition(new Vector3(control.currentHitCollider.transform.position.x, 
+                                        rb.position.y+speed*Time.deltaTime, 
+                                        control.currentHitCollider.transform.position.z+offsetToRope)); 
+            distanceMovedUp+=speed*Time.deltaTime;
         }        
     }
 }

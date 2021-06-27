@@ -400,7 +400,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Climb Rope
-  m_Speed: 2
+  m_Speed: 2.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2567154097213387378}
@@ -414,7 +414,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 873a4b19cea2e80d7bf359aeb1f9fc3c, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: 0ed8a740f9d4387099b1f0d8e0232a96, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -3269,7 +3269,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: f189ac48cd46688b1b0b8ac15201bc24, type: 3}
+  m_Motion: {fileID: -203655887218126122, guid: a6f138b84e65a2e22b2b108b79708564, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

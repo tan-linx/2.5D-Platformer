@@ -39,7 +39,7 @@ namespace Platformer_Assignment
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
-            float offset = 0.0002f; 
+            float offset = 0.02f; 
             float maxDistance = col.bounds.extents.y+offset;
             RaycastHit hitInfo;
 
@@ -71,7 +71,6 @@ namespace Platformer_Assignment
 
         private bool OverWrites(Animator animator) 
         {
-            Debug.Log(animator.GetBool(hangingHash));
             return animator.GetBool(hangingHash);
         }
     }  

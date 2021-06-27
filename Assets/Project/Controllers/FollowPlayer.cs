@@ -5,13 +5,9 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     public Transform target;
-    public Vector3 offset;
+    public Vector3 offset = new Vector3(30, 2, 0);
     public float smoothTime = 0.3F;
     private Vector3 velocity = Vector3.zero;
-    void Start() 
-    {
-        offset = new Vector3(20, 2, 0);
-    }
 
     void Update()
     {

@@ -410,40 +410,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 75340620}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a4834896bd86034eb2aacc65cb0c593, type: 3}
+  m_Script: {fileID: 11500000, guid: aeda7bfbf984f2a4da5ab4b8967b115d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_Source: {fileID: 1793788567}
-    m_TwistAxis: 2
-    m_TwistNodes:
-      m_Length: 3
-      m_Item0:
-        transform: {fileID: 1122790096}
-        weight: 1
-      m_Item1:
-        transform: {fileID: 416364538}
-        weight: 1
-      m_Item2:
-        transform: {fileID: 1866875654}
-        weight: 1
-      m_Item3:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item4:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item5:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item6:
-        transform: {fileID: 0}
-        weight: 0
-      m_Item7:
-        transform: {fileID: 0}
-        weight: 0
-  m_TwistNodesGUIToggle: 1
+    m_Root: {fileID: 1122790096}
+    m_Mid: {fileID: 416364538}
+    m_Tip: {fileID: 1866875654}
+    m_Target: {fileID: 1793788567}
+    m_Hint: {fileID: 0}
+    m_TargetPositionWeight: 1
+    m_TargetRotationWeight: 1
+    m_HintWeight: 1
+    m_MaintainTargetPositionOffset: 0
+    m_MaintainTargetRotationOffset: 0
+  m_SourceObjectsGUIToggle: 1
+  m_SettingsGUIToggle: 1
 --- !u!1001 &116424238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2575,7 +2558,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 525483909}
-  offset: {x: 25, y: 2, z: 0}
+  offset: {x: 20, y: 2, z: 0}
   smoothTime: 0.3
 --- !u!114 &844120774
 MonoBehaviour:

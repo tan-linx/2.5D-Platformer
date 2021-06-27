@@ -60,7 +60,7 @@ namespace Platformer_Assignment
                 animator.SetBool("Pull", true);
                 return;
             }
-            if (GetColliderTag() == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  //control.Moveup
+            if (control.MoveUp && GetColliderTag() == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  //control.Moveup
             {
                 animator.SetBool(hangingHash, true);
                 return;
