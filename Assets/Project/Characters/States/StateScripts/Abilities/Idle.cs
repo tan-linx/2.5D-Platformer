@@ -17,7 +17,8 @@ namespace Platformer_Assignment
             animator.SetBool(crouchHash, false);
             animator.SetBool(pushHash, false);  
             animator.SetBool(hangingHash, false);    
-            animator.SetBool(transitionHash, false);    
+            animator.SetBool(transitionHash, false);  
+            animator.SetBool(groundedHash, true);  //TODO might be false
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

@@ -818,7 +818,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 525483903}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.13, z: 12.21}
+  m_LocalPosition: {x: 0, y: 13.33, z: 12.21}
   m_LocalScale: {x: 0.5050996, y: 0.9177272, z: 0.5034743}
   m_Children:
   - {fileID: 2054373507}
@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 552990847}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 369b2b5531e730b4ab26e969ca920960, type: 3}
+  m_Script: {fileID: 11500000, guid: e12ef408d7836506d8278740fd623096, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   control: {fileID: 525483905}
@@ -3997,7 +3997,7 @@ MonoBehaviour:
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 0
-    m_MaintainTargetPositionOffset: 1
+    m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
   m_SourceObjectsGUIToggle: 1
   m_SettingsGUIToggle: 1
@@ -4156,7 +4156,7 @@ MonoBehaviour:
     m_TargetPositionWeight: 1
     m_TargetRotationWeight: 1
     m_HintWeight: 0
-    m_MaintainTargetPositionOffset: 1
+    m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
   m_SourceObjectsGUIToggle: 1
   m_SettingsGUIToggle: 1
@@ -4244,7 +4244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756087458}
   m_LocalRotation: {x: 0.07161813, y: 0.002972701, z: 0.019086283, w: 0.9972451}
-  m_LocalPosition: {x: -0.5903471, y: 15.859775, z: 21.47721}
+  m_LocalPosition: {x: 0.021, y: 16.406, z: 21.934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1548113236}
@@ -4529,13 +4529,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1793788566}
-  m_LocalRotation: {x: 0.5955507, y: 8.7814346e-11, z: 9.329128e-11, w: 0.80331767}
+  m_LocalRotation: {x: 0.4675624, y: 0.36887133, z: -0.49755776, w: 0.6306788}
   m_LocalPosition: {x: 0.08479656, y: 14.712365, z: 21.500143}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 75340621}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 73.104, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 73.104, y: 0, z: -76.542}
 --- !u!1 &1806191919
 GameObject:
   m_ObjectHideFlags: 0
@@ -4577,6 +4577,22 @@ MonoBehaviour:
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
   - m_Transform: {fileID: 2113923560}
+    m_Style:
+      shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
+  - m_Transform: {fileID: 1756087459}
+    m_Style:
+      shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
+  - m_Transform: {fileID: 2014230397}
     m_Style:
       shape: {fileID: 4300000, guid: e050c2b16fe384bd994474655a4b4968, type: 2}
       color: {r: 1, g: 0, b: 0, a: 0.5}
@@ -5633,7 +5649,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: cc4b94b62d0248237b42b25a587f6456, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Neck'\n\tTransform 'LeftFoot'\n\tTransform
+        'RightArm'\n\tTransform 'LeftHand'\n\tTransform 'LeftUpLeg'\n\tTransform
+        'RightLeg'\n\tTransform 'RightFoot'\n\tTransform 'RightHand'\n\tTransform
+        'LeftArm'\n\tTransform 'LeftLeg'\n\tand more ..."
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: cc4b94b62d0248237b42b25a587f6456, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -5706,7 +5727,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2014230397}
-  - component: {fileID: 2014230398}
   - component: {fileID: 2014230399}
   m_Layer: 0
   m_Name: RightArmMovement_target
@@ -5723,25 +5743,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2014230396}
   m_LocalRotation: {x: 0.071618125, y: -0.0029726995, z: -0.019086283, w: 0.9972451}
-  m_LocalPosition: {x: 0.5903471, y: 15.859775, z: 21.47721}
+  m_LocalPosition: {x: -0.008, y: 16.295, z: 21.926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1731528481}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2014230398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014230396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7178cbf746bd5e22d8f623afdac45308, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  control: {fileID: 525483905}
 --- !u!114 &2014230399
 MonoBehaviour:
   m_ObjectHideFlags: 0
