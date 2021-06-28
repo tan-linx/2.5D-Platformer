@@ -13,6 +13,7 @@ TagManager:
   - Walkable
   - Ladder
   - LadderDown
+  - Water
   layers:
   - Default
   - TransparentFX
