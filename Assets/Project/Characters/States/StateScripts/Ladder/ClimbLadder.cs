@@ -7,7 +7,6 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ClimbLadder")]
     public class ClimbLadder : StateData
     {
-        
         private CharacterControl control;
         private Rigidbody rb;
         
@@ -24,6 +23,7 @@ namespace Platformer_Assignment
             rb.isKinematic = true;
 
             speed = 1.5f;
+            IsClimbDown();
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -32,18 +32,22 @@ namespace Platformer_Assignment
             {
                 animator.speed = 1.5f;
                 rb.MovePosition(rb.position + Vector3.up*speed*Time.deltaTime);
+                //change this 
+                control.LedgeChecker.enabled = true;
             }
-            if (control.Crouch)
+            if (control.Crouch && !IsLadderEnd())
             {
                 animator.speed = 1.5f;
                 rb.MovePosition(rb.position + Vector3.down*speed*Time.deltaTime);
+                //disable Ledge Checker when climbing down
+                control.LedgeChecker.enabled = false;
             }
-            //Climb Ladder Idle
             if (!control.MoveUp && !control.Crouch && !control.MoveRight && !control.MoveLeft)   
             {
                 animator.speed = 0f; 
             }
-            if ((control.currentHitDirection == Vector3.forward && control.MoveLeft))
+            if ((control.currentHitDirection == Vector3.forward && control.MoveLeft)
+                || (control.currentHitDirection == Vector3.back && control.MoveRight))
             {
                 animator.speed = 1.5f;
                 OnExitFallFromLadder();
@@ -57,6 +61,8 @@ namespace Platformer_Assignment
             control.GetComponent<CapsuleCollider>().isTrigger = false;
             control.RIGID_BODY.isKinematic = false;
             //todo: might need to fix 
+            control.climbDownLadder = false;
+            control.currentHitCollider = null;
             animator.SetBool(climbHash, false); 
         }
 
@@ -74,6 +80,40 @@ namespace Platformer_Assignment
                 control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 rb.AddForce(Vector3.forward*10f);
             }
+        }
+
+        private bool IsLadderEnd() 
+        {
+            Debug.Log("Ladder is end");
+            CapsuleCollider col = control.GetComponent<CapsuleCollider>();
+            return Physics.Raycast(control.GetComponent<CapsuleCollider>().bounds.center, 
+                                    Vector3.down, col.bounds.extents.y);
+        }
+
+        //TODO:
+        private void IsClimbDown()
+        {            
+            ClimbDownGuard();
+            if (control.climbDownLadder && control.currentHitCollider.tag == "LadderDown")
+            {
+                if (control.currentHitDirection == Vector3.back)
+                {
+                    control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    control.transform.position = control.currentHitCollider.transform.GetChild(0).position; 
+                }
+                if (control.currentHitDirection == Vector3.forward)
+                {  
+                    control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    control.transform.position = control.currentHitCollider.transform.GetChild(0).position;
+                }
+            }
+            control.climbDownLadder = false; 
+        }
+
+        private void ClimbDownGuard() 
+        {
+            if (control.currentHitCollider == null || control.currentHitDirection == null)
+                Debug.Log("There is something seriously wrong here. Fix this.");
         }
     }
 }

@@ -11,6 +11,8 @@ TagManager:
   - Ledge
   - Pushable
   - Walkable
+  - Ladder
+  - LadderDown
   layers:
   - Default
   - TransparentFX

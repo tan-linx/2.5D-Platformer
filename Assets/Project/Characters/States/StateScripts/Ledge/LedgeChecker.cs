@@ -8,7 +8,7 @@ namespace Platformer_Assignment
     public class LedgeChecker : MonoBehaviour
     {
         public bool IsGrabbingLedge;
-        CharacterControl control;
+        private CharacterControl control;
 
         //pos = (0, 1.266,1.02)
         //scale = (1.97, 0.19, 0.32)

@@ -10,7 +10,7 @@ namespace Platformer_Assignment
     
         private void OnTriggerEnter(Collider other)
         {
-            if (!CollidedObjects.Contains(other.gameObject) && !IsBodyPart(other) && IsIgnoredPart(other))
+            if (!CollidedObjects.Contains(other.gameObject) && !IsBodyPart(other) && !IsIgnoredPart(other))
             {
                 CollidedObjects.Add(other.gameObject);
             }  
@@ -45,9 +45,11 @@ namespace Platformer_Assignment
             switch (col.gameObject.tag)
             {
                 case "Rope":
-                    return false;
-                default: 
                     return true;
+                case "LadderDown":
+                    return true;     
+                default: 
+                    return false;
             }
         }
     }

@@ -15,6 +15,7 @@ namespace Platformer_Assignment
         public bool MoveUp;
         private bool dead;
         public bool grabbingRope;
+        public bool climbDownLadder;
 
         //to retrieve information about latest collider which was hit by player
         public Collider currentHitCollider;    
@@ -32,6 +33,9 @@ namespace Platformer_Assignment
         void Awake()
         {
             dead = false;
+            grabbingRope = false;
+            climbDownLadder = false;
+
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
             InitializeRagdollColliders();
         }

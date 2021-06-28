@@ -31,6 +31,12 @@ namespace Platformer_Assignment
             } 
             if (control.Crouch)
             {
+                //Ladder
+                if (control.climbDownLadder) 
+                {
+                    animator.SetBool(climbHash, true);
+                    return;
+                }
                 animator.SetBool(crouchHash, true);
                 return;
             }
@@ -64,8 +70,7 @@ namespace Platformer_Assignment
             //TODO:
             if (control.MoveUp && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Ladder" 
                 || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Ladder"))
-            {
-                Debug.Log("I hit the Ladder");
+            {               
                 animator.SetBool(climbHash, true);
                 return;
             }
