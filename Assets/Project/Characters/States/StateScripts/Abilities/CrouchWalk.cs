@@ -15,12 +15,13 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            Speed = 2f;
+            Speed =  2f;    
+            
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (!control.Crouch && !CheckHead(control))
+            if (!control.Crouch)
             {
                 animator.SetBool(crouchHash, false);
                 return;

@@ -19,7 +19,13 @@ namespace Platformer_Assignment
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
             if (stateInfo.normalizedTime >= CheckTime) {
-                if (IsGrounded(control))
+                if (IsSwimming(control)) 
+                {
+                    Debug.Log("Water was hit");       
+                    animator.SetBool("Swim", true);
+                    return;
+                }
+                else if (IsGrounded(control))
                 {
                     animator.SetBool(groundedHash, true);
                     return;
@@ -69,9 +75,12 @@ namespace Platformer_Assignment
             return false; 
         }   
 
-        private bool OverWrites(Animator animator) 
+        private bool IsSwimming(CharacterControl control) 
         {
-            return animator.GetBool(hangingHash);
+            CapsuleCollider col = control.GetComponent<CapsuleCollider>();
+            RaycastHit hitInfo;
+            if (Physics.Raycast(col.bounds.center, Vector3.down, out hitInfo, 0.7f) && hitInfo.collider.tag == "WaterSurface") return true;
+            return false;
         }
     }  
 }

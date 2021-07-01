@@ -47,6 +47,8 @@ namespace Platformer_Assignment
                 case "Rope":
                     return true;
                 case "LadderDown":
+                    return true;
+                case "Water":
                     return true;     
                 default: 
                     return false;

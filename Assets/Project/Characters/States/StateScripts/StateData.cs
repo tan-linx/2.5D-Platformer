@@ -15,6 +15,7 @@ namespace Platformer_Assignment {
         protected int crashHash; 
         protected int hangingHash;
         protected int climbHash;
+        protected int swimHash;
 
         protected int verticalRayCount;
         protected float distanceMovedUp;
@@ -39,6 +40,7 @@ namespace Platformer_Assignment {
             crashHash = Animator.StringToHash("Crash");
             hangingHash = Animator.StringToHash("Hanging");
             climbHash = Animator.StringToHash("Climb");
+            swimHash = Animator.StringToHash("Swim");
             verticalRayCount = 5;
             distanceMovedUp = 0f;
         }
@@ -91,20 +93,6 @@ namespace Platformer_Assignment {
                     return false;
             }
         }
-
-        /// <summary>method <c>CheckHead</c> Checks if Collider collides with something up</summary>
-        public bool CheckHead(CharacterControl control)
-        {  
-            RaycastHit hitInfo;
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            Vector3 rayOrigin = collider.bounds.center; 
-            Vector3 dir = Vector3.up;
-            float maxRayLength = collider.bounds.extents.y;
-            //Debug.DrawRay(rayOrigin, dir, Color.green);
-            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength) && !IsRagdollPart(control, hitInfo.collider))
-                return true; 
-            return false;    
-        } 
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////The following is important for the rope swing///////////////////////////

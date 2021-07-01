@@ -37,15 +37,23 @@ public class CameraScript : MonoBehaviour
 
         if (transform.position.y < waterSurface.position.y)
         {
-            RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color(0.16f, 0.25f, 0.3f, 1f);
-            RenderSettings.fogDensity = 0.05f; //0.04
+            changeCameraUnderWater();
+            //RenderSettings.fog = true;
+            //RenderSettings.fogColor = new Color(0.16f, 0.25f, 0.3f, 1f);
+            //RenderSettings.fogDensity = 0.05f; //0.04
         }
         else
         {
+            offset = new Vector3(25, 2, 0);
+
             RenderSettings.fog = defaultFog;
             RenderSettings.fogColor = defaultFogColor;
             RenderSettings.fogDensity = defaultFogDensity;
         }
+    }
+
+    private void changeCameraUnderWater() 
+    {
+        offset = new Vector3(offset.x, 0f, offset.z);
     }
 }

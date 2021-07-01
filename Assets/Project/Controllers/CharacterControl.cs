@@ -21,6 +21,9 @@ namespace Platformer_Assignment
         public Collider currentHitCollider;    
         public Vector3 currentHitDirection;
  
+        //swimming
+        public bool isSwimming;
+
         //To add velocity when player is falling
         public float GravityMultiplier;
         public float PullMultiplier;

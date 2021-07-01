@@ -17,7 +17,7 @@ namespace Platformer_Assignment
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (!control.Crouch && !CheckHead(control))
+            if (!control.Crouch)
             {
                 animator.SetBool(crouchHash, false);
                 return;
@@ -32,5 +32,19 @@ namespace Platformer_Assignment
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
         }
+
+        /// <summary>method <c>CheckHead</c> Checks if Collider collides with something up</summary>
+        public bool CheckHead(CharacterControl control)
+        {  
+            RaycastHit hitInfo;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            Vector3 rayOrigin = collider.bounds.center; 
+            Vector3 dir = Vector3.up;
+            float maxRayLength = collider.bounds.extents.y;
+            //Debug.DrawRay(rayOrigin, dir, Color.green);
+            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength) && !IsRagdollPart(control, hitInfo.collider))
+                return true; 
+            return false;    
+        } 
     }
 }
