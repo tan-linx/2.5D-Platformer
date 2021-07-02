@@ -16,8 +16,8 @@ namespace Platformer_Assignment
                 CharacterControl control = other.GetComponentInParent<CharacterControl>();
                 control.climbDownLadder = true;    
                 // because we only have one ladder to climb down
-                if (faceLadderForward) control.currentHitDirection = Vector3.forward;
-                else control.currentHitDirection = Vector3.back;
+                if (faceLadderForward) control.currentHitDirection = HitDirection.FORWARD;
+                else control.currentHitDirection = HitDirection.BACK;
                 control.currentHitCollider = GetComponent<BoxCollider>();             
             }
         }

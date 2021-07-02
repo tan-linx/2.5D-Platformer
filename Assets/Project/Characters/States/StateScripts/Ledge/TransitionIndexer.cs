@@ -83,14 +83,14 @@ namespace Platformer_Assignment
                         }
                     }
                     break;
-                    case TransitionConditionType.JUMP:
+                    /*case TransitionConditionType.JUMP:
                     {
                         if (!control.Jump)
                         {
                             return false;
                         }
                     }
-                    break;
+                    break;*/
                     case TransitionConditionType.GRABBING_LEDGE:
                     {
                         if (!control.LedgeChecker.IsGrabbingLedge)

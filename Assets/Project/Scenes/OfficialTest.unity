@@ -266,7 +266,7 @@ MonoBehaviour:
   grabbingRope: 0
   climbDownLadder: 0
   currentHitCollider: {fileID: 0}
-  currentHitDirection: {x: 0, y: 0, z: 0}
+  currentHitDirection: 0
   GravityMultiplier: 0
   PullMultiplier: 0
   animator: {fileID: 0}
@@ -11328,7 +11328,7 @@ MonoBehaviour:
   grabbingRope: 0
   climbDownLadder: 0
   currentHitCollider: {fileID: 0}
-  currentHitDirection: {x: 0, y: 0, z: 0}
+  currentHitDirection: 0
   GravityMultiplier: 0
   PullMultiplier: 0
   animator: {fileID: 0}
@@ -11836,7 +11836,7 @@ MonoBehaviour:
   grabbingRope: 0
   climbDownLadder: 0
   currentHitCollider: {fileID: 0}
-  currentHitDirection: {x: 0, y: 0, z: 0}
+  currentHitDirection: 0
   GravityMultiplier: 0
   PullMultiplier: 0
   animator: {fileID: 732815827}

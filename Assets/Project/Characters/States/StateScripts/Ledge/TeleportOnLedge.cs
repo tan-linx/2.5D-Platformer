@@ -13,12 +13,13 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
-            endPosition = new Vector3(0, 0.43f, 0.39f*control.currentHitDirection.z);  
+            if (control.currentHitDirection == HitDirection.FORWARD)
+                endPosition = new Vector3(0, 0.43f, 0.39f);  
+            else 
+                endPosition = new Vector3(0, 0.43f, -0.39f);      
         }
 
-        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-        }
+        public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){ }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {

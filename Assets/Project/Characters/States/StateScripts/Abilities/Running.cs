@@ -83,7 +83,7 @@ namespace Platformer_Assignment
                 if (hitcol.tag == "Cover")
                 {
                     control.currentHitCollider = hitcol;
-                    control.currentHitDirection = dir;
+                    control.currentHitDirection = VectorToHitDirection(dir);
                     if (dir == Vector3.forward) animator.SetBool("CoverRight", true);
                     else animator.SetBool("CoverLeft", true);
                     return true;

@@ -10,10 +10,7 @@ namespace Platformer_Assignment
         
         [Range(0.01f, 1f)][SerializeField]
         private float TransitionTiming = 1f;
-        public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-          
-        }
+        public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {

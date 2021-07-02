@@ -32,7 +32,6 @@ namespace Platformer_Assignment
             } 
             if (control.Crouch)
             {
-                //Ladder
                 if (control.climbDownLadder) 
                 {
                     animator.SetBool(climbHash, true);
@@ -91,15 +90,12 @@ namespace Platformer_Assignment
                 {
                     switch(hit.collider.tag) 
                     {   
-                        //case "CrouchObstacle":
-                        //    animator.SetBool(crouchHash, true);
-                        //    return true;      
                         case "Pushable": //TODO: rename to Moveable                          
-                            control.currentHitDirection = dir;
+                            control.currentHitDirection = VectorToHitDirection(dir);
                             control.currentHitCollider = hit.collider;
                             break;
                         case "Ladder":
-                            control.currentHitDirection = dir;
+                            control.currentHitDirection = VectorToHitDirection(dir);
                             control.currentHitCollider = hit.collider;
                             break;    
                         default: 

@@ -75,7 +75,10 @@ namespace Platformer_Assignment
         private void Climb(float speed)
         {
             //TODO: 
-            float offsetToRope = -0.55f*control.currentHitDirection.z;
+            float offsetToRope = 0.55f;
+            if (control.currentHitDirection == HitDirection.FORWARD)
+                offsetToRope *=-1;
+
             rb.MovePosition(new Vector3(control.currentHitCollider.transform.position.x, 
                                         rb.position.y+speed*Time.deltaTime, 
                                         control.currentHitCollider.transform.position.z+offsetToRope)); 

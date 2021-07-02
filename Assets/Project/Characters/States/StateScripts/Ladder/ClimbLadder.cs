@@ -45,10 +45,10 @@ namespace Platformer_Assignment
             {
                 animator.speed = 0f; 
             }
-            if ((control.currentHitDirection == Vector3.forward && control.MoveLeft)
-                || (control.currentHitDirection == Vector3.back && control.MoveRight))
+            if ((control.currentHitDirection == HitDirection.FORWARD && control.MoveLeft)
+                || (control.currentHitDirection == HitDirection.BACK && control.MoveRight))
             {
-                animator.speed = 1.5f;
+                animator.speed = 1f;
                 OnExitFallFromLadder();
                 animator.SetBool(climbHash, false);
                 return;
@@ -69,12 +69,12 @@ namespace Platformer_Assignment
         {
             control.GetComponent<CapsuleCollider>().isTrigger = false;
             control.RIGID_BODY.isKinematic = false;
-            if (control.currentHitDirection == Vector3.forward)
+            if (control.currentHitDirection == HitDirection.FORWARD)
             {
                 control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 rb.AddForce(Vector3.back*10f);
             }
-            if (control.currentHitDirection == Vector3.back)
+            if (control.currentHitDirection == HitDirection.BACK)
             {
                 control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 rb.AddForce(Vector3.forward*10f);
@@ -94,12 +94,12 @@ namespace Platformer_Assignment
             if (control.climbDownLadder && control.currentHitCollider.tag == "LadderDown")
             {
                 Vector3 teleportBox = control.currentHitCollider.transform.GetChild(0).position;
-                if (control.currentHitDirection == Vector3.back && control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
+                if (control.currentHitDirection == HitDirection.BACK && control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
                 {
                     control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                     control.transform.position = teleportBox; 
                 }
-                if (control.currentHitDirection == Vector3.forward && control.currentHitCollider.gameObject.name == "LadderDownVolumeLeft")
+                if (control.currentHitDirection == HitDirection.FORWARD && control.currentHitCollider.gameObject.name == "LadderDownVolumeLeft")
                 {  
                     control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                     control.transform.position = teleportBox;

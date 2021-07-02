@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Platformer_Assignment {
+namespace Platformer_Assignment { 
     public abstract class StateData : ScriptableObject 
     {
         protected int jumpHash;
@@ -111,7 +111,7 @@ namespace Platformer_Assignment {
             { 
                 if (!IsRagdollPart(control, hit.collider))
                 {
-                    control.currentHitDirection = dir; //TODO:
+                    control.currentHitDirection = VectorToHitDirection(dir); //TODO:
                     control.currentHitCollider = hit.collider;
                     return hit.collider.gameObject.tag;
                 }
@@ -145,6 +145,17 @@ namespace Platformer_Assignment {
                     IsKinematicRope(child, on);
                 }
             }
+        }
+
+        protected HitDirection VectorToHitDirection(Vector3 dir)
+        {
+            if (dir == Vector3.forward)
+                return HitDirection.FORWARD;
+            else if (dir == Vector3.back)
+                return HitDirection.BACK; 
+            else 
+                return HitDirection.None;    
+
         }
     }
 }

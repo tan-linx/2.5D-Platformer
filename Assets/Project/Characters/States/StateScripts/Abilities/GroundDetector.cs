@@ -56,7 +56,6 @@ namespace Platformer_Assignment
                 float horizontalRaySpacing = col.bounds.extents.z/2;
                 for (int i=0; i<horizontalRayCount; i++) 
                 {
-                    //Debug.DrawRay(rayOrigin, Vector3.down*maxDistance, Color.green);
                     if (Physics.Raycast(rayOrigin, 
                         Vector3.down, out hitInfo, maxDistance) 
                         && !IsRagdollPart(control, hitInfo.collider)

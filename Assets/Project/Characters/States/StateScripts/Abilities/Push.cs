@@ -33,7 +33,7 @@ namespace Platformer_Assignment
         {    
             if (control.MoveRight)
             {
-                if (control.currentHitDirection.z != 1f)
+                if (control.currentHitDirection == HitDirection.BACK)
                 {
                     animator.SetBool(pushHash, false);
                     return;
@@ -44,7 +44,7 @@ namespace Platformer_Assignment
             }
             if (control.MoveLeft)
             {
-                if (control.currentHitDirection.z != -1f)
+                if (control.currentHitDirection == HitDirection.FORWARD)
                 {
                     animator.SetBool(pushHash, false);
                     return;
@@ -62,7 +62,7 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control.currentHitDirection = Vector3.zero;
+            control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
             animator.transform.localPosition = transformBeforeTeleport;//new Vector3(0f, -0.9914604f, 0.04284224f);
         }

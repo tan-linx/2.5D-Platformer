@@ -56,9 +56,9 @@ namespace Platformer_Assignment
             float directionZ = destination.position.z - source.position.z;
             Debug.Log(directionZ);
             if (directionZ >= 0)
-                control.currentHitDirection = Vector3.forward;
+                control.currentHitDirection = HitDirection.FORWARD;
             else 
-                control.currentHitDirection = Vector3.back;   
+                control.currentHitDirection = HitDirection.BACK;  
         }
     }
 }

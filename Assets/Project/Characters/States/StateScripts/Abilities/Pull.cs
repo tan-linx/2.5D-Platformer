@@ -28,7 +28,7 @@ namespace Platformer_Assignment
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {    
-            if (control.currentHitDirection.z != 1f)
+            if (control.currentHitDirection == HitDirection.BACK)
             {
                 if (control.MoveLeft)
                 {
@@ -38,7 +38,7 @@ namespace Platformer_Assignment
                 rb.MovePosition(rb.position+(Vector3.forward*Speed*Time.deltaTime));
                 pullable.transform.Translate(Vector3.forward*Speed*Time.deltaTime);
             }
-            if (control.currentHitDirection.z != -1f)
+            if (control.currentHitDirection == HitDirection.FORWARD)
             {
                 if (control.MoveRight)
                 {
@@ -57,7 +57,7 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control.currentHitDirection = Vector3.zero;
+            control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
         }
         

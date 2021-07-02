@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace Platformer_Assignment
 {
+    public enum HitDirection {
+        None,
+        FORWARD,
+        BACK,
+    }
+
     //Needed for the animator transitions
     public class CharacterControl : MonoBehaviour
     {
@@ -14,13 +20,13 @@ namespace Platformer_Assignment
         public bool Pull;
         public bool Push;
         public bool MoveUp;
-        private bool dead;
+        public bool dead;
         public bool grabbingRope;
         public bool climbDownLadder;
 
         //to retrieve information about latest collider which was hit by player
         public Collider currentHitCollider;    
-        public Vector3 currentHitDirection;
+        public HitDirection currentHitDirection;
 
         //To add velocity when player is falling
         public float GravityMultiplier;
@@ -38,7 +44,6 @@ namespace Platformer_Assignment
             climbDownLadder = false;
 
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
-            InitializeRagdollColliders();
         }
 
         void Update() 
@@ -112,12 +117,6 @@ namespace Platformer_Assignment
             set { animator = value; }
         }
 
-        public bool Dead
-        {
-            get { return dead; }
-            set { dead = value; }
-        }
-
         public List<Collider> RagdollParts
         {
             get { return ragdollParts; }
@@ -150,10 +149,10 @@ namespace Platformer_Assignment
 
         public void InitializeRagdollColliders() 
         {
-            Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
+            Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
             foreach(Collider c in colliders)
             {
-                if (c.gameObject != this.gameObject)
+                if (c.gameObject != gameObject)
                 {
                     c.isTrigger = true;
                     ragdollParts.Add(c);
@@ -165,7 +164,7 @@ namespace Platformer_Assignment
         {
             RIGID_BODY.useGravity = false;
             RIGID_BODY.velocity = Vector3.zero;
-            this.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            gameObject.GetComponent<CapsuleCollider>().enabled = false;
             animator.enabled = false;
             animator.avatar = null;
             foreach(Collider c in ragdollParts)
