@@ -59,7 +59,6 @@ namespace Platformer_Assignment
         {
             control.currentHitDirection = Vector3.zero;
             control.currentHitCollider = null;
-            Debug.Log("I left the pull state");
         }
         
         private void StateGuard() 

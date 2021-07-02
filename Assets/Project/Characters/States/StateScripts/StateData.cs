@@ -15,7 +15,9 @@ namespace Platformer_Assignment {
         protected int crashHash; 
         protected int hangingHash;
         protected int climbHash;
-        protected int swimHash;
+        protected int coverLeftHash;
+        protected int coverRightHash;
+
 
         protected int verticalRayCount;
         protected float distanceMovedUp;
@@ -40,7 +42,8 @@ namespace Platformer_Assignment {
             crashHash = Animator.StringToHash("Crash");
             hangingHash = Animator.StringToHash("Hanging");
             climbHash = Animator.StringToHash("Climb");
-            swimHash = Animator.StringToHash("Swim");
+            coverLeftHash = Animator.StringToHash("CoverLeft");
+            coverRightHash = Animator.StringToHash("CoverRight");
             verticalRayCount = 5;
             distanceMovedUp = 0f;
         }

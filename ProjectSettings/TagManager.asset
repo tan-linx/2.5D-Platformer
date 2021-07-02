@@ -15,6 +15,7 @@ TagManager:
   - LadderDown
   - Water
   - WaterSurface
+  - Cover
   layers:
   - Default
   - TransparentFX

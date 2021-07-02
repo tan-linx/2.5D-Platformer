@@ -23,6 +23,8 @@ namespace Platformer_Assignment
         {            
             if (control.MoveRight)
             {                    
+                if (CheckForCoverHit(Vector3.forward, animator))return;
+            
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 if (!CheckFront(control, Vector3.forward)) 
                 {
@@ -32,6 +34,8 @@ namespace Platformer_Assignment
             } 
             if (control.MoveLeft)
             {
+                if (CheckForCoverHit(Vector3.back, animator)) return;
+
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                 if (!CheckFront(control, Vector3.back))
                 {
@@ -68,6 +72,24 @@ namespace Platformer_Assignment
                 animator.SetBool(jumpHash, true);
             }
             return isJump;
+        }
+
+        private bool CheckForCoverHit(Vector3 dir, Animator animator) 
+        {
+            CapsuleCollider col = control.GetComponent<CapsuleCollider>();
+            Collider[] hitcolliders = Physics.OverlapBox(col.bounds.center, col.bounds.extents);
+            foreach(Collider hitcol in hitcolliders)
+            {
+                if (hitcol.tag == "Cover")
+                {
+                    control.currentHitCollider = hitcol;
+                    control.currentHitDirection = dir;
+                    if (dir == Vector3.forward) animator.SetBool("CoverRight", true);
+                    else animator.SetBool("CoverLeft", true);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
