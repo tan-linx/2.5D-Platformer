@@ -31,8 +31,7 @@ namespace Platformer_Assignment
             if (control.MoveUp)
             {
                 animator.speed = 1.5f;
-                rb.MovePosition(rb.position + Vector3.up*speed*Time.deltaTime);
-                //change this 
+                rb.MovePosition(rb.position + Vector3.up*speed*Time.deltaTime); 
                 control.LedgeChecker.enabled = true;
             }
             if (control.Crouch && !IsLadderEnd())
@@ -90,30 +89,23 @@ namespace Platformer_Assignment
                                     Vector3.down, col.bounds.extents.y);
         }
 
-        //TODO:
         private void IsClimbDown()
         {            
-            ClimbDownGuard();
             if (control.climbDownLadder && control.currentHitCollider.tag == "LadderDown")
             {
-                if (control.currentHitDirection == Vector3.back)
+                Vector3 teleportBox = control.currentHitCollider.transform.GetChild(0).position;
+                if (control.currentHitDirection == Vector3.back && control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
                 {
                     control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                    control.transform.position = control.currentHitCollider.transform.GetChild(0).position; 
+                    control.transform.position = teleportBox; 
                 }
-                if (control.currentHitDirection == Vector3.forward)
+                if (control.currentHitDirection == Vector3.forward && control.currentHitCollider.gameObject.name == "LadderDownVolumeLeft")
                 {  
                     control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                    control.transform.position = control.currentHitCollider.transform.GetChild(0).position;
+                    control.transform.position = teleportBox;
                 }
             }
             control.climbDownLadder = false; 
-        }
-
-        private void ClimbDownGuard() 
-        {
-            if (control.currentHitCollider == null || control.currentHitDirection == null)
-                Debug.Log("There is something seriously wrong here. Fix this.");
         }
     }
 }

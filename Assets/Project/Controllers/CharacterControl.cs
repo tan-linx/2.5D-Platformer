@@ -12,6 +12,7 @@ namespace Platformer_Assignment
         public bool Jump;
         public bool Crouch; 
         public bool Pull;
+        public bool Push;
         public bool MoveUp;
         private bool dead;
         public bool grabbingRope;
@@ -93,6 +94,14 @@ namespace Platformer_Assignment
             {
                 Pull = false;
             }
+            if (Input.GetKey(KeyCode.Q)) 
+            {
+                Push = true;
+            }     
+            else 
+            {
+                Push = false;
+            }
         }
 
         public LedgeChecker LedgeChecker
@@ -131,7 +140,7 @@ namespace Platformer_Assignment
 
         private void FixedUpdate()
         {   
-            /*if (RIGID_BODY.velocity.y < 0f)
+            if (RIGID_BODY.velocity.y < 0f)
             {
                 RIGID_BODY.velocity += (-Vector3.up * GravityMultiplier);
             }
@@ -139,7 +148,7 @@ namespace Platformer_Assignment
             if (RIGID_BODY.velocity.y > 0f && !Jump)
             {
                 RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
-            }*/
+            }
         }
 
         public void InitializeRagdollColliders() 

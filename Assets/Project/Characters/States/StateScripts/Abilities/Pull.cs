@@ -48,7 +48,7 @@ namespace Platformer_Assignment
                 rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
                 pullable.transform.Translate(Vector3.back*Speed*Time.deltaTime);   
             }
-            if (!control.Pull && !control.MoveLeft && !control.MoveRight) 
+            if (!control.Pull)//&& !control.MoveLeft && !control.MoveRight) 
             {
                 animator.SetBool(pullHash, false);
                 return; 
@@ -57,6 +57,8 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            control.currentHitDirection = Vector3.zero;
+            control.currentHitCollider = null;
             Debug.Log("I left the pull state");
         }
         

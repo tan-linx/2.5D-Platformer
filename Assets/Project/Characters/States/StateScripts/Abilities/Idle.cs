@@ -15,6 +15,7 @@ namespace Platformer_Assignment
             animator.SetBool(jumpHash, false);
             animator.SetBool(moveHash, false);
             animator.SetBool(crouchHash, false);
+            animator.SetBool(pullHash, false);  
             animator.SetBool(pushHash, false);  
             animator.SetBool(hangingHash, false);    
             animator.SetBool(transitionHash, false);  
@@ -42,21 +43,11 @@ namespace Platformer_Assignment
             }
             if (control.MoveRight)
             {
-                if (HandleColliderData(control, animator, Vector3.forward, 0.2f) == "Pushable")
-                {
-                    animator.SetBool(pushHash, true);
-                    return;
-                }
                 animator.SetBool(moveHash, true);
                 return; 
             } 
             if (control.MoveLeft)
             {
-                if (HandleColliderData(control, animator, Vector3.back, 0.2f) == "Pushable")
-                {
-                    animator.SetBool(pushHash, true);
-                    return;
-                }
                 animator.SetBool(moveHash, true);
                 return;
             }
@@ -64,10 +55,15 @@ namespace Platformer_Assignment
             if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.25f) == "Pushable" 
                                 || HandleColliderData(control, animator, Vector3.back, 0.25f) == "Pushable")) 
             {
-                animator.SetBool("Pull", true);
+                animator.SetBool(pullHash, true);
                 return;
             }
-            //TODO:
+            if (control.Push && (HandleColliderData(control, animator, Vector3.forward, 0.25f) == "Pushable"
+                                || HandleColliderData(control, animator, Vector3.back, 0.25f) == "Pushable"))
+            {
+                animator.SetBool(pushHash, true);
+                return;
+            }
             if (control.MoveUp && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Ladder" 
                 || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Ladder"))
             {               

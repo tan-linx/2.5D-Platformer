@@ -30,7 +30,6 @@ namespace Platformer_Assignment
         {
             control.GravityMultiplier = Gravity.Evaluate(stateInfo.normalizedTime);
             control.PullMultiplier = Pull.Evaluate(stateInfo.normalizedTime);
-    
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)

@@ -16,6 +16,7 @@ namespace Platformer_Assignment
         private CharacterControl control;
         private Rigidbody rb;
         private GameObject pushable;
+        private Vector3 transformBeforeTeleport;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
@@ -23,6 +24,7 @@ namespace Platformer_Assignment
             StateGuard();
             Speed = 1.5f;
             rb = control.RIGID_BODY;
+            transformBeforeTeleport = animator.transform.localPosition;
             animator.transform.localPosition = new Vector3(0f, -0.9914604f, -0.2f);
             pushable = control.currentHitCollider.gameObject;
         }
@@ -51,12 +53,7 @@ namespace Platformer_Assignment
                 rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
                 pushable.transform.Translate(Vector3.back*Speed*Time.deltaTime);
             }    
-            if (control.MoveRight && control.MoveLeft)
-            {
-                animator.SetBool(pushHash, false);
-                return;
-            }
-            if (!control.MoveRight && !control.MoveLeft)
+            if (!control.Push)
             {
                 animator.SetBool(pushHash, false);
                 return;
@@ -65,7 +62,9 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            animator.transform.localPosition = new Vector3(0f, -0.9914604f, 0.04284224f);
+            control.currentHitDirection = Vector3.zero;
+            control.currentHitCollider = null;
+            animator.transform.localPosition = transformBeforeTeleport;//new Vector3(0f, -0.9914604f, 0.04284224f);
         }
         
         private void StateGuard() 
