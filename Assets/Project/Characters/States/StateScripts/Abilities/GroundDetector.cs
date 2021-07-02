@@ -58,7 +58,6 @@ namespace Platformer_Assignment
                 {
                     if (Physics.Raycast(rayOrigin, 
                         Vector3.down, out hitInfo, maxDistance) 
-                        && !IsRagdollPart(control, hitInfo.collider)
                         && IsIgnoredPart(hitInfo.collider)) 
                     {
                         return true;

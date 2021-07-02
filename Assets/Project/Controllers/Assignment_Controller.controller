@@ -325,6 +325,20 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-8785315394661894716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 958b3617dfe556aee99e3b649ab9978f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListAbilityData:
+  - {fileID: 11400000, guid: 46206712cc4fe71e1a485847b50cfb10, type: 2}
 --- !u!114 &-8743930603822364469
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3412,8 +3426,10 @@ AnimatorState:
   m_Name: Standing React Death Right
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
+  m_Transitions:
+  - {fileID: 2636314731184910903}
+  m_StateMachineBehaviours:
+  - {fileID: -8785315394661894716}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -4261,6 +4277,28 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.9044586
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1101 &2636314731184910903
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions: []
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.92857146
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -5256,7 +5294,7 @@ AnimatorStateMachine:
     m_Position: {x: 450, y: -200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4679737449373640182}
-    m_Position: {x: -270, y: -150, z: 0}
+    m_Position: {x: -50, y: -190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3817573995612627986}
     m_Position: {x: 280, y: -180, z: 0}
@@ -5265,7 +5303,7 @@ AnimatorStateMachine:
     m_Position: {x: -890, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2579793246069110536}
-    m_Position: {x: -680, y: -90, z: 0}
+    m_Position: {x: -570, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -504634898586287504}
     m_Position: {x: 190, y: -620, z: 0}
@@ -5310,7 +5348,7 @@ AnimatorStateMachine:
     m_Position: {x: -480, y: -780, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 38751268801974488}
-    m_Position: {x: -890, y: 170, z: 0}
+    m_Position: {x: -1110, y: 160, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -6194,6 +6232,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Crash
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Dead
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7698703539385024530}

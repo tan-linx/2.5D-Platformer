@@ -18,7 +18,6 @@ namespace Platformer_Assignment
             if (IsFallToDeath(9)) 
             {
                 Debug.Log("Fall to Death");
-                control.dead = true;
                 animator.SetBool("Dead", true);
             }
             else {
@@ -43,8 +42,7 @@ namespace Platformer_Assignment
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();        
             Vector3 dir = Vector3.down*height;
             Vector3 rayOrigin = collider.bounds.center;
-            Debug.DrawRay(rayOrigin, dir*height);
-            if (Physics.Raycast(rayOrigin, dir, out hitInfo, height) && !IsRagdollPart(control, hitInfo.collider)) 
+            if (Physics.Raycast(rayOrigin, dir, out hitInfo, height)) 
             {
                 return false; 
             } 

@@ -33,10 +33,6 @@ namespace Platformer_Assignment
             {
                 return true;
             }
-            /*if (control.RagdollParts.Contains(col))
-            {
-                return true;
-            }*/
             return false;
         }
 

@@ -62,25 +62,12 @@ namespace Platformer_Assignment {
             {  
                 //Debug.DrawRay(rayOrigin, dir*maxRayLength, Color.green);                
                 if (Physics.Raycast(rayOrigin, dir, out hit, maxRayLength) 
-                    && !IsRagdollPart(control, hit.collider)
                     && !IsIgnoredPart(hit.collider)) 
                 { 
                     return true;
                 }
                 rayOrigin += Vector3.down*verticalRaySpacing;    
             }  
-            return false;
-        }
-
-        protected bool IsRagdollPart(CharacterControl control, Collider col)
-        {
-            foreach(Collider c in control.RagdollParts)
-            {
-                if (c.gameObject == col.gameObject)
-                {
-                    return true; 
-                }
-            }
             return false;
         }
 
@@ -109,12 +96,10 @@ namespace Platformer_Assignment {
             if (Physics.SphereCast(collider.bounds.center+Vector3.up*(collider.bounds.extents.y), 
             collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
             { 
-                if (!IsRagdollPart(control, hit.collider))
-                {
-                    control.currentHitDirection = VectorToHitDirection(dir); //TODO:
-                    control.currentHitCollider = hit.collider;
-                    return hit.collider.gameObject.tag;
-                }
+                
+                control.currentHitDirection = VectorToHitDirection(dir); //TODO:
+                control.currentHitCollider = hit.collider;
+                return hit.collider.gameObject.tag;
             }
             return "";
         }

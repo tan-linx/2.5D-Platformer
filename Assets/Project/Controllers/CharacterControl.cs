@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Platformer_Assignment
 {
@@ -35,19 +36,22 @@ namespace Platformer_Assignment
         [SerializeField]
         private Animator animator;
         private LedgeChecker ledgeChecker;
-        private List<Collider> ragdollParts = new List<Collider>();
 
         void Awake()
         {
             dead = false;
             grabbingRope = false;
             climbDownLadder = false;
-
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
         }
 
         void Update() 
         {
+            if (dead)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
+
             if (Input.GetKey(KeyCode.D)) 
             {
                 MoveRight = true;
@@ -117,11 +121,6 @@ namespace Platformer_Assignment
             set { animator = value; }
         }
 
-        public List<Collider> RagdollParts
-        {
-            get { return ragdollParts; }
-        }
-
         public Rigidbody RIGID_BODY
         {
             get
@@ -134,7 +133,7 @@ namespace Platformer_Assignment
             }
         }
 
-        private void FixedUpdate()
+        /*private void FixedUpdate()
         {   
             if (RIGID_BODY.velocity.y < 0f)
             {
@@ -145,33 +144,6 @@ namespace Platformer_Assignment
             {
                 RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
             }
-        }
-
-        public void InitializeRagdollColliders() 
-        {
-            Collider[] colliders = gameObject.GetComponentsInChildren<Collider>();
-            foreach(Collider c in colliders)
-            {
-                if (c.gameObject != gameObject)
-                {
-                    c.isTrigger = true;
-                    ragdollParts.Add(c);
-                }
-            }
-        }
-
-        public void TurnOnRagdoll()
-        {
-            RIGID_BODY.useGravity = false;
-            RIGID_BODY.velocity = Vector3.zero;
-            gameObject.GetComponent<CapsuleCollider>().enabled = false;
-            animator.enabled = false;
-            animator.avatar = null;
-            foreach(Collider c in ragdollParts)
-            {
-                c.isTrigger = false;
-                c.attachedRigidbody.velocity = Vector3.zero;
-            }
-        }
+        }*/
     }
 }

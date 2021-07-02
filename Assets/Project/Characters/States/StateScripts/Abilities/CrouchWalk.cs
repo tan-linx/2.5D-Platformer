@@ -67,7 +67,7 @@ namespace Platformer_Assignment
             RaycastHit hitInfo;
             float maxRayLength = collider.bounds.extents.y;
             //Debug.DrawRay(rayOrigin, dir, Color.green);
-            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength) && !IsRagdollPart(control, hitInfo.collider))
+            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength))
                 return true; 
             return false;    
         } 

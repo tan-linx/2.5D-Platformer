@@ -13,7 +13,6 @@ namespace Platformer_Assignment {
 
         void Start()
         {
-           // transform.Translate(Vector3.forward*0.5f);
         }
 
         void Update()
@@ -27,7 +26,6 @@ namespace Platformer_Assignment {
                 else dir = Vector3.forward;
                 transform.position = transform.position+dir*Time.deltaTime;
             }
-            //transform.Translate(Vector3.up*0.1f);
         }
     }
 }   

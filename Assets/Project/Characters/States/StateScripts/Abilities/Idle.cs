@@ -86,23 +86,20 @@ namespace Platformer_Assignment
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
             if (Physics.Raycast(collider.bounds.center, dir, out hit, collider.bounds.extents.z+offset)) 
             {
-                if (!IsRagdollPart(control, hit.collider))
-                {
-                    switch(hit.collider.tag) 
-                    {   
-                        case "Pushable": //TODO: rename to Moveable                          
-                            control.currentHitDirection = VectorToHitDirection(dir);
-                            control.currentHitCollider = hit.collider;
-                            break;
-                        case "Ladder":
-                            control.currentHitDirection = VectorToHitDirection(dir);
-                            control.currentHitCollider = hit.collider;
-                            break;    
-                        default: 
-                            return "";    
-                    }
-                    return hit.collider.tag;
+                switch(hit.collider.tag) 
+                {   
+                    case "Pushable": //TODO: rename to Moveable                          
+                        control.currentHitDirection = VectorToHitDirection(dir);
+                        control.currentHitCollider = hit.collider;
+                        break;
+                    case "Ladder":
+                        control.currentHitDirection = VectorToHitDirection(dir);
+                        control.currentHitCollider = hit.collider;
+                        break;    
+                    default: 
+                        return "";    
                 }
+                return hit.collider.tag;
             }  
             return "";
         }

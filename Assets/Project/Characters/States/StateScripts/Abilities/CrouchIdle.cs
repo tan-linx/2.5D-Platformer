@@ -35,7 +35,7 @@ namespace Platformer_Assignment
             Vector3 rayOrigin = collider.bounds.center; 
             Vector3 dir = Vector3.up;
             float maxRayLength = collider.bounds.extents.y;
-            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength) && !IsRagdollPart(control, hitInfo.collider))
+            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength))
                 return true; 
             return false;    
         } 
