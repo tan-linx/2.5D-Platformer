@@ -79,6 +79,8 @@ namespace Platformer_Assignment {
                     return true;
                 case "LadderDown":
                     return true;
+                case "Ledge":
+                    return true;     
                 default: 
                     return false;
             }
@@ -89,7 +91,7 @@ namespace Platformer_Assignment {
         ////////////////////////////////////////////////////////////////////////////////////////////////////
 
         /// <summary>method <c>Check Collider is in Front </c>  Especially to Check e.g. for Rope. </summary>
-        protected string GetColliderTag(CharacterControl control, Vector3 dir) 
+        protected bool IsRopeCollider(CharacterControl control, Vector3 dir) 
         {
             RaycastHit hit;
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
@@ -97,11 +99,14 @@ namespace Platformer_Assignment {
             collider.bounds.extents.z, dir, out hit, collider.bounds.extents.z))
             { 
                 
-                control.currentHitDirection = VectorToHitDirection(dir); //TODO:
-                control.currentHitCollider = hit.collider;
-                return hit.collider.gameObject.tag;
+                if (hit.collider.tag == "Rope")
+                {
+                    control.currentHitDirection = VectorToHitDirection(dir); //TODO:
+                    control.currentHitCollider = hit.collider;
+                    return true;
+                }
             }
-            return "";
+            return false;
         }
 
         /// <summary>method <c>SetTriggerRopeColliders</c> Sets the Trigger of an Object and all his children

@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 namespace Platformer_Assignment
 {
-    public enum HitDirection {
+    public enum HitDirection 
+    {
         None,
         FORWARD,
         BACK,
@@ -29,7 +30,7 @@ namespace Platformer_Assignment
         public Collider currentHitCollider;    
         public HitDirection currentHitDirection;
 
-        //To add velocity when player is falling
+        //to add velocity when player is falling
         public float GravityMultiplier;
         public float PullMultiplier;
         private Rigidbody rigid;
@@ -37,19 +38,27 @@ namespace Platformer_Assignment
         private Animator animator;
         private LedgeChecker ledgeChecker;
 
+        //For stairs handling
+        [SerializeField] GameObject stepRayUpper;
+        [SerializeField] GameObject stepRayLower;
+        [SerializeField] float stepHeight = 0.3f;
+        [SerializeField] float stepSmooth = 2f;
+
         void Awake()
         {
             dead = false;
             grabbingRope = false;
             climbDownLadder = false;
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
+            stepRayUpper.transform.position 
+                = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
         }
 
         void Update() 
         {
             if (dead)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
             }
 
             if (Input.GetKey(KeyCode.D)) 
@@ -109,7 +118,37 @@ namespace Platformer_Assignment
                 Push = false;
             }
         }
+   
+        private void FixedUpdate()
+        {   
+            if (RIGID_BODY.velocity.y < 0f)
+            {
+                RIGID_BODY.velocity += (-Vector3.up * GravityMultiplier);
+            }
 
+            if (RIGID_BODY.velocity.y > 0f && !Jump)
+            {
+                RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
+            }
+        }
+
+        // based on this tutorial: https://www.youtube.com/watch?v=DrFk5Q_IwG0
+        // https://github.com/DawnsCrowGames/Unity-Rigidbody_Step_Up_Stairs_Tutorial/blob/main/StairClimb.cs
+        public void stepClimb(Vector3 dir)
+        {                
+            RaycastHit hit; 
+            if (Physics.Raycast(stepRayLower.transform.position, dir, out hit, 0.1f) 
+            && hit.collider.tag != "Player")
+            {
+                if (!Physics.Raycast(stepRayUpper.transform.position, dir, 0.2f) && hit.collider.tag != "Player")
+                {
+                    Debug.Log("Hit something");
+                    RIGID_BODY.position -= new Vector3(0f, -stepSmooth*Time.deltaTime, 0f);
+                }
+            }
+        }
+        
+        //getters and setters
         public LedgeChecker LedgeChecker
         {
             get { return ledgeChecker; }
@@ -132,18 +171,5 @@ namespace Platformer_Assignment
                 return rigid;
             }
         }
-
-        /*private void FixedUpdate()
-        {   
-            if (RIGID_BODY.velocity.y < 0f)
-            {
-                RIGID_BODY.velocity += (-Vector3.up * GravityMultiplier);
-            }
-
-            if (RIGID_BODY.velocity.y > 0f && !Jump)
-            {
-                RIGID_BODY.velocity += (-Vector3.up * PullMultiplier);
-            }
-        }*/
     }
 }

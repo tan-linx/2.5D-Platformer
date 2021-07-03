@@ -69,7 +69,7 @@ namespace Platformer_Assignment
                 animator.SetBool(climbHash, true);
                 return;
             }
-            if (control.MoveUp && GetColliderTag(control, Vector3.forward) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  
+            if (control.MoveUp && IsRopeCollider(control, Vector3.forward) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f)  
             {
                 animator.SetBool(hangingHash, true);
                 return;

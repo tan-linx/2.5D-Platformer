@@ -21,6 +21,7 @@ namespace Platformer_Assignment
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
         }
+        
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             if (control.MoveRight && control.MoveLeft)
@@ -33,27 +34,35 @@ namespace Platformer_Assignment
                 animator.SetBool(moveHash, false);
                 return;
             }
-            if (control.MoveRight && !CheckFront(control, Vector3.forward))
+            if (control.MoveRight)
             {
-                if (GetColliderTag(control, Vector3.forward) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                control.stepClimb(Vector3.forward); 
+                if (!CheckFront(control, Vector3.forward)) 
                 {
-                    animator.SetBool("Hanging", true);
-                    return;
+                    if (IsRopeCollider(control, Vector3.forward) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                    {
+                        animator.SetBool("Hanging", true);
+                        return;
+                    }   
+                    control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    rb.MovePosition(rb.position+(Vector3.forward*Speed*
+                       SpeedGraph.Evaluate(stateInfo.normalizedTime) *Time.deltaTime));
                 }   
-                control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                rb.MovePosition(rb.position+(Vector3.forward*Speed*
-                   SpeedGraph.Evaluate(stateInfo.normalizedTime) *Time.deltaTime));
             }
-            if (control.MoveLeft && !CheckFront(control, Vector3.back))
+            if (control.MoveLeft)
             {
-                if (GetColliderTag(control, Vector3.back) == "Rope" && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                control.stepClimb(Vector3.back);
+                if (!CheckFront(control, Vector3.back))
                 {
-                    animator.SetBool("Hanging", true);
-                    return;
-                }  
-                control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                rb.MovePosition(rb.position+(Vector3.back*Speed*
-                    SpeedGraph.Evaluate(stateInfo.normalizedTime)*Time.deltaTime));
+                    if (IsRopeCollider(control, Vector3.back) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
+                    {
+                        animator.SetBool("Hanging", true);
+                        return;
+                    }  
+                    control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    rb.MovePosition(rb.position+(Vector3.back*Speed*
+                        SpeedGraph.Evaluate(stateInfo.normalizedTime)*Time.deltaTime));
+                }
             }
         }
 

@@ -7,11 +7,9 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Jump")]
     public class Jump : StateData
     {
-        private CharacterControl control;
-        private Rigidbody rb;
-        
+        private CharacterControl control;        
         [SerializeField]
-        private float JumpForce = 200f;
+        private float JumpForce = 250f;
         [SerializeField]
         private AnimationCurve Gravity;
         [SerializeField]
@@ -20,7 +18,6 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control =  characterState.GetCharacterControl(animator);
-            Rigidbody rb = control.RIGID_BODY;
             control.RIGID_BODY.AddForce(Vector3.up * JumpForce);
             animator.SetBool(groundedHash, false); 
         }

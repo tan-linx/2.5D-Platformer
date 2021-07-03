@@ -17,8 +17,8 @@ namespace Platformer_Assignment
                 animator.SetBool(crouchHash, false);
                 return;
             }   
-            if ((control.MoveLeft && !CheckFront(control, Vector3.back))||
-                (control.MoveRight && !CheckFront(control, Vector3.forward)))
+            if ((control.MoveLeft && !CrouchCheckFront(control, Vector3.back))||
+                (control.MoveRight && !CrouchCheckFront(control, Vector3.forward)))
             {
                 animator.SetBool(moveHash, true);
                 return;
@@ -40,9 +40,9 @@ namespace Platformer_Assignment
             return false;    
         } 
 
-         /// <summary>method <c>CheckFront</c> Overrides CheckFront from inherited Class because 
-        /// it is different here.</summary>
-        new private bool CheckFront(CharacterControl control, Vector3 dir)
+        ///<summary>method <c>CheckFront</c> Overrides CheckFront from inherited Class because 
+        ///it is different here.</summary>
+        private bool CrouchCheckFront(CharacterControl control, Vector3 dir)
         {
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
             float maxRayLength = collider.bounds.size.z;

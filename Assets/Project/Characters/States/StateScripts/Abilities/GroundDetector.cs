@@ -7,18 +7,18 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/GroundDetector")]
     public class GroundDetector : StateData
     {
-        [SerializeField]
-        private float CheckTime;
+        //to delay the groundCheck so it doesnt transition to fall animation in small fall heights
+        private float delayTime;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            CheckTime = 0.2f;
+            delayTime = 1f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
         {
             CharacterControl control = characterState.GetCharacterControl(animator);
-            if (stateInfo.normalizedTime >= CheckTime) 
+            if (stateInfo.normalizedTime >= delayTime) 
             {
                 if (IsGrounded(control))
                 {
@@ -40,7 +40,7 @@ namespace Platformer_Assignment
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
-            float offset = 0.02f; 
+            float offset = 0.02f;  //TODO:
             float maxDistance = col.bounds.extents.y+offset;
             RaycastHit hitInfo;
 
@@ -58,7 +58,7 @@ namespace Platformer_Assignment
                 {
                     if (Physics.Raycast(rayOrigin, 
                         Vector3.down, out hitInfo, maxDistance) 
-                        && IsIgnoredPart(hitInfo.collider)) 
+                        && !IsIgnoredPart(hitInfo.collider)) 
                     {
                         return true;
                     }

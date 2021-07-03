@@ -30,8 +30,8 @@ namespace Platformer_Assignment
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
                 if (!CheckFront(control, Vector3.forward))
                 {
+                    Debug.Log("nothing in front");
                     rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
-
                 }
             } 
             if (control.MoveLeft)
