@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 304624a0f2e60c976b3bde85473b994e, type: 3}
   m_Name: TransitionIndexer_HangToCrouch
   m_EditorClassIdentifier: 
-  Index: 1
+  index: 1
   transitionConditions: 00000000

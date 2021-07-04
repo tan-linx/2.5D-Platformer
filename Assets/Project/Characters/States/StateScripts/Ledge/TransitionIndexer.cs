@@ -19,10 +19,8 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/TransitionIndexer")]
     public class TransitionIndexer:StateData
     {  
-        [SerializeField]
-        private int Index;
-        [SerializeField]
-        private List<TransitionConditionType> transitionConditions = new List<TransitionConditionType>(); 
+        [SerializeField] private int index;
+        [SerializeField] private List<TransitionConditionType> transitionConditions = new List<TransitionConditionType>(); 
         
         private int transitionIndexerHash;
         private CharacterControl control;
@@ -33,14 +31,14 @@ namespace Platformer_Assignment
             transitionIndexerHash = Animator.StringToHash("TransitionIndex");
             if (DoTransition()) 
             {
-                animator.SetInteger(transitionIndexerHash, Index);
+                animator.SetInteger(transitionIndexerHash, index);
             }
         }
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {    
             if (DoTransition())
             {
-                animator.SetInteger(transitionIndexerHash, Index);
+                animator.SetInteger(transitionIndexerHash, index);
             }
             else
             {
@@ -75,22 +73,6 @@ namespace Platformer_Assignment
                         }
                     }
                     break;
-                    case TransitionConditionType.DOWN:
-                    {
-                        if (!control.Crouch)
-                        {
-                            return false;
-                        }
-                    }
-                    break;
-                    /*case TransitionConditionType.JUMP:
-                    {
-                        if (!control.Jump)
-                        {
-                            return false;
-                        }
-                    }
-                    break;*/
                     case TransitionConditionType.GRABBING_LEDGE:
                     {
                         if (!control.LedgeChecker.IsGrabbingLedge)

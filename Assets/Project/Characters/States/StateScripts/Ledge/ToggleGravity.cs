@@ -8,19 +8,16 @@ namespace Platformer_Assignment
     public class ToggleGravity:StateData
     {  
         
-        [SerializeField]
-        public bool Enabled;
-        [SerializeField]
-        public bool OnStart;
-        [SerializeField]
-        public bool OnEnd;
+        [SerializeField] public bool enabled;
+        [SerializeField] public bool onStart;
+        [SerializeField] public bool onEnd;
         
         private CharacterControl control;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
-            if (OnStart)
+            if (onStart)
             {
                 ToggleGrav();
             }
@@ -30,7 +27,7 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (OnEnd)
+            if (onEnd)
             {
                 ToggleGrav();
             }
@@ -39,7 +36,7 @@ namespace Platformer_Assignment
         private void ToggleGrav() 
         {
             control.RIGID_BODY.velocity = Vector3.zero;
-            control.RIGID_BODY.useGravity = Enabled;
+            control.RIGID_BODY.useGravity = enabled;
         }
     }
 }

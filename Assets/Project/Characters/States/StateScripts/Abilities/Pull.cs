@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Pull")]
@@ -10,8 +11,7 @@ namespace Platformer_Assignment
     /// <summary>Class <c>Pull</c> To pull an Object. ///</summary>
     public class Pull : StateData
     {
-        [SerializeField]
-        private float Speed;
+        [SerializeField] private float speed;
 
         private CharacterControl control;
         private Rigidbody rb;
@@ -21,7 +21,7 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             StateGuard();
-            Speed = 1.5f;
+            speed = 1.5f;
             rb = control.RIGID_BODY;
             pullable = control.currentHitCollider.gameObject;
         }
@@ -35,8 +35,8 @@ namespace Platformer_Assignment
                     animator.SetBool(pullHash, false);
                     return;
                 }
-                rb.MovePosition(rb.position+(Vector3.forward*Speed*Time.deltaTime));
-                pullable.transform.Translate(Vector3.forward*Speed*Time.deltaTime);
+                rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
+                pullable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
             }
             if (control.currentHitDirection == HitDirection.FORWARD)
             {
@@ -45,10 +45,10 @@ namespace Platformer_Assignment
                     animator.SetBool(pullHash, false);
                     return;
                 }
-                rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
-                pullable.transform.Translate(Vector3.back*Speed*Time.deltaTime);   
+                rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
+                pullable.transform.Translate(Vector3.back*speed*Time.deltaTime);   
             }
-            if (!control.Pull)//&& !control.MoveLeft && !control.MoveRight) 
+            if (!control.Pull)
             {
                 animator.SetBool(pullHash, false);
                 return; 

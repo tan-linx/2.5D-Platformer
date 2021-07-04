@@ -24,7 +24,6 @@ namespace Platformer_Assignment
             }
     
         }
-
         private bool IsBodyPart(Collider col)
         {
             CharacterControl control = GetComponentInParent<CharacterControl>();

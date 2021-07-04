@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+// based on https://www.youtube.com/watch?v=z8gLOWpLYak&list=PLWYGofN_jX5BupV2xLjU1HUvujl_yDIN6&index=53
+// modfied: CalculateDirection to find out in which direction a ledge was hit, 
+// so the animation offset and teleportion suits the character control
 namespace Platformer_Assignment
 {
     public class LedgeChecker : MonoBehaviour
@@ -15,8 +17,7 @@ namespace Platformer_Assignment
         private LedgeCollider lowerCollider;
 
         //pos = (0, 1.47,1.02)
-        [SerializeField]
-        private LedgeCollider upperCollider;
+        [SerializeField] private LedgeCollider upperCollider;
 
         private void Start() 
         {

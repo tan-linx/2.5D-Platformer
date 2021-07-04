@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     public class ClimbLadderDown : MonoBehaviour
@@ -14,7 +15,7 @@ namespace Platformer_Assignment
             if (other.tag == "Player") 
             {
                 CharacterControl control = other.GetComponentInParent<CharacterControl>();
-                control.climbDownLadder = true;    
+                control.IsClimbDownLadder = true;    
                 // because we only have one ladder to climb down
                 if (faceLadderForward) control.currentHitDirection = HitDirection.FORWARD;
                 else control.currentHitDirection = HitDirection.BACK;

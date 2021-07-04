@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/CrouchWalk")]
     public class CrouchWalk: StateData
     {
-        private float Speed;
+        private float speed;
         private CharacterControl control;
         private Rigidbody rb;
 
@@ -15,7 +16,7 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            Speed =  2f;    
+            speed =  2f;    
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -31,7 +32,7 @@ namespace Platformer_Assignment
                 if (!CheckFront(control, Vector3.forward))
                 {
                     Debug.Log("nothing in front");
-                    rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
+                    rb.MovePosition(control.transform.position+Vector3.forward*speed*Time.deltaTime);
                 }
             } 
             if (control.MoveLeft)
@@ -39,7 +40,7 @@ namespace Platformer_Assignment
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);
                 if (!CheckFront(control, Vector3.back))
                 {
-                    rb.MovePosition(rb.position+(-Vector3.forward*Speed*Time.deltaTime));
+                    rb.MovePosition(rb.position+(-Vector3.forward*speed*Time.deltaTime));
                 }     
             }
             if (control.MoveRight && control.MoveLeft)

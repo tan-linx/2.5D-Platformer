@@ -8,6 +8,7 @@ namespace Platformer_Assignment
     public class Idle : StateData
     {
         private CharacterControl control; 
+
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
@@ -19,8 +20,8 @@ namespace Platformer_Assignment
             animator.SetBool(pushHash, false);  
             animator.SetBool(hangingHash, false);    
             animator.SetBool(transitionHash, false);  
-            animator.SetBool(groundedHash, true);  //TODO might be false
             animator.SetBool(climbHash, false);
+            animator.SetBool(fallingHash, false);
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -32,7 +33,7 @@ namespace Platformer_Assignment
             } 
             if (control.Crouch)
             {
-                if (control.climbDownLadder) 
+                if (control.IsClimbDownLadder)
                 {
                     animator.SetBool(climbHash, true);
                     return;

@@ -7,7 +7,7 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Running")]
     public class Running : StateData
     {
-        private float Speed;
+        private float speed;
         private CharacterControl control;
         private Rigidbody rb;
 
@@ -16,7 +16,7 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            Speed = 7f;
+            speed = 7f;
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -29,7 +29,7 @@ namespace Platformer_Assignment
                 if (!CheckFront(control, Vector3.forward)) 
                 {
                     if(IsJump(animator)) return;
-                    rb.MovePosition(control.transform.position+Vector3.forward*Speed*Time.deltaTime);
+                    rb.MovePosition(control.transform.position+Vector3.forward*speed*Time.deltaTime);
                 }
             } 
             if (control.MoveLeft)
@@ -40,7 +40,7 @@ namespace Platformer_Assignment
                 if (!CheckFront(control, Vector3.back))
                 {
                     if(IsJump(animator)) return;
-                    rb.MovePosition(rb.position+ (-Vector3.forward*Speed*Time.deltaTime));
+                    rb.MovePosition(rb.position+ (-Vector3.forward*speed*Time.deltaTime));
                 }     
             }
             if (control.Crouch) 

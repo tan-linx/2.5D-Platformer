@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     public enum HitDirection 
@@ -15,6 +16,8 @@ namespace Platformer_Assignment
     //Needed for the animator transitions
     public class CharacterControl : MonoBehaviour
     {
+        [SerializeField] private Transform spawn;
+
         public bool MoveRight;
         public bool MoveLeft;
         public bool Jump;
@@ -22,9 +25,13 @@ namespace Platformer_Assignment
         public bool Pull;
         public bool Push;
         public bool MoveUp;
-        public bool dead;
-        public bool grabbingRope;
-        public bool climbDownLadder;
+        public bool Dead;
+
+        public bool IsGrabbingRope;
+        public bool IsClimbDownLadder;
+        public bool IsClimbingStep;
+
+        public float distanceFallen;
 
         //to retrieve information about latest collider which was hit by player
         public Collider currentHitCollider;    
@@ -33,22 +40,25 @@ namespace Platformer_Assignment
         //to add velocity when player is falling
         public float GravityMultiplier;
         public float PullMultiplier;
+
         private Rigidbody rigid;
-        [SerializeField]
-        private Animator animator;
+        [SerializeField] private Animator animator;
         private LedgeChecker ledgeChecker;
 
         //For stairs handling
-        [SerializeField] GameObject stepRayUpper;
-        [SerializeField] GameObject stepRayLower;
-        [SerializeField] float stepHeight = 0.3f;
-        [SerializeField] float stepSmooth = 2f;
+        [SerializeField] private GameObject stepRayUpper;
+        [SerializeField] private GameObject stepRayLower;
+        [SerializeField] private float stepHeight = 0.3f;
+        [SerializeField] private float stepSmooth = 2f;
 
         void Awake()
         {
-            dead = false;
-            grabbingRope = false;
-            climbDownLadder = false;
+            //transform.position = spawn.position;
+            IsClimbingStep = false;
+            Dead = false;
+            IsGrabbingRope = false;
+            IsClimbDownLadder = false;
+            distanceFallen = 0f;
             ledgeChecker = GetComponentInChildren<LedgeChecker>();
             stepRayUpper.transform.position 
                 = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
@@ -56,7 +66,7 @@ namespace Platformer_Assignment
 
         void Update() 
         {
-            if (dead)
+            if (Dead)
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
             }
@@ -132,10 +142,11 @@ namespace Platformer_Assignment
             }
         }
 
-        // based on this tutorial: https://www.youtube.com/watch?v=DrFk5Q_IwG0
+        // based on this tutorial but modified https://www.youtube.com/watch?v=DrFk5Q_IwG0
         // https://github.com/DawnsCrowGames/Unity-Rigidbody_Step_Up_Stairs_Tutorial/blob/main/StairClimb.cs
         public void stepClimb(Vector3 dir)
         {                
+            IsClimbingStep = true;
             RaycastHit hit; 
             if (Physics.Raycast(stepRayLower.transform.position, dir, out hit, 0.1f) 
             && hit.collider.tag != "Player")
@@ -146,6 +157,7 @@ namespace Platformer_Assignment
                     RIGID_BODY.position -= new Vector3(0f, -stepSmooth*Time.deltaTime, 0f);
                 }
             }
+            IsClimbingStep = false;
         }
         
         //getters and setters

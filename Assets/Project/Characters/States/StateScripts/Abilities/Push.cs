@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Push")]
@@ -10,8 +11,7 @@ namespace Platformer_Assignment
     /// <summary>Class <c>Push</c> Pushes an object forward. ///</summary>
     public class Push : StateData
     {
-        [SerializeField]
-        private float Speed;
+        [SerializeField] private float speed;
 
         private CharacterControl control;
         private Rigidbody rb;
@@ -22,7 +22,7 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             StateGuard();
-            Speed = 1.5f;
+            speed = 1.5f;
             rb = control.RIGID_BODY;
             transformBeforeTeleport = animator.transform.localPosition;
             animator.transform.localPosition = new Vector3(0f, -0.9914604f, -0.2f);
@@ -39,8 +39,8 @@ namespace Platformer_Assignment
                     return;
                 }
                 control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                rb.MovePosition(rb.position+(Vector3.forward*Speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.forward*Speed*Time.deltaTime);
+                rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
+                pushable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
             }
             if (control.MoveLeft)
             {
@@ -50,8 +50,8 @@ namespace Platformer_Assignment
                     return;
                 }
                 control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                rb.MovePosition(rb.position+(Vector3.back*Speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.back*Speed*Time.deltaTime);
+                rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
+                pushable.transform.Translate(Vector3.back*speed*Time.deltaTime);
             }    
             if (!control.Push)
             {

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d96494cb96d661b0a19597b8c7a5abe, type: 3}
   m_Name: Ledgegrab_ToggleCollider_Off
   m_EditorClassIdentifier: 
-  On: 0
-  OnStart: 1
-  OnEnd: 0
+  on: 0
+  onStart: 1
+  onEnd: 0

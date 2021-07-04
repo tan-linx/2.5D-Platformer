@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c04d7121426bd3095875bd11b7a660, type: 3}
   m_Name: Falling
   m_EditorClassIdentifier: 
+  DelayTime: 0

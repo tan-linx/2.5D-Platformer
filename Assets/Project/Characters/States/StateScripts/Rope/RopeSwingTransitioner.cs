@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     /// <summary>Class <c>HangingTransitioner</c> This class prepares the Player for the Hanging on Rope.</summary>
@@ -10,13 +11,12 @@ namespace Platformer_Assignment
     {
         private CharacterControl control;
         
-        [SerializeField]
-        private Vector3 offset;
+        [SerializeField] private Vector3 offset;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {          
             control = characterState.GetCharacterControl(animator);
-            control.grabbingRope = true;
+            control.IsGrabbingRope = true;
             SetUpJoint();
             control.transform.Translate(offset);
             control.transform.SetParent(control.currentHitCollider.transform);

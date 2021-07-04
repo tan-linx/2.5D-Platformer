@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b6560546e1be3bfa9908abcba07024, type: 3}
   m_Name: Ledgegrab_ToggleGravity_Off
   m_EditorClassIdentifier: 
-  On: 0
-  OnStart: 1
-  OnEnd: 0
+  enabled: 0
+  onStart: 1
+  onEnd: 0

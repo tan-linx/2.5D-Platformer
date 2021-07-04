@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// based on https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO
+// https://www.youtube.com/watch?v=tjV7E9WITKQ&list=PLWYGofN_jX5BupV2xLjU1HUvujl_yDIN6&index=12
 namespace Platformer_Assignment {
-    /**this class follows the purpose of updating the CharacterStates**/
     public class CharacterState : StateMachineBehaviour
     {
         public List<StateData> ListAbilityData = new List<StateData>();
-
+        private CharacterControl control;
+        
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             foreach(StateData d in ListAbilityData) 
@@ -37,10 +39,9 @@ namespace Platformer_Assignment {
             }
         }
 
-        /// <summary>method <c>GetCharacterControl</c> Returns the CharacterControl from the animator</summary> 
-        private CharacterControl control;
+        /// <summary>method <c>GetCharacterControl</c> Returns the CharacterControl assigned to the animator</summary> ;
         public CharacterControl GetCharacterControl(Animator animator)
-         {
+        {
             if (control == null)
             {
                 control = animator.GetComponentInParent<CharacterControl>();

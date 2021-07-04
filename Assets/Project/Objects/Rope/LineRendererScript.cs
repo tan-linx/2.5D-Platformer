@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 public class LineRendererScript : MonoBehaviour
 {
     private LineRenderer lr; 

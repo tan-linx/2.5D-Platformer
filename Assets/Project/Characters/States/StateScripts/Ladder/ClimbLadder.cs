@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ClimbLadder")]
@@ -10,8 +11,7 @@ namespace Platformer_Assignment
         private CharacterControl control;
         private Rigidbody rb;
         
-        [SerializeField]
-        private Vector3 animatorOffset;
+        [SerializeField] private Vector3 animatorOffset;
         private float speed;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
@@ -60,7 +60,7 @@ namespace Platformer_Assignment
             control.GetComponent<CapsuleCollider>().isTrigger = false;
             control.RIGID_BODY.isKinematic = false;
             //todo: might need to fix 
-            control.climbDownLadder = false;
+            control.IsClimbDownLadder = false;
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
             animator.SetBool(climbHash, false); 
@@ -94,7 +94,7 @@ namespace Platformer_Assignment
         {            
             if (control.currentHitCollider)
             {
-                if (control.climbDownLadder && control.currentHitCollider.tag == "LadderDown")
+                if (control.IsClimbDownLadder && control.currentHitCollider.tag == "LadderDown")
                 {
                     Vector3 teleportBox = control.currentHitCollider.transform.GetChild(0).position;
                     if (control.currentHitDirection == HitDirection.BACK && control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
@@ -108,7 +108,7 @@ namespace Platformer_Assignment
                         control.transform.position = teleportBox;
                     }
                 }
-                control.climbDownLadder = false; 
+                control.IsClimbDownLadder = false; 
             }
         }
     }

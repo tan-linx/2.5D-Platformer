@@ -7,8 +7,7 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/TeleportOnLedge")]
     public class TeleportOnLedge : StateData
     {
-        [SerializeField]
-        private Vector3 endPosition; 
+        [SerializeField] private Vector3 endPosition; 
         
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {

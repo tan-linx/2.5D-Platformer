@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/RopeSwing")]
@@ -10,13 +11,12 @@ namespace Platformer_Assignment
         private CharacterControl control;
         private Rigidbody ropePartRB ;
 
-        [SerializeField]
-        private float Force;
+        [SerializeField] private float force;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
-            Force = 10f;
+            force = 10f;
             
             animator.SetBool(jumpHash, false);
             SetTriggerRopeColliders(control.transform.root, false);
@@ -30,11 +30,11 @@ namespace Platformer_Assignment
             ropePartRB = control.currentHitCollider.attachedRigidbody;
             if (control.MoveLeft)
             {
-                ropePartRB.AddForce(Vector3.back*Force);
+                ropePartRB.AddForce(Vector3.back*force);
             }
             if (control.MoveRight)
             {
-                ropePartRB.AddForce(Vector3.forward*Force);
+                ropePartRB.AddForce(Vector3.forward*force);
             }
             if (control.Jump)
             {
@@ -62,7 +62,7 @@ namespace Platformer_Assignment
                 Destroy(control.gameObject.GetComponent<ConfigurableJoint>());
             }    
             control.transform.parent = null;
-            control.grabbingRope = false;
+            control.IsGrabbingRope = false;
         }
     }
 }

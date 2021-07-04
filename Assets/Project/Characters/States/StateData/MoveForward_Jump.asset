@@ -12,37 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5df3d7e544bab5f38173c06cfcafda6, type: 3}
   m_Name: MoveForward_Jump
   m_EditorClassIdentifier: 
-  SpeedGraph:
+  speedGraph:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      time: -0.0032615662
+      value: 1.051117
+      inSlope: -0.0038302646
+      outSlope: -0.0038302646
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.36406934
-      value: 0.48530895
-      inSlope: 0.0053097205
-      outSlope: 0.0053097205
-      tangentMode: 0
+      time: 1.0190353
+      value: 1.0472013
+      inSlope: -0.0038302646
+      outSlope: -0.0038302646
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.94391346
-      value: 0.050016522
-      inSlope: 0.0007345565
-      outSlope: 0.0007345565
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.041823316
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Speed: 60
+  Speed: 2

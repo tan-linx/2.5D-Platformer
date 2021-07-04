@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// based on https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO
+// modified:  added hashes for state names
+// architecture based on the tutorial, all methods written except for OnEnter(), UpdateAbility(), OnExit()
 namespace Platformer_Assignment { 
     public abstract class StateData : ScriptableObject 
     {
@@ -17,11 +20,10 @@ namespace Platformer_Assignment {
         protected int climbHash;
         protected int coverLeftHash;
         protected int coverRightHash;
-
+        protected int fallingHash;
 
         protected int verticalRayCount;
         protected float distanceMovedUp;
-
 
         public abstract void OnEnter(CharacterState characaterState, 
         Animator animator, AnimatorStateInfo stateInfo);
@@ -44,6 +46,7 @@ namespace Platformer_Assignment {
             climbHash = Animator.StringToHash("Climb");
             coverLeftHash = Animator.StringToHash("CoverLeft");
             coverRightHash = Animator.StringToHash("CoverRight");
+            fallingHash = Animator.StringToHash("Falling");
             verticalRayCount = 5;
             distanceMovedUp = 0f;
         }

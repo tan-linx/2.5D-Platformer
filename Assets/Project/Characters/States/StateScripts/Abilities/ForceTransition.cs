@@ -8,13 +8,12 @@ namespace Platformer_Assignment
     public class ForceTransition : StateData
     {
         
-        [Range(0.01f, 1f)][SerializeField]
-        private float TransitionTiming = 1f;
+        [Range(0.01f, 1f)][SerializeField] private float transitionTiming = 1f;
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (stateInfo.normalizedTime >=TransitionTiming) 
+            if (stateInfo.normalizedTime >=transitionTiming) 
             {
                 animator.SetBool("ForceTransition", true);
             }

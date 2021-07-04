@@ -7,16 +7,13 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ToggleCapsuleCollider")]
     public class ToggleCapsuleCollider : StateData
     {
-        [SerializeField]
-        private bool On;
-        [SerializeField]
-        private bool OnStart;
-        [SerializeField]
-        private bool OnEnd;
+        [SerializeField] private bool on;
+        [SerializeField] private bool onStart;
+        [SerializeField] private bool onEnd;
 
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (OnStart)
+            if (onStart)
             {
                 CharacterControl control = characterState.GetCharacterControl(animator);
                 ToggleCapsuleCol(control);
@@ -30,7 +27,7 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            if (OnEnd)
+            if (onEnd)
             {
                 CharacterControl control = characterState.GetCharacterControl(animator);
                 ToggleCapsuleCol(control);
@@ -40,7 +37,7 @@ namespace Platformer_Assignment
         private void ToggleCapsuleCol(CharacterControl control)
         {
             control.RIGID_BODY.velocity = Vector3.zero;
-            control.GetComponent<CapsuleCollider>().enabled = On;
+            control.GetComponent<CapsuleCollider>().enabled = on;
         }
     }
 }
