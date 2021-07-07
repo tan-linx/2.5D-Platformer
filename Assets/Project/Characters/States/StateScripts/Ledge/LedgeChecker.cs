@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // based on https://www.youtube.com/watch?v=z8gLOWpLYak&list=PLWYGofN_jX5BupV2xLjU1HUvujl_yDIN6&index=53
-// modfied: CalculateDirection to find out in which direction a ledge was hit, 
+// modified: CalculateDirection() to find out in which direction a ledge was hit, 
 // so the animation offset and teleportion suits the character control
 namespace Platformer_Assignment
 {
@@ -55,7 +55,6 @@ namespace Platformer_Assignment
         private void CalculateDirection(Transform source, Transform destination) 
         {
             float directionZ = destination.position.z - source.position.z;
-            Debug.Log(directionZ);
             if (directionZ >= 0)
                 control.currentHitDirection = HitDirection.FORWARD;
             else 

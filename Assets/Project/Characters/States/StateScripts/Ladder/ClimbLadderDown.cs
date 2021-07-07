@@ -22,5 +22,16 @@ namespace Platformer_Assignment
                 control.currentHitCollider = GetComponent<BoxCollider>();             
             }
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player") 
+            {
+                CharacterControl control = other.GetComponentInParent<CharacterControl>();
+                control.IsClimbDownLadder = false;    
+                control.currentHitDirection = HitDirection.None;
+                control.currentHitCollider = null;             
+            }
+        }
     }
 }

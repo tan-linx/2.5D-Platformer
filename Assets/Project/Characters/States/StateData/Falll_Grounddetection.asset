@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Falll_Grounddetection
   m_EditorClassIdentifier: 
   delayTime: 0
+  distanceOffset: 0.02

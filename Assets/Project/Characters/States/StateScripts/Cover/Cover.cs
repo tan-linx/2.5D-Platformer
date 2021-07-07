@@ -23,7 +23,11 @@ namespace Platformer_Assignment
                 animator.transform.localEulerAngles = Vector3.up*86.162f;
             }
             else
+            {
+                initialPosition = animator.transform.localPosition;
+                //animator.transform.localPosition = new Vector3(0.07f, -0.978f, 0.47f);
                 animator.transform.localEulerAngles = Vector3.up*-86.162f;
+            }
         }
 
 

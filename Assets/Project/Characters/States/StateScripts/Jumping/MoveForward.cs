@@ -4,7 +4,8 @@ using UnityEngine;
 
 // https://www.youtube.com/watch?v=6Zg2Hgwg7OM&list=PLWYGofN_jX5BupV2xLjU1HUvujl_yDIN6&index=16
 // https://drive.google.com/drive/folders/1v1Wkjsb8P8rQCnnCP0B0BBCsGHyWGx0o
-// based on this tutorial but modified:  
+// based on this tutorial 
+// modified:  
 // - moving with MovePostition instead of translate for smooth movement
 // - added additional conditions to transition to rope swing and climbing steps 
 namespace Platformer_Assignment
@@ -40,7 +41,6 @@ namespace Platformer_Assignment
             }
             if (control.MoveRight)
             {
-                control.stepClimb(Vector3.forward); 
                 if (!CheckFront(control, Vector3.forward)) 
                 {
                     if (IsRopeCollider(control, Vector3.forward) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
@@ -55,7 +55,6 @@ namespace Platformer_Assignment
             }
             if (control.MoveLeft)
             {
-                control.stepClimb(Vector3.back);
                 if (!CheckFront(control, Vector3.back))
                 {
                     if (IsRopeCollider(control, Vector3.back) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 

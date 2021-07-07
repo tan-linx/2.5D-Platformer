@@ -31,19 +31,24 @@ namespace Platformer_Assignment
             float Speed = capsuleScaleY; 
             
             GameObject currentParentCapsule = control.transform.parent.gameObject; 
-            if (control.MoveUp && currentParentCapsule.name != "RopeStart") 
+            if (control.MoveUp)  //TODO:
             {    
-                Climb(Speed);
-
-                if (distanceMovedUp >= capsuleScaleY)
+                if (distanceMovedUp < capsuleScaleY)
+                {
+                    Climb(Speed);
+                }
+                if (distanceMovedUp >= capsuleScaleY && currentParentCapsule.name != "RopeStart")
                 {
                     MoveUpCapsule(currentParentCapsule);
                 }
             }
-            if (control.Crouch && currentParentCapsule.transform.GetChild(0).tag == "Rope")
+            if (control.Crouch)
             {
-                Climb(-Speed);
-                if (distanceMovedUp < 0) 
+                if (distanceMovedUp >= 0)
+                {
+                    Climb(-Speed);
+                }
+                if (distanceMovedUp < 0 && currentParentCapsule.transform.GetChild(0).tag == "Rope") 
                 {
                     MoveDownCapsule(currentParentCapsule);
                 } 
@@ -75,7 +80,6 @@ namespace Platformer_Assignment
         /// <summary>method <c>Climb</c> Climb up the Rope and make the Player stick to it.</summary>        
         private void Climb(float speed)
         {
-            //TODO: 
             float offsetToRope = 0.55f;
             if (control.currentHitDirection == HitDirection.FORWARD)
                 offsetToRope *=-1;

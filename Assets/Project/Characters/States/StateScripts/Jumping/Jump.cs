@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* based on https://drive.google.com/drive/folders/1GXMtsJILOInq7kK86VuJf2NRt_SxDr8k
+ modified:
+    - added DoFallTransition(), CheckFall()
+ */
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Jump")]
@@ -32,14 +36,22 @@ namespace Platformer_Assignment
         {
             control.GravityMultiplier = gravity.Evaluate(stateInfo.normalizedTime);
             control.PullMultiplier = pull.Evaluate(stateInfo.normalizedTime);
+            DoFallTransition(animator);
+        }
 
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
+        {   
+        }
+
+        private void DoFallTransition(Animator animator)
+        {
             if (control.RIGID_BODY.velocity.y < 0f)
             {
                 float timeElapsed = Time.time - firstTime;
                 control.distanceFallen += Mathf.Abs(control.transform.position.y - posYLastFrame);
-                if (timeElapsed > 1.2f)
+                if (timeElapsed > 1.3f)
                 {
-                    if (DoFallTransition())
+                    if (CheckFall())
                     {
                         animator.SetBool(fallingHash, true);
                         return;
@@ -51,11 +63,8 @@ namespace Platformer_Assignment
             }
         }
 
-        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {   
-        }
-
-        private bool DoFallTransition()
+        /// <summary> Checks whether transition to fall is needed </summary>
+        private bool CheckFall()
         {   
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();  
             RaycastHit hit;      

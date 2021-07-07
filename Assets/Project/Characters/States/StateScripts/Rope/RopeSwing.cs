@@ -16,7 +16,7 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
-            force = 10f;
+            force = 70f;
             
             animator.SetBool(jumpHash, false);
             SetTriggerRopeColliders(control.transform.root, false);
@@ -57,11 +57,11 @@ namespace Platformer_Assignment
         private void OnExitJump()
         {
 
+            control.transform.parent = null;
             if (control.gameObject.GetComponent<ConfigurableJoint>() != null)
             {
                 Destroy(control.gameObject.GetComponent<ConfigurableJoint>());
             }    
-            control.transform.parent = null;
             control.IsGrabbingRope = false;
         }
     }

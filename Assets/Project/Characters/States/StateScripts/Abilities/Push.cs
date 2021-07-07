@@ -38,9 +38,12 @@ namespace Platformer_Assignment
                     animator.SetBool(pushHash, false);
                     return;
                 }
-                control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
+                if (IsBoxPushable()) 
+                {
+                    control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                    rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
+                    pushable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
+                }
             }
             if (control.MoveLeft)
             {
@@ -49,9 +52,12 @@ namespace Platformer_Assignment
                     animator.SetBool(pushHash, false);
                     return;
                 }
-                control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
-                pushable.transform.Translate(Vector3.back*speed*Time.deltaTime);
+                if (IsBoxPushable()) 
+                {
+                    control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+                    rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
+                    pushable.transform.Translate(Vector3.back*speed*Time.deltaTime);
+                }
             }    
             if (!control.Push)
             {
@@ -67,6 +73,11 @@ namespace Platformer_Assignment
             animator.transform.localPosition = transformBeforeTeleport;//new Vector3(0f, -0.9914604f, 0.04284224f);
         }
         
+        private bool IsBoxPushable()
+        {
+            return pushable.GetComponent<Pushable>().IsPushable;
+        }
+
         private void StateGuard() 
         {
             if (control.currentHitCollider == null || control.currentHitCollider.tag != "Pushable") 

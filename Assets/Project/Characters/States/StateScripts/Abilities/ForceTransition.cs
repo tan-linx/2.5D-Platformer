@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//based on ehttps://drive.google.com/drive/folders/15KfeQpdzglnQOwYz9xJA95J73NArboiN
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ForceTransition")]
@@ -15,13 +16,13 @@ namespace Platformer_Assignment
         {
             if (stateInfo.normalizedTime >=transitionTiming) 
             {
-                animator.SetBool("ForceTransition", true);
+                animator.SetBool(transitionHash, true);
             }
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            animator.SetBool("ForceTransition", false);
+            animator.SetBool(transitionHash, false);
         }
     }
 }

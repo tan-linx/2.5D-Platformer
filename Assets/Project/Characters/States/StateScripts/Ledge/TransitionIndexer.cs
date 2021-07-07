@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// based on https://drive.google.com/drive/folders/1sQnid4-4EMlJgX_DZ6YUAxFbGeo6mXUE
 namespace Platformer_Assignment
 {
     public enum TransitionConditionType
     {
         MOVE,
         UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        ATTACK,
-        JUMP,
         GRABBING_LEDGE,
     }
     

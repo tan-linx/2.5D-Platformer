@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// based on https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO
-// modified:  added hashes for state names
-// architecture based on the tutorial, all methods written except for OnEnter(), UpdateAbility(), OnExit()
+/* based on https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO
+ modified:  added hashes for state names
+ architecture based on the tutorial, all methods written except for OnEnter(), UpdateAbility(), OnExit() */
+ 
 namespace Platformer_Assignment { 
     public abstract class StateData : ScriptableObject 
     {
@@ -56,10 +57,10 @@ namespace Platformer_Assignment {
         public bool CheckFront(CharacterControl control, Vector3 dir)
         {  
             RaycastHit hit;
-            //float offset = 0.04f;
+            float offset = 0.27f;
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
 	    	float verticalRaySpacing = collider.bounds.size.y/verticalRayCount;
-            float maxRayLength = collider.radius;
+            float maxRayLength = collider.bounds.extents.z + offset;
             Vector3 rayOrigin = collider.bounds.center + Vector3.up*(collider.bounds.extents.y);
             for (int i=0; i<verticalRayCount; i++)
             {  
@@ -78,12 +79,16 @@ namespace Platformer_Assignment {
         {
             switch (col.gameObject.tag)
             {
+                case "Player":
+                    return true;
                 case "Rope":
                     return true;
                 case "LadderDown":
                     return true;
                 case "Ledge":
-                    return true;     
+                    return true;  
+                case "Ignored":
+                    return true;      
                 default: 
                     return false;
             }
@@ -104,7 +109,7 @@ namespace Platformer_Assignment {
                 
                 if (hit.collider.tag == "Rope")
                 {
-                    control.currentHitDirection = VectorToHitDirection(dir); //TODO:
+                    control.currentHitDirection = VectorToHitDirection(dir); 
                     control.currentHitCollider = hit.collider;
                     return true;
                 }

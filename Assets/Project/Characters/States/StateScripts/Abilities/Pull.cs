@@ -35,8 +35,11 @@ namespace Platformer_Assignment
                     animator.SetBool(pullHash, false);
                     return;
                 }
-                rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
-                pullable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
+                if (!CheckFront(control, Vector3.forward))
+                {
+                    rb.MovePosition(rb.position+(Vector3.forward*speed*Time.deltaTime));
+                    pullable.transform.Translate(Vector3.forward*speed*Time.deltaTime);
+                } 
             }
             if (control.currentHitDirection == HitDirection.FORWARD)
             {
@@ -45,8 +48,11 @@ namespace Platformer_Assignment
                     animator.SetBool(pullHash, false);
                     return;
                 }
-                rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
-                pullable.transform.Translate(Vector3.back*speed*Time.deltaTime);   
+                if (!CheckFront(control, Vector3.back))
+                {
+                    rb.MovePosition(rb.position+(Vector3.back*speed*Time.deltaTime));
+                    pullable.transform.Translate(Vector3.back*speed*Time.deltaTime);   
+                }
             }
             if (!control.Pull)
             {
@@ -60,7 +66,7 @@ namespace Platformer_Assignment
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
         }
-        
+
         private void StateGuard() 
         {
             if (control.currentHitCollider == null || control.currentHitCollider.tag != "Pushable") 

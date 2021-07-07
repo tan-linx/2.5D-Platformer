@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32cad9de76778fbeaa7dec96a1a45792, type: 3}
   m_Name: JumpForward
   m_EditorClassIdentifier: 
-  jumpForce: 250
+  jumpForce: 400
   gravity:
     serializedVersion: 2
     m_Curve:
@@ -26,8 +26,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1.019043
-      value: 0.0022468567
+      time: 1.0417035
+      value: 0.28400248
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0496826
+      value: 0.28673172
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -50,8 +59,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.99450684
-      value: -0.00674057
+      time: 1.0107422
+      value: 0.08243179
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -61,4 +70,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  delayTime: 0.8

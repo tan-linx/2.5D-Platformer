@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// based on https://drive.google.com/drive/folders/1M-ALI0HH4que2ZZ7ewFcsm35i7hzEu6y
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ToggleGravity")]

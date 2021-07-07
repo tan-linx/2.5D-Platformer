@@ -47,7 +47,7 @@ namespace Platformer_Assignment
         {
             CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
             float maxRayLength = collider.bounds.size.z;
-            if(Physics.Raycast(collider.bounds.center, dir, maxRayLength*2+0.1f))
+            if(Physics.Raycast(collider.bounds.center, dir, maxRayLength*2))
                 return true;
             return false;
         }

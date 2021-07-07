@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Running_Grounddector
   m_EditorClassIdentifier: 
   delayTime: 0.2
+  distanceOffset: 0.3

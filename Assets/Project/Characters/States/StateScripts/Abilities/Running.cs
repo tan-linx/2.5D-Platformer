@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Running")]
@@ -23,6 +24,7 @@ namespace Platformer_Assignment
         {            
             if (control.MoveRight)
             {                    
+                control.StepClimb(Vector3.forward); 
                 if (CheckForCoverHit(Vector3.forward, animator))return;
             
                 rb.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -34,6 +36,7 @@ namespace Platformer_Assignment
             } 
             if (control.MoveLeft)
             {
+                control.StepClimb(Vector3.back); 
                 if (CheckForCoverHit(Vector3.back, animator)) return;
 
                 rb.rotation = Quaternion.Euler(0f, 180f, 0f);

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/** basiert auf https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO 
+ modified: 
+ - erweitert um mehrere Konditionen
+ - added HandleColliderDate() */
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Idle")]
@@ -12,6 +16,7 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
+            animator.SetBool(groundedHash, true); 
             animator.SetBool(crashHash, false);
             animator.SetBool(jumpHash, false);
             animator.SetBool(moveHash, false);
@@ -52,14 +57,14 @@ namespace Platformer_Assignment
                 return;
             }
             
-            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.25f) == "Pushable" 
-                                || HandleColliderData(control, animator, Vector3.back, 0.25f) == "Pushable")) 
+            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Pushable" 
+                                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Pushable")) 
             {
                 animator.SetBool(pullHash, true);
                 return;
             }
-            if (control.Push && (HandleColliderData(control, animator, Vector3.forward, 0.25f) == "Pushable"
-                                || HandleColliderData(control, animator, Vector3.back, 0.25f) == "Pushable"))
+            if (control.Push && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Pushable"
+                                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Pushable"))
             {
                 animator.SetBool(pushHash, true);
                 return;

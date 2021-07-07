@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TransitionIndexer_LedgeGrabbing
   m_EditorClassIdentifier: 
   index: 1
-  transitionConditions: 07000000
+  transitionConditions: 02000000

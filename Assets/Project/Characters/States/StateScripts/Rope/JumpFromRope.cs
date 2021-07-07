@@ -19,7 +19,7 @@ namespace Platformer_Assignment
             rb = control.RIGID_BODY;
             if (control.currentHitCollider.tag != "Rope") throw new Exception("Current Collider is not a Rope Part. You shouldn't be in this state"); 
             Rigidbody ropePartRB = control.currentHitCollider.attachedRigidbody;
-            rb.AddForce(Vector3.forward*ropePartRB.velocity.z*100f);
+            rb.AddForce(Vector3.forward*70f);
             control.currentHitCollider = null;    
         }
 

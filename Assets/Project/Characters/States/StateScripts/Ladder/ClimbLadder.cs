@@ -38,7 +38,6 @@ namespace Platformer_Assignment
             {
                 animator.speed = 1.5f;
                 rb.MovePosition(rb.position + Vector3.down*speed*Time.deltaTime);
-                //disable Ledge Checker when climbing down
                 control.LedgeChecker.enabled = false;
             }
             if (!control.MoveUp && !control.Crouch && !control.MoveRight && !control.MoveLeft)   
@@ -59,7 +58,6 @@ namespace Platformer_Assignment
         {
             control.GetComponent<CapsuleCollider>().isTrigger = false;
             control.RIGID_BODY.isKinematic = false;
-            //todo: might need to fix 
             control.IsClimbDownLadder = false;
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
@@ -84,10 +82,9 @@ namespace Platformer_Assignment
 
         private bool IsLadderEnd() 
         {
-            Debug.Log("Ladder is end");
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
             return Physics.Raycast(control.GetComponent<CapsuleCollider>().bounds.center, 
-                                    Vector3.down, col.bounds.extents.y);
+                                    Vector3.down, col.bounds.extents.y-0.3f);
         }
 
         private void IsClimbDown()

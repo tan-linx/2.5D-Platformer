@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <author Tanja Schlanstedt></author>
+/* everything except for the marked methods are written by myself 
+ inspirations for the architecture come from this tutorial:
+ https://www.youtube.com/watch?v=n8PCkwIncwc&list=PLWYGofN_jX5BupV2xLjU1HUvujl_yDIN6&index=20
+ https://drive.google.com/drive/folders/1R1YQbmEt-2qmGe2cvQwvU97jJHQCbziS
+ */ 
+
 namespace Platformer_Assignment
 {
     public enum HitDirection 
@@ -29,7 +35,6 @@ namespace Platformer_Assignment
 
         public bool IsGrabbingRope;
         public bool IsClimbDownLadder;
-        public bool IsClimbingStep;
 
         public float distanceFallen;
 
@@ -37,7 +42,7 @@ namespace Platformer_Assignment
         public Collider currentHitCollider;    
         public HitDirection currentHitDirection;
 
-        //to add velocity when player is falling
+        //to add velocity when player is falling 
         public float GravityMultiplier;
         public float PullMultiplier;
 
@@ -51,10 +56,9 @@ namespace Platformer_Assignment
         [SerializeField] private float stepHeight = 0.3f;
         [SerializeField] private float stepSmooth = 2f;
 
-        void Awake()
+        void Start()
         {
             //transform.position = spawn.position;
-            IsClimbingStep = false;
             Dead = false;
             IsGrabbingRope = false;
             IsClimbDownLadder = false;
@@ -128,7 +132,8 @@ namespace Platformer_Assignment
                 Push = false;
             }
         }
-   
+    
+        // based on https://drive.google.com/drive/folders/1R1YQbmEt-2qmGe2cvQwvU97jJHQCbziS
         private void FixedUpdate()
         {   
             if (RIGID_BODY.velocity.y < 0f)
@@ -142,22 +147,20 @@ namespace Platformer_Assignment
             }
         }
 
-        // based on this tutorial but modified https://www.youtube.com/watch?v=DrFk5Q_IwG0
+        // based on this tutorial https://www.youtube.com/watch?v=DrFk5Q_IwG0
         // https://github.com/DawnsCrowGames/Unity-Rigidbody_Step_Up_Stairs_Tutorial/blob/main/StairClimb.cs
-        public void stepClimb(Vector3 dir)
+        public void StepClimb(Vector3 dir)
         {                
-            IsClimbingStep = true;
             RaycastHit hit; 
             if (Physics.Raycast(stepRayLower.transform.position, dir, out hit, 0.1f) 
-            && hit.collider.tag != "Player")
+                && hit.collider.tag != "Player")
             {
-                if (!Physics.Raycast(stepRayUpper.transform.position, dir, 0.2f) && hit.collider.tag != "Player")
+                if (!Physics.Raycast(stepRayUpper.transform.position, dir, 0.2f) 
+                    && hit.collider.tag != "Player")
                 {
-                    Debug.Log("Hit something");
                     RIGID_BODY.position -= new Vector3(0f, -stepSmooth*Time.deltaTime, 0f);
                 }
             }
-            IsClimbingStep = false;
         }
         
         //getters and setters

@@ -8,8 +8,6 @@ namespace Platformer_Assignment
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Falling")]
     public class Falling:StateData
     {  
-        [SerializeField] private float delayTime;
-
         private CharacterControl control;   
         private RaycastHit hitInfo;
 
@@ -18,32 +16,31 @@ namespace Platformer_Assignment
             
             control = characterState.GetCharacterControl(animator);
             animator.SetBool(crashHash,false);
-            ForceFall();
-            if(stateInfo.normalizedTime>=delayTime)
+            if (IsFallToDeath(14
+)) 
             {
-                if (IsFallToDeath(9)) 
-                {
-                    Debug.Log("Fall to Death");
-                    animator.SetBool("Dead", true);
-                }
-                else {
-                    Debug.Log("No to Death" + hitInfo.collider.tag );
-                    float hitDistance = hitInfo.distance;
-                    if (hitDistance > 7)
-                    {
-                        animator.SetBool(crashHash, true);
-                    } 
-                    else 
-                    {
-                        animator.SetBool(crashHash,false);
-                    }   
-                }
+                animator.SetBool("Dead", true);
             }
+            else 
+            {
+                float hitDistance = hitInfo.distance;
+                if (hitDistance > 5)
+                {
+                    animator.SetBool(crashHash, true);
+                } 
+                else 
+                {
+                    animator.SetBool(crashHash,false);
+                }  
+            }
+            control.distanceFallen = 0f;  
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
 
-        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) {}
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo) 
+        {
+        }
 
         private bool IsFallToDeath(float height) 
         {
@@ -57,15 +54,6 @@ namespace Platformer_Assignment
             else {
                 return true;   
             }  
-        }
-
-        private void ForceFall()
-        {
-            Rigidbody rb = control.RIGID_BODY;
-            if (control.MoveRight || control.MoveLeft)
-            {
-                control.RIGID_BODY.AddForce(Vector3.forward*rb.velocity.z*100f);
-            }
-        }   
+        } 
     }
 }
