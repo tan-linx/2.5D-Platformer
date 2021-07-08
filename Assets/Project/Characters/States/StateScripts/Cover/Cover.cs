@@ -19,13 +19,13 @@ namespace Platformer_Assignment
             if (control.currentHitDirection == HitDirection.FORWARD)
             {
                 initialPosition = animator.transform.localPosition;
-                animator.transform.localPosition = new Vector3(0.07f, -0.978f, 0.47f);
+                animator.transform.localPosition = new Vector3(0.14f, -0.978f, 0.47f);
                 animator.transform.localEulerAngles = Vector3.up*86.162f;
             }
-            else
+            if (control.currentHitDirection == HitDirection.BACK)
             {
                 initialPosition = animator.transform.localPosition;
-                //animator.transform.localPosition = new Vector3(0.07f, -0.978f, 0.47f);
+                animator.transform.localPosition = new Vector3(-0.14f, -0.978f, 0.47f);
                 animator.transform.localEulerAngles = Vector3.up*-86.162f;
             }
         }
@@ -52,7 +52,6 @@ namespace Platformer_Assignment
             }
             if (!CheckCover()) 
             {
-                animator.speed = 1f; 
                 animator.SetBool("CoverLeft", false);
                 animator.SetBool("CoverRight", false);
             }
@@ -60,12 +59,14 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {   
+            animator.speed = 1f; 
             control.currentHitCollider = null;
             control.currentHitDirection = HitDirection.None;
             animator.transform.localPosition = initialPosition;
             animator.transform.localEulerAngles = Vector3.zero;
         }
 
+        /// <summary>method <c>CheckCover</c> Checks whether to leave the Cover animation. </summary>
         private bool CheckCover()
         {
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();

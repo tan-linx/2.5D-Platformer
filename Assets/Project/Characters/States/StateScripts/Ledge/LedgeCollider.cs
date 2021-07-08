@@ -50,8 +50,6 @@ namespace Platformer_Assignment
             {
                 case "Rope":
                     return true;
-                case "Ledge":
-                    return true;  
                 case "Ladder":
                     return true;      
                 case "LadderDown":

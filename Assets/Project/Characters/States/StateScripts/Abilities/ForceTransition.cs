@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//based on ehttps://drive.google.com/drive/folders/15KfeQpdzglnQOwYz9xJA95J73NArboiN
+//based on https://drive.google.com/drive/folders/15KfeQpdzglnQOwYz9xJA95J73NArboiN
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/ForceTransition")]

@@ -16,15 +16,14 @@ namespace Platformer_Assignment
             
             control = characterState.GetCharacterControl(animator);
             animator.SetBool(crashHash,false);
-            if (IsFallToDeath(14
-)) 
+            if (IsFallToDeath(13f)) 
             {
                 animator.SetBool("Dead", true);
             }
             else 
             {
                 float hitDistance = hitInfo.distance;
-                if (hitDistance > 5)
+                if (hitDistance > 6)
                 {
                     animator.SetBool(crashHash, true);
                 } 
@@ -48,12 +47,9 @@ namespace Platformer_Assignment
             Vector3 dir = Vector3.down*height;
             Vector3 rayOrigin = collider.bounds.center;
             if (Physics.Raycast(rayOrigin, dir, out hitInfo, height-control.distanceFallen)) 
-            {
                 return false; 
-            } 
-            else {
+            else 
                 return true;   
-            }  
         } 
     }
 }

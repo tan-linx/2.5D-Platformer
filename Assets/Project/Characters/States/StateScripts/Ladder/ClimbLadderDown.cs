@@ -7,6 +7,7 @@ namespace Platformer_Assignment
 {
     public class ClimbLadderDown : MonoBehaviour
     {
+        //to dermine the direction the player is facing the ladder
         [SerializeField]
         private bool faceLadderForward;
 
@@ -28,9 +29,7 @@ namespace Platformer_Assignment
             if (other.tag == "Player") 
             {
                 CharacterControl control = other.GetComponentInParent<CharacterControl>();
-                control.IsClimbDownLadder = false;    
-                control.currentHitDirection = HitDirection.None;
-                control.currentHitCollider = null;             
+                control.IsClimbDownLadder = false;            
             }
         }
     }

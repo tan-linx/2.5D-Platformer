@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// based on https://www.youtube.com/watch?v=vWPEjo-EkPg,
+// based on 
 // https://drive.google.com/drive/folders/1i8rtE2sUzaIurx-gxFutFV_C635KTw8L 
 // IsGrounded umgeschrieben, Kondition für GroundCheck modifiziert.
 namespace Platformer_Assignment
@@ -39,7 +39,6 @@ namespace Platformer_Assignment
         }  
 
         /// <summary>method <c>IsGrounded</c> Checks whether Collider is grounded</summary>
-        /// <author Tanja Schlanstedt></author>
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();

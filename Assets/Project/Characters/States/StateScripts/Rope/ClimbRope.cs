@@ -17,8 +17,6 @@ namespace Platformer_Assignment
         {   
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-            if (control.currentHitCollider.tag != "Rope") throw new Exception("CurrentCollider not Rope!");
-
 
             control.GetComponent<ConfigurableJoint>().connectedBody = null; 
             SetTriggerRopeColliders(control.transform.root, true);
@@ -31,7 +29,7 @@ namespace Platformer_Assignment
             float Speed = capsuleScaleY; 
             
             GameObject currentParentCapsule = control.transform.parent.gameObject; 
-            if (control.MoveUp)  //TODO:
+            if (control.MoveUp) 
             {    
                 if (distanceMovedUp < capsuleScaleY)
                 {
@@ -63,6 +61,7 @@ namespace Platformer_Assignment
         {
         }
 
+        /// <summary>method <c>MoveUpCapsule</c> Childs player to the parent capsule of current capsule. </summary>        
         private void MoveUpCapsule(GameObject currentParentCapsule) 
         {
             control.transform.SetParent(currentParentCapsule.transform.parent, true);
@@ -70,6 +69,7 @@ namespace Platformer_Assignment
             distanceMovedUp = 0f;
         }
 
+        /// <summary>method <c>MoveDownCapsule</c> Childs player to the child capsule of current capsule. </summary>        
         private void MoveDownCapsule(GameObject currentParentCapsule) 
         {
             control.transform.SetParent(currentParentCapsule.transform.GetChild(0), true);

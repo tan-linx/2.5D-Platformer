@@ -4,7 +4,8 @@ using UnityEngine;
 
 /* based on https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO
  modified:  added hashes for state names
- architecture based on the tutorial, all methods written except for OnEnter(), UpdateAbility(), OnExit() */
+ architecture based on the tutorial,
+ all methods from me except for OnEnter(), UpdateAbility(), OnExit() */
  
 namespace Platformer_Assignment { 
     public abstract class StateData : ScriptableObject 
@@ -74,6 +75,30 @@ namespace Platformer_Assignment {
             }  
             return false;
         }
+
+        /// <summary>method <c>CheckFront</c> Overrides method from inherited class because 
+        /// the raycast shoots lower in a crouch position. </summary>
+        protected bool CrouchCheckFront(CharacterControl control, Vector3 dir)
+        {
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            float maxRayLength = collider.bounds.size.z;
+            if(Physics.Raycast(collider.bounds.center, dir, maxRayLength*2))
+                return true;
+            return false;
+        }
+
+        /// <summary>method <c>CheckHead</c> Checks if collider collides with something above</summary>
+        protected bool CheckHead(CharacterControl control)
+        {  
+            RaycastHit hitInfo;
+            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
+            Vector3 rayOrigin = collider.bounds.center; 
+            Vector3 dir = Vector3.up;
+            float maxRayLength = collider.bounds.extents.y;
+            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength))
+                return true; 
+            return false;    
+        } 
 
         protected bool IsIgnoredPart(Collider col)
         {

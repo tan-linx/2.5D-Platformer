@@ -5,6 +5,9 @@ using UnityEngine.Animations.Rigging;
 
 ///<author Tanja Schlanstedt></author>
 namespace Platformer_Assignment {
+    
+    /// <summary>Class <c>RigWeightController</c> Controls the weight of the rig
+    /// this script is attached to. </summary>
     public class RigWeightController : MonoBehaviour
     {
         [SerializeField] private CharacterControl control;

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6871884482221117896}
   - component: {fileID: 9137262596453405519}
   - component: {fileID: 4720577571136623016}
+  - component: {fileID: 3565072329407228951}
   m_Layer: 0
   m_Name: Pushable
   m_TagString: Pushable
@@ -112,3 +113,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3565072329407228951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7053183261285001902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8083a6b4c06c5b69424767a4033bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

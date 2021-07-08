@@ -6,7 +6,6 @@ using UnityEngine;
 public class LineRendererScript : MonoBehaviour
 {
     private LineRenderer lr; 
-
     private CapsuleCollider col;
     private Transform pos1; 
     private Transform pos2; 

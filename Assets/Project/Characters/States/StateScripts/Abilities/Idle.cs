@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/** basiert auf https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO 
- modified: 
- - erweitert um mehrere Konditionen
- - added HandleColliderDate() */
+/** based on  https://drive.google.com/drive/folders/1URSCwsxxxJsWg9ctpTEWFCbM3KhOH4mO 
+  modified: 
+ - added more transition conditions
+ - added HandleColliderData() to handle moveable objects and ladders*/
 namespace Platformer_Assignment
 {
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/Idle")]
@@ -16,6 +16,7 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
+            animator.speed = 1f;
             animator.SetBool(groundedHash, true); 
             animator.SetBool(crashHash, false);
             animator.SetBool(jumpHash, false);
@@ -31,6 +32,7 @@ namespace Platformer_Assignment
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+
             if (control.Jump)
             {
                 animator.SetBool(jumpHash, true);
@@ -57,20 +59,20 @@ namespace Platformer_Assignment
                 return;
             }
             
-            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Pushable" 
-                                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Pushable")) 
+            if (control.Pull && (HandleColliderData(control, animator, Vector3.forward, 0.28f) == "Pushable" 
+                                || HandleColliderData(control, animator, Vector3.back, 0.28f) == "Pushable")) 
             {
                 animator.SetBool(pullHash, true);
                 return;
             }
-            if (control.Push && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Pushable"
-                                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Pushable"))
+            if (control.Push && (HandleColliderData(control, animator, Vector3.forward, 0.28f) == "Pushable"
+                                || HandleColliderData(control, animator, Vector3.back, 0.28f) == "Pushable"))
             {
                 animator.SetBool(pushHash, true);
                 return;
             }
             if (control.MoveUp && (HandleColliderData(control, animator, Vector3.forward, 0.3f) == "Ladder" 
-                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Ladder"))
+                || HandleColliderData(control, animator, Vector3.back, 0.3f) == "Ladder")) 
             {               
                 animator.SetBool(climbHash, true);
                 return;
@@ -85,7 +87,7 @@ namespace Platformer_Assignment
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {}
 
-        /// <summary>method <c>CheckColliders in Front</c> Checks if Object is on the front</summary>
+        /// <summary>method <c>HandleColliderData</c> Checks if Object is on the front</summary>
         private string HandleColliderData(CharacterControl control, Animator animator, Vector3 dir, float offset)
         {
             RaycastHit hit; 
@@ -94,7 +96,7 @@ namespace Platformer_Assignment
             {
                 switch(hit.collider.tag) 
                 {   
-                    case "Pushable": //TODO: rename to Moveable                          
+                    case "Pushable":                 
                         control.currentHitDirection = VectorToHitDirection(dir);
                         control.currentHitCollider = hit.collider;
                         break;

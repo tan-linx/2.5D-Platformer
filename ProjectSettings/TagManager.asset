@@ -17,6 +17,7 @@ TagManager:
   - WaterSurface
   - Cover
   - Ignored
+  - Box
   layers:
   - Default
   - TransparentFX

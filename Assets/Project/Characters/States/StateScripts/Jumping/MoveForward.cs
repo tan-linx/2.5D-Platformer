@@ -45,7 +45,7 @@ namespace Platformer_Assignment
                 {
                     if (IsRopeCollider(control, Vector3.forward) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
                     {
-                        animator.SetBool("Hanging", true);
+                        animator.SetBool(hangingHash, true);
                         return;
                     }   
                     control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
@@ -59,7 +59,7 @@ namespace Platformer_Assignment
                 {
                     if (IsRopeCollider(control, Vector3.back) && control.currentHitCollider.attachedRigidbody.velocity.y < 3f) 
                     {
-                        animator.SetBool("Hanging", true);
+                        animator.SetBool(hangingHash, true);
                         return;
                     }  
                     control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
@@ -69,8 +69,6 @@ namespace Platformer_Assignment
             }
         }
 
-        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
-        {
-        }
+        public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){ }
     }
 }

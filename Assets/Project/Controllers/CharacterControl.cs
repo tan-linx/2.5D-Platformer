@@ -58,7 +58,7 @@ namespace Platformer_Assignment
 
         void Start()
         {
-            //transform.position = spawn.position;
+            transform.position = spawn.position;
             Dead = false;
             IsGrabbingRope = false;
             IsClimbDownLadder = false;
@@ -133,10 +133,10 @@ namespace Platformer_Assignment
             }
         }
     
-        // based on https://drive.google.com/drive/folders/1R1YQbmEt-2qmGe2cvQwvU97jJHQCbziS
+        //based on https://drive.google.com/drive/folders/1R1YQbmEt-2qmGe2cvQwvU97jJHQCbziS
         private void FixedUpdate()
         {   
-            if (RIGID_BODY.velocity.y < 0f)
+           if (RIGID_BODY.velocity.y < 0f)
             {
                 RIGID_BODY.velocity += (-Vector3.up * GravityMultiplier);
             }
@@ -147,7 +147,7 @@ namespace Platformer_Assignment
             }
         }
 
-        // based on this tutorial https://www.youtube.com/watch?v=DrFk5Q_IwG0
+        // based on https://www.youtube.com/watch?v=DrFk5Q_IwG0
         // https://github.com/DawnsCrowGames/Unity-Rigidbody_Step_Up_Stairs_Tutorial/blob/main/StairClimb.cs
         public void StepClimb(Vector3 dir)
         {                

@@ -4,7 +4,7 @@ using UnityEngine;
 
 /* based on https://drive.google.com/drive/folders/1GXMtsJILOInq7kK86VuJf2NRt_SxDr8k
  modified:
-    - added DoFallTransition(), CheckFall()
+- added DoFallTransition(), CheckFall()
  */
 namespace Platformer_Assignment
 {
@@ -43,6 +43,8 @@ namespace Platformer_Assignment
         {   
         }
 
+        /// <summary>method <c>DoFallTransition</c> 
+        /// Checks whether to do fall transition when falling from great height </summary>
         private void DoFallTransition(Animator animator)
         {
             if (control.RIGID_BODY.velocity.y < 0f)

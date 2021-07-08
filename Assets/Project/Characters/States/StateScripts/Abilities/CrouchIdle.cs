@@ -27,29 +27,5 @@ namespace Platformer_Assignment
         }
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo){}
-
-        /// <summary>method <c>CheckHead</c> Checks if Collider collides with something up</summary>
-        public bool CheckHead(CharacterControl control)
-        {  
-            RaycastHit hitInfo;
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            Vector3 rayOrigin = collider.bounds.center; 
-            Vector3 dir = Vector3.up;
-            float maxRayLength = collider.bounds.extents.y;
-            if(Physics.Raycast(rayOrigin,  dir, out hitInfo, maxRayLength))
-                return true; 
-            return false;    
-        } 
-
-        ///<summary>method <c>CheckFront</c> Overrides CheckFront from inherited Class because 
-        ///it is different here.</summary>
-        private bool CrouchCheckFront(CharacterControl control, Vector3 dir)
-        {
-            CapsuleCollider collider = control.GetComponent<CapsuleCollider>();
-            float maxRayLength = collider.bounds.size.z;
-            if(Physics.Raycast(collider.bounds.center, dir, maxRayLength*2))
-                return true;
-            return false;
-        }
     }
 }

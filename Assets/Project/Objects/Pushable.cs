@@ -4,35 +4,55 @@ using UnityEngine;
 
 /// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment {
+
+    /// <summary>Class <c>Pushable</c>
+    /// Determines whether object is pushable.
+    /// Using OverlapBox instead of colliders
+    ///on moveable objects because rigidbodies cause weird behaviour.</summary>
     public class Pushable : MonoBehaviour
     {
-        private bool pushable;
+        [SerializeField]
+        Animator anim;
+        [SerializeField]
+        private LayerMask m_LayerMask;
+        public bool moveable;
 
-        private void Awake()
+        void Awake()
         {
-            pushable = true;
+            moveable = true;
         }
 
-        private void Update() 
+        void FixedUpdate() 
         {
-            BoxCollider col = gameObject.GetComponent<BoxCollider>();
-            Collider[] colliders = Physics.OverlapBox(col.bounds.center, col.bounds.extents);
-            foreach (Collider collider in colliders)
+            Collider[] colliders = Physics.OverlapBox(gameObject.transform.position, transform.localScale/2, 
+                                                        Quaternion.identity, m_LayerMask);
+            if (colliders.Length > 0) 
             {
-                if (collider.name == "Box")
+                for(int i = 0; i<colliders.Length; i++)
                 {
-                    pushable = false;
-                } 
-                else 
-                {
-                    pushable = true;
+                    if (IsValidOverlap(colliders[i]))
+                    {
+                        moveable = false;
+                        return;
+                    }
                 }
+                moveable = true;
             }
+            else 
+                moveable = true;
         }
 
-        public bool IsPushable
+        private bool IsValidOverlap(Collider collider)
         {
-            get { return pushable; }
+            return collider.tag != "Player" 
+                        && collider.gameObject != this.gameObject
+                        && collider.gameObject != anim.gameObject 
+                        && collider.tag != "Ledge";
+        }
+
+        public bool Moveable
+        {
+            get { return moveable; }
         }
     }
 }   

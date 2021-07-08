@@ -20,7 +20,6 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
-            StateGuard();
             speed = 1.5f;
             rb = control.RIGID_BODY;
             pullable = control.currentHitCollider.gameObject;
@@ -65,12 +64,6 @@ namespace Platformer_Assignment
         {
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
-        }
-
-        private void StateGuard() 
-        {
-            if (control.currentHitCollider == null || control.currentHitCollider.tag != "Pushable") 
-                throw new Exception("False State Error. Object not pushable");       
         }
     }
 }

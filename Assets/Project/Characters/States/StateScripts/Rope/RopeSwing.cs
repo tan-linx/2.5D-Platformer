@@ -17,16 +17,15 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             force = 70f;
-            
             animator.SetBool(jumpHash, false);
             SetTriggerRopeColliders(control.transform.root, false);
             IsKinematicRope(control.transform.root, false);
-
             control.GetComponent<ConfigurableJoint>().connectedBody = control.currentHitCollider.attachedRigidbody; 
         }
 
         public override void UpdateAbility(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
+            // applies force to the current HitCollider
             ropePartRB = control.currentHitCollider.attachedRigidbody;
             if (control.MoveLeft)
             {

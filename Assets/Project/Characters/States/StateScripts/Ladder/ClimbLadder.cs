@@ -18,11 +18,8 @@ namespace Platformer_Assignment
         {
             control = characterState.GetCharacterControl(animator);
             rb = control.RIGID_BODY;
-
-            control.GetComponent<CapsuleCollider>().isTrigger = true;
+            speed = 1.5f;           
             rb.isKinematic = true;
-
-            speed = 1.5f;
             IsClimbDown();
         }
 
@@ -34,6 +31,7 @@ namespace Platformer_Assignment
                 rb.MovePosition(rb.position + Vector3.up*speed*Time.deltaTime); 
                 control.LedgeChecker.enabled = true;
             }
+            //move down ladder
             if (control.Crouch && !IsLadderEnd())
             {
                 animator.speed = 1.5f;
@@ -42,8 +40,10 @@ namespace Platformer_Assignment
             }
             if (!control.MoveUp && !control.Crouch && !control.MoveRight && !control.MoveLeft)   
             {
+                control.LedgeChecker.enabled = true;
                 animator.speed = 0f; 
             }
+            //e.g. if he moves left while facing the ladder right he falls down
             if ((control.currentHitDirection == HitDirection.FORWARD && control.MoveLeft)
                 || (control.currentHitDirection == HitDirection.BACK && control.MoveRight))
             {
@@ -56,17 +56,18 @@ namespace Platformer_Assignment
 
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
-            control.GetComponent<CapsuleCollider>().isTrigger = false;
+            //reset modified variables
+            control.LedgeChecker.enabled = true;
             control.RIGID_BODY.isKinematic = false;
             control.IsClimbDownLadder = false;
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
-            animator.SetBool(climbHash, false); 
         }
 
+        /// <summary>method <c>OnExitFallFromLadder</c> 
+        /// Adds forward force to player when he falls from ladder </summary>
         private void OnExitFallFromLadder() 
         {
-            control.GetComponent<CapsuleCollider>().isTrigger = false;
             control.RIGID_BODY.isKinematic = false;
             if (control.currentHitDirection == HitDirection.FORWARD)
             {
@@ -84,9 +85,11 @@ namespace Platformer_Assignment
         {
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
             return Physics.Raycast(control.GetComponent<CapsuleCollider>().bounds.center, 
-                                    Vector3.down, col.bounds.extents.y-0.3f);
+                                    Vector3.down, 0.2f);
         }
 
+        /// <summary>method <c>OnExitFallFromLadder</c> 
+        /// Checks whether should climb down </summary>
         private void IsClimbDown()
         {            
             if (control.currentHitCollider)
@@ -94,16 +97,12 @@ namespace Platformer_Assignment
                 if (control.IsClimbDownLadder && control.currentHitCollider.tag == "LadderDown")
                 {
                     Vector3 teleportBox = control.currentHitCollider.transform.GetChild(0).position;
-                    if (control.currentHitDirection == HitDirection.BACK && control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
-                    {
+                    Debug.Log(teleportBox);
+                    if (control.currentHitDirection == HitDirection.BACK) //&& control.currentHitCollider.gameObject.name == "LadderDownVolumeRight")
                         control.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
-                        control.transform.position = teleportBox; 
-                    }
-                    if (control.currentHitDirection == HitDirection.FORWARD && control.currentHitCollider.gameObject.name == "LadderDownVolumeLeft")
-                    {  
+                    if (control.currentHitDirection == HitDirection.FORWARD) // && control.currentHitCollider.gameObject.name == "LadderDownVolumeLeft")
                         control.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-                        control.transform.position = teleportBox;
-                    }
+                    control.transform.position = teleportBox; 
                 }
                 control.IsClimbDownLadder = false; 
             }

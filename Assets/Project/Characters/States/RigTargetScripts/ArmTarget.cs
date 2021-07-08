@@ -6,6 +6,7 @@ using UnityEngine.Animations.Rigging;
 /// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
+    /// <summary>Class <c>ArmTarget</c> Makes arm stick to rope during the rope swing.</summary>
     public class ArmTarget : MonoBehaviour
     {
         [SerializeField] private CharacterControl control;

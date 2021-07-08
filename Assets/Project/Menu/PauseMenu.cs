@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//based on https://www.youtube.com/watch?v=JivuXdrIHK0
-// modified: Exit() so that game restarts on the scene
+// based on https://www.youtube.com/watch?v=zc8ac_qUXQY&t=660s
+// modified: Exit() so that game restarts on the same scene
 public class PauseMenu : MonoBehaviour
 {
     private static bool paused;

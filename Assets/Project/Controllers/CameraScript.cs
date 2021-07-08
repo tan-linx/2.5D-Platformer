@@ -7,16 +7,14 @@ namespace Platformer_Assignment
 {
     public class CameraScript : MonoBehaviour
     {
-        [SerializeField] private Transform spawn;
         [SerializeField] private Transform target;
-        public Vector3 offset;
-        public float smoothTime = 0.3F;
+        private Vector3 offset;
+        private float smoothTime = 0.3F;
         private Vector3 velocity = Vector3.zero;
 
         void Awake()
         {
             offset = new Vector3(32, 2, 0);
-           // transform.position = spawn.position;
         }
 
         void Update()

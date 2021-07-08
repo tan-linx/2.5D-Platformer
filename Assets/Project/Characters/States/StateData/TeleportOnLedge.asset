@@ -12,4 +12,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b34fd24a1c02681ab7d011a9ed48ba, type: 3}
   m_Name: TeleportOnLedge
   m_EditorClassIdentifier: 
-  endPosition: {x: 0, y: 0.43, z: 0.36}

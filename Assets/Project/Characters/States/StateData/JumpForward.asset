@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32cad9de76778fbeaa7dec96a1a45792, type: 3}
   m_Name: JumpForward
   m_EditorClassIdentifier: 
-  jumpForce: 400
+  jumpForce: 350
   gravity:
     serializedVersion: 2
     m_Curve:

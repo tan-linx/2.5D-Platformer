@@ -21,7 +21,6 @@ namespace Platformer_Assignment
         public override void OnEnter(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {
             control = characterState.GetCharacterControl(animator);
-            StateGuard();
             speed = 1.5f;
             rb = control.RIGID_BODY;
             transformBeforeTeleport = animator.transform.localPosition;
@@ -33,6 +32,8 @@ namespace Platformer_Assignment
         {    
             if (control.MoveRight)
             {
+                //if he walks in the direction in which the player doesn't face the box, 
+                // the animation stops
                 if (control.currentHitDirection == HitDirection.BACK)
                 {
                     animator.SetBool(pushHash, false);
@@ -70,18 +71,12 @@ namespace Platformer_Assignment
         {
             control.currentHitDirection = HitDirection.None;
             control.currentHitCollider = null;
-            animator.transform.localPosition = transformBeforeTeleport;//new Vector3(0f, -0.9914604f, 0.04284224f);
+            animator.transform.localPosition = transformBeforeTeleport;
         }
         
         private bool IsBoxPushable()
         {
-            return pushable.GetComponent<Pushable>().IsPushable;
-        }
-
-        private void StateGuard() 
-        {
-            if (control.currentHitCollider == null || control.currentHitCollider.tag != "Pushable") 
-                throw new Exception("False State Error. Object not pushable");       
+            return pushable.GetComponent<Pushable>().Moveable;
         }
     }
 }

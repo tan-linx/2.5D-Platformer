@@ -66,17 +66,16 @@ namespace Platformer_Assignment
         {
             
         }
-
+        
+        ///<summary>method <c>IsJump</c> Checks for Running Jump</summary>
         private bool IsJump(Animator animator) 
         {
             bool isJump  = control.Jump;
-            if(isJump)
-            {
-                animator.SetBool(jumpHash, true);
-            }
+            if(isJump) animator.SetBool(jumpHash, true);
             return isJump;
         }
 
+        ///<summary>method <c>CheckForCoverHit</c> Checks whether Cover was hit to transition to Cover Animation</summary>
         private bool CheckForCoverHit(Vector3 dir, Animator animator) 
         {
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();
