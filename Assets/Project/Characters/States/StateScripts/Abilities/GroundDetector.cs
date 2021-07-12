@@ -38,7 +38,7 @@ namespace Platformer_Assignment
         {
         }  
 
-        /// <summary>method <c>IsGrounded</c> Checks whether Collider is grounded</summary>
+        /// <summary>method <c>IsGrounded</c> Checks whether player is grounded</summary>
         public bool IsGrounded(CharacterControl control)
         { 
             CapsuleCollider col = control.GetComponent<CapsuleCollider>();

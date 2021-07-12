@@ -5,7 +5,7 @@ using UnityEngine;
 /// <author Tanja Schlanstedt></author>
 namespace Platformer_Assignment
 {
-    /// <summary>Class <c>HangingTransitioner</c> This class prepares the Player for the Hanging on Rope.</summary>
+    /// <summary>Class <c>HangingTransitioner</c> This class prepares the player for hanging on rope.</summary>
     [CreateAssetMenu(fileName = "New State", menuName = "Platformer/AbilityData/RopeSwingTransitioner")]
     public class RopeSwingTransitioner : StateData
     {
@@ -32,9 +32,6 @@ namespace Platformer_Assignment
 
         private void SetUpJoint() {
             ConfigurableJoint cj =  control.gameObject.AddComponent<ConfigurableJoint>();
-            cj.xMotion = ConfigurableJointMotion.Locked;
-            cj.yMotion = ConfigurableJointMotion.Locked;
-            cj.zMotion = ConfigurableJointMotion.Locked;
             ConfigurableJoint hitCj = control.currentHitCollider.gameObject.GetComponent<ConfigurableJoint>();
             cj.anchor =  hitCj.anchor;
             cj.axis =  hitCj.axis;

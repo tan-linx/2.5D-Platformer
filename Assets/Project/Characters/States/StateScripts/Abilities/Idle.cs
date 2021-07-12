@@ -87,7 +87,7 @@ namespace Platformer_Assignment
         public override void OnExit(CharacterState characterState, Animator animator, AnimatorStateInfo stateInfo)
         {}
 
-        /// <summary>method <c>HandleColliderData</c> Checks if Object is on the front</summary>
+        /// <summary>method <c>HandleColliderData</c> Checks if object is on the front</summary>
         private string HandleColliderData(CharacterControl control, Animator animator, Vector3 dir, float offset)
         {
             RaycastHit hit; 

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Platformer_Assignment {
     
     /// <summary>Class <c>WaterDeadTrigger</c>
-    /// Players dies when hitting the Water</summary>
+    /// Players dies when hitting the water</summary>
     public class WaterDeadTrigger : MonoBehaviour
     {
         void OnTriggerEnter(Collider col)
